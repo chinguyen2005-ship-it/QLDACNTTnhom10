@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>FitManage Gym &amp; Yoga Suite - Gia hạn Hợp đồng #HD-2026-0892</title>
+
+  <!-- Google Fonts: DM Sans & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+
+  <!-- Tailwind CSS CDN với Bảng màu Chuẩn Thiết Kế Gốc Figma / Stitch -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "error": "#ba1a1a",
+            "secondary-fixed": "#cee5ff",
+            "surface-tint": "#7331df",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#355d80",
+            "surface-container-low": "#eff4ff",
+            "tertiary-fixed-dim": "#4cd7f6",
+            "outline-variant": "#ccc3d7",
+            "on-tertiary-container": "#57dfff",
+            "on-tertiary-fixed": "#001f26",
+            "primary-container": "#6d28d9",
+            "secondary": "#3a6285",
+            "surface-variant": "#d3e4fe",
+            "inverse-on-surface": "#eaf1ff",
+            "on-surface-variant": "#4a4455",
+            "on-secondary-fixed-variant": "#1f4a6b",
+            "surface": "#f8f9ff",
+            "surface-container": "#e5eeff",
+            "surface-dim": "#cbdbf5",
+            "outline": "#7b7486",
+            "surface-container-high": "#dce9ff",
+            "inverse-primary": "#d3bbff",
+            "secondary-fixed-dim": "#a3caf2",
+            "secondary-container": "#aed6fe",
+            "on-tertiary-fixed-variant": "#004e5c",
+            "on-primary-fixed-variant": "#5b00c5",
+            "on-primary-container": "#dac5ff",
+            "tertiary-container": "#006172",
+            "tertiary-fixed": "#acedff",
+            "inverse-surface": "#213145",
+            "primary-fixed": "#ebddff",
+            "primary": "#5300b7",
+            "on-surface": "#0b1c30",
+            "surface-container-highest": "#d3e4fe",
+            "on-primary-fixed": "#250059",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#001d32",
+            "primary-fixed-dim": "#d3bbff",
+            "on-tertiary": "#ffffff",
+            "on-background": "#0b1c30",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "background": "#f8f9ff",
+            "on-primary": "#ffffff",
+            "tertiary": "#004855",
+            "on-error-container": "#93000a"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "margin-mobile": "1rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin": "2rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "1rem"
+          },
+          fontFamily: {
+            "headline-lg": ["DM Sans", "sans-serif"],
+            "label-md": ["DM Sans", "sans-serif"],
+            "headline-sm": ["DM Sans", "sans-serif"],
+            "body-lg": ["DM Sans", "sans-serif"],
+            "title-md": ["DM Sans", "sans-serif"],
+            "title-lg": ["DM Sans", "sans-serif"],
+            "body-sm": ["DM Sans", "sans-serif"],
+            "headline-xl-mobile": ["DM Sans", "sans-serif"],
+            "body-md": ["DM Sans", "sans-serif"],
+            "headline-md": ["DM Sans", "sans-serif"],
+            "metric-display": ["DM Sans", "sans-serif"],
+            "headline-lg-mobile": ["DM Sans", "sans-serif"],
+            "headline-xl": ["DM Sans", "sans-serif"],
+            "label-sm": ["DM Sans", "sans-serif"]
+          },
+          fontSize: {
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "title-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "title-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "metric-display": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-surface font-body-md text-on-surface antialiased">
+  
+  <!-- Sidebar Navigation -->
+  <aside class="fixed left-0 top-0 h-full w-64 bg-inverse-surface z-50 flex flex-col justify-between py-6 px-4 shadow-[0_1px_8px_rgba(0,0,0,0.04)] select-none">
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center gap-3 px-3">
+        <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-primary text-[20px]">fitness_center</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-title-lg text-title-lg text-inverse-on-surface leading-tight tracking-tight font-bold">FitManage</span>
+          <span class="font-label-sm text-label-sm text-outline-variant tracking-wider uppercase">Gym &amp; Yoga Suite</span>
+        </div>
+      </div>
+      
+      <!-- Navigation Links (8 Chức năng chuẩn theo thiết kế) -->
+      <nav class="flex flex-col gap-1">
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="bang-dieu-khien" href="/index.html">
+          <span class="material-symbols-outlined text-[20px]">grid_view</span>
+          <span>Bảng điều khiển</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="quan-ly-hoi-vien" href="javascript:void(0)" onclick="typeof handleNavFeature==='function'?handleNavFeature('Quản lý hội viên'):alert('Tính năng: Quản lý hội viên')">
+          <span class="material-symbols-outlined text-[20px]">group</span>
+          <span>Quản lý hội viên</span>
+        </a>
+        <!-- ACTIVE TAB: Hợp đồng & Gói tập -->
+        <a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors bg-tertiary-container text-white font-title-md font-semibold" data-path="hop-dong-va-goi-tap" href="/packages.html">
+          <span class="material-symbols-outlined text-[20px]">loyalty</span>
+          <span>Hợp đồng &amp; Gói tập</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="quan-ly-huan-luyen-vien" href="/trainers.html">
+          <span class="material-symbols-outlined text-[20px]">fitness_center</span>
+          <span>Quản lý HLV</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="lich-lop-hoc" href="/schedules.html">
+          <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+          <span>Lịch lớp học</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="quay-le-tan-check-in" href="javascript:void(0)" onclick="typeof handleNavFeature==='function'?handleNavFeature('Quầy lễ tân Check-in'):alert('Tính năng: Quầy lễ tân Check-in')">
+          <span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+          <span>Quầy lễ tân Check-in</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="tro-ly-ai-gia-han" href="javascript:void(0)" onclick="typeof handleNavFeature==='function'?handleNavFeature('Trợ lý AI gia hạn'):alert('Tính năng: Trợ lý AI gia hạn')">
+          <span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+          <span>Trợ lý AI gia hạn</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="bao-cao-doanh-thu" href="javascript:void(0)" onclick="typeof handleNavFeature==='function'?handleNavFeature('Báo cáo doanh thu'):alert('Tính năng: Báo cáo doanh thu')">
+          <span class="material-symbols-outlined text-[20px]">bar_chart</span>
+          <span>Báo cáo doanh thu</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="flex flex-col gap-2 pt-4 border-t border-white/10">
+      <div class="p-3 rounded-xl bg-surface-container-low/10 flex items-center justify-between">
+        <div class="flex flex-col">
+          <span class="font-label-sm text-label-sm text-tertiary-fixed font-bold">Chi nhánh: Landmark 81</span>
+          <span class="font-body-sm text-body-sm text-outline-variant">Studio Open • 86% Peak</span>
+        </div>
+        <span class="inline-block w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+      </div>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" href="#">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        <span>Thiết lập hệ thống</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <div class="pl-64">
+    <!-- Top Header -->
+    <header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl border-b border-outline-variant/30">
+      <div class="flex items-center gap-space-sm w-96">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant w-full border border-outline-variant/30">
+          <span class="material-symbols-outlined text-[20px] text-outline">search</span>
+          <input class="font-body-sm text-body-sm text-on-surface bg-transparent focus:outline-none w-full placeholder:text-outline" placeholder="Tìm kiếm hội viên, mã HĐ (VD: HD-0892)..." type="text"/>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-md">
+        <div class="flex items-center gap-2">
+          <button class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[20px]">notifications</span>
+          </button>
+          <button class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[20px]">help_outline</span>
+          </button>
+        </div>
+        <div class="h-6 w-[1px] bg-outline-variant/40"></div>
+        <div class="flex items-center gap-3">
+          <div class="flex flex-col text-right">
+            <span class="font-title-md text-title-md text-on-surface font-bold">Linh Đan</span>
+            <span class="font-label-sm text-label-sm text-outline">Operations Manager</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs">
+            LD
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="w-full pt-16 px-space-xl bg-surface min-h-screen">
+      <div class="flex flex-col w-full relative py-6">
+
+        <!-- Subtle Dashboard Background Elements (Under Scrim) -->
+        <div class="grid grid-cols-12 gap-space-lg opacity-40 pointer-events-none select-none filter blur-[1px]">
+          <div class="col-span-12 flex items-center justify-between py-space-sm">
+            <div class="flex flex-col gap-1">
+              <span class="font-headline-md text-headline-md text-on-surface font-bold">Quản trị Hợp đồng &amp; Hội viên</span>
+              <span class="font-body-md text-body-md text-outline">Chi nhánh Landmark 81 • Danh sách kỳ tái tục Q3/2026</span>
+            </div>
+            <div class="flex items-center gap-space-sm">
+              <div class="px-4 py-2 rounded-lg bg-surface-container text-on-surface-variant font-title-md text-title-md">Bộ lọc trạng thái</div>
+              <div class="px-4 py-2 rounded-lg bg-primary-container text-on-primary font-title-md text-title-md">Tạo hợp đồng mới</div>
+            </div>
+          </div>
+          <div class="col-span-4 p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-outline-variant/20">
+            <span class="font-label-md text-label-md text-outline">Hợp đồng hoạt động</span>
+            <span class="font-metric-display text-metric-display text-on-surface font-extrabold">1,428</span>
+            <span class="font-body-sm text-body-sm text-tertiary font-semibold">Đang duy trì ổn định</span>
+          </div>
+          <div class="col-span-4 p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-outline-variant/20">
+            <span class="font-label-md text-label-md text-outline">Sắp hết hạn trong tuần</span>
+            <span class="font-metric-display text-metric-display text-error font-extrabold">34</span>
+            <span class="font-body-sm text-body-sm text-error font-semibold">Cần xử lý tái ký</span>
+          </div>
+          <div class="col-span-4 p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-2 border border-outline-variant/20">
+            <span class="font-label-md text-label-md text-outline">Tỷ lệ gia hạn tháng này</span>
+            <span class="font-metric-display text-metric-display text-primary font-extrabold">82.4%</span>
+            <span class="font-body-sm text-body-sm text-outline">+3.2% so với tháng trước</span>
+          </div>
+        </div>
+
+        <!-- Modal Overlay / Backdrop Scrim (Active Displayed) -->
+        <div class="fixed inset-0 z-50 bg-inverse-surface/50 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" id="contract-modal-backdrop">
+          
+          <!-- Modal Card (680px Width Centered) -->
+          <div class="relative w-full max-w-[680px] bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden my-6 transition-all duration-300 transform scale-100 flex flex-col border border-outline-variant/30">
+            
+            <!-- Modal Header -->
+            <div class="p-6 bg-surface-container-low/60 flex flex-col gap-3 relative border-b border-surface-container-high">
+              <!-- Close Button -->
+              <a href="/contract-detail.html" class="absolute top-5 right-5 w-9 h-9 rounded-xl flex items-center justify-center text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Đóng cửa sổ">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </a>
+              <div class="flex items-center gap-3 pr-10 flex-wrap">
+                <div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+                  <span class="material-symbols-outlined text-[20px]">history_edu</span>
+                </div>
+                <span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">Gia hạn Hợp đồng #HD-2026-0892</span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container/40 text-error font-label-sm text-label-sm font-semibold">
+                  <span class="material-symbols-outlined text-[14px]">warning</span>
+                  <span>Sắp hết hạn (Còn 5 ngày)</span>
+                </span>
+              </div>
+
+              <!-- Member Quick Details Bar -->
+              <div class="flex items-center gap-3 bg-surface-container-lowest p-2.5 rounded-xl shadow-sm border border-outline-variant/20">
+                <div class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-title-md text-title-md font-bold">
+                  NC
+                </div>
+                <div class="flex items-center gap-2 flex-wrap text-on-surface">
+                  <span class="font-title-md text-title-md font-bold">Nguyễn Đức Chí Nguyên</span>
+                  <span class="text-outline-variant">•</span>
+                  <span class="font-body-md text-body-md text-on-surface-variant font-mono">0912 345 678</span>
+                  <span class="text-outline-variant">•</span>
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+                    <span class="material-symbols-outlined text-[13px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span>Thẻ VIP Gold</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Body Content -->
+            <div class="p-6 flex flex-col gap-6 max-h-[737px] overflow-y-auto">
+              <!-- Khối 1: Tóm tắt hợp đồng cũ -->
+              <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-3 border border-outline-variant/20">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px] text-secondary">fitness_center</span>
+                    <span class="font-title-md text-title-md text-on-surface font-semibold">Gói hiện tại: Gym Standard 6T</span>
+                  </div>
+                  <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm font-medium">
+                    <span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+                    Đang hoạt động
+                  </span>
+                </div>
+                <div class="flex items-center justify-between text-body-sm font-body-sm flex-wrap gap-2">
+                  <div class="flex items-center gap-1.5 text-on-surface-variant">
+                    <span class="material-symbols-outlined text-[16px] text-outline">event_busy</span>
+                    <span>Ngày hết hạn cũ:</span>
+                    <span class="font-semibold text-on-surface font-mono">26/09/2026</span>
+                  </div>
+                  <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+                    <span class="material-symbols-outlined text-[14px] text-primary">timelapse</span>
+                    <span>Đã sử dụng 175/180 ngày (97%)</span>
+                  </div>
+                </div>
+                <!-- Usage Mini Bar -->
+                <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-primary h-full rounded-full" style="width: 97%;"></div>
+                </div>
+              </div>
+
+              <!-- Khối 2: Cấu hình gói gia hạn -->
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                  <span class="font-title-lg text-title-lg text-on-surface tracking-tight font-bold">Cấu hình gia hạn</span>
+                  <div class="flex items-center gap-4">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                      <input checked="" class="w-4 h-4 accent-primary cursor-pointer" name="renew_type" type="radio" value="current" onchange="onRadioRenewChange('current')"/>
+                      <span class="font-body-md text-body-md text-on-surface font-medium">Gia hạn gói hiện tại</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer opacity-75 hover:opacity-100 transition-opacity">
+                      <input class="w-4 h-4 accent-primary cursor-pointer" name="renew_type" type="radio" value="upgrade" onchange="onRadioRenewChange('upgrade')"/>
+                      <span class="font-body-md text-body-md text-on-surface flex items-center gap-1">
+                        Nâng cấp gói mới
+                        <span class="px-1.5 py-0.5 rounded text-[10px] bg-primary-fixed text-primary font-bold tracking-wide uppercase">Khuyên dùng</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Fast duration selection (Segmented controls) -->
+                <div class="grid grid-cols-3 gap-3">
+                  <button id="btnDuration3M" onclick="selectDuration(3, 2400000, 90)" class="duration-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all text-center cursor-pointer border border-outline-variant/30" type="button">
+                    <span class="font-title-md text-title-md font-semibold">+3 Tháng</span>
+                    <span class="font-body-sm text-body-sm text-outline mt-0.5">2.400.000 đ</span>
+                  </button>
+                  <button id="btnDuration6M" onclick="selectDuration(6, 4500000, 180)" class="duration-btn flex flex-col items-center justify-center p-3 rounded-xl bg-primary/10 text-primary ring-2 ring-primary font-semibold transition-all relative text-center cursor-pointer border border-primary" type="button">
+                    <span class="font-title-md text-title-md text-primary font-bold">+6 Tháng</span>
+                    <span class="font-body-sm text-body-sm text-primary/80 mt-0.5">4.500.000 đ</span>
+                    <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded-full bg-primary text-on-primary font-label-sm text-[10px]" id="tagSelected6M">Đang chọn</span>
+                  </button>
+                  <button id="btnDuration12M" onclick="selectDuration(12, 7600000, 365)" class="duration-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all relative text-center cursor-pointer border border-outline-variant/30" type="button">
+                    <span class="font-title-md text-title-md font-semibold">+12 Tháng</span>
+                    <span class="font-body-sm text-body-sm text-outline mt-0.5">7.600.000 đ (-20%)</span>
+                    <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[10px] font-bold">Best Deal</span>
+                  </button>
+                </div>
+
+                <!-- 2 Datepicker boxes side-by-side -->
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- Box 1: Start Date -->
+                  <div class="flex flex-col gap-1.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
+                    <span class="font-label-md text-label-md text-outline">Ngày bắt đầu mới</span>
+                    <div class="flex items-center justify-between text-on-surface-variant">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-outline">calendar_today</span>
+                        <span class="font-title-md text-title-md font-bold text-on-surface" id="labelNewStartDate">27/09/2026</span>
+                      </div>
+                      <span class="material-symbols-outlined text-[16px] text-outline" title="Cố định">lock</span>
+                    </div>
+                    <span class="font-body-sm text-body-sm text-secondary flex items-center gap-1 font-medium">
+                      <span>🔗</span> Nối tiếp hạn cũ
+                    </span>
+                  </div>
+
+                  <!-- Box 2: New Expiry Date -->
+                  <div class="flex flex-col gap-1.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
+                    <span class="font-label-md text-label-md text-tertiary font-bold">Ngày hết hạn mới</span>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-tertiary">event_available</span>
+                        <span class="font-title-md text-title-md font-bold text-tertiary" id="labelNewEndDate">27/03/2027</span>
+                      </div>
+                      <span class="material-symbols-outlined text-[16px] text-tertiary">verified</span>
+                    </div>
+                    <span class="font-body-sm text-body-sm text-tertiary flex items-center gap-1 font-semibold" id="labelAddedDaysText">
+                      <span>✓</span> Thời hạn thêm 180 ngày
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Khối 3: Bảng chốt phí & Thanh toán -->
+              <div class="flex flex-col gap-4">
+                <span class="font-title-lg text-title-lg text-on-surface tracking-tight font-bold">Chi tiết thanh toán</span>
+                
+                <!-- Pricing Summary Box -->
+                <div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3 border border-outline-variant/20">
+                  <div class="flex items-center justify-between font-body-md text-body-md text-on-surface-variant">
+                    <span id="labelPricingBaseTitle">Giá niêm yết (Gói 6 Tháng):</span>
+                    <span class="font-semibold text-on-surface" id="labelPricingBasePrice">4.500.000 đ</span>
+                  </div>
+                  <div class="flex items-center justify-between font-body-md text-body-md text-tertiary">
+                    <span class="flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[16px]">loyalty</span>
+                      <span id="labelPricingDiscountTitle">Chiết khấu tri ân khách hàng (10%):</span>
+                    </span>
+                    <span class="font-semibold" id="labelPricingDiscountAmount">-450.000 đ</span>
+                  </div>
+
+                  <!-- Voucher Input Box -->
+                  <div class="flex items-center gap-2 p-1.5 bg-surface-container-low rounded-lg border border-outline-variant/30">
+                    <span class="material-symbols-outlined text-[18px] text-outline pl-1.5">confirmation_number</span>
+                    <input id="inputVoucherCode" oninput="onVoucherCodeInput(this.value)" class="bg-transparent text-on-surface font-title-md text-title-md outline-none w-full font-mono uppercase font-bold" placeholder="Nhập mã Voucher..." type="text" value="LOYALTY10"/>
+                    <span id="badgeVoucherStatus" class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold shrink-0">Áp dụng thành công</span>
+                  </div>
+
+                  <!-- Visual Separator -->
+                  <div class="w-full h-[1px] bg-surface-container-highest my-1"></div>
+
+                  <!-- Grand Total -->
+                  <div class="flex items-baseline justify-between pt-1">
+                    <div class="flex flex-col">
+                      <span class="font-label-md text-label-md text-outline uppercase tracking-wider font-semibold">Tổng cộng thanh toán</span>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">(Đã bao gồm VAT 8% &amp; Phí tiện ích)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-metric-display text-metric-display text-primary-container font-extrabold tracking-tight" id="labelGrandTotalDisplay">4.050.000 đ</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Payment Method Selector -->
+                <div class="flex flex-col gap-2">
+                  <span class="font-label-md text-label-md text-outline font-semibold">Hình thức thanh toán</span>
+                  <div class="grid grid-cols-3 gap-3">
+                    <!-- VietQR (Selected) -->
+                    <button id="tilePayVietQR" onclick="selectPaymentTile('vietqr')" class="pay-method-tile p-3 rounded-xl bg-primary/10 text-primary ring-2 ring-primary flex items-center justify-between transition-all cursor-pointer" type="button">
+                      <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-[20px] text-primary">qr_code_2</span>
+                        <div class="flex flex-col text-left">
+                          <span class="font-title-md text-title-md font-bold leading-tight">VietQR</span>
+                          <span class="font-label-sm text-label-sm text-primary/70">Quét mã tức thì</span>
+                        </div>
+                      </div>
+                      <span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    </button>
+
+                    <!-- Tiền mặt -->
+                    <button id="tilePayCash" onclick="selectPaymentTile('cash')" class="pay-method-tile p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container flex items-center justify-between transition-all cursor-pointer border border-outline-variant/30" type="button">
+                      <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-[20px] text-outline">payments</span>
+                        <div class="flex flex-col text-left">
+                          <span class="font-title-md text-title-md font-medium leading-tight">Tiền mặt</span>
+                          <span class="font-label-sm text-label-sm text-outline">Thu tại quầy lễ tân</span>
+                        </div>
+                      </div>
+                    </button>
+
+                    <!-- Quẹt thẻ POS -->
+                    <button id="tilePayPOS" onclick="selectPaymentTile('pos')" class="pay-method-tile p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container flex items-center justify-between transition-all cursor-pointer border border-outline-variant/30" type="button">
+                      <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-[20px] text-outline">point_of_sale</span>
+                        <div class="flex flex-col text-left">
+                          <span class="font-title-md text-title-md font-medium leading-tight">Quẹt thẻ POS</span>
+                          <span class="font-label-sm text-label-sm text-outline">Visa / Master / Napas</span>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Footer Action Bar -->
+            <div class="p-5 bg-surface-container-low/70 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-surface-container-high">
+              <div class="flex items-center gap-1.5 text-on-surface-variant">
+                <span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
+                <span class="font-body-sm text-body-sm text-outline">Mã hóa 256-bit SSL • Tự động đồng bộ cổng Check-in</span>
+              </div>
+              <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                <a href="/contract-detail.html" class="px-5 py-2.5 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-container-high transition-colors font-title-md text-title-md font-medium cursor-pointer">
+                  Hủy bỏ
+                </a>
+                <button onclick="handleConfirmRenewalSubmit()" class="px-6 py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 font-title-md text-title-md font-bold tracking-tight cursor-pointer active:scale-98" type="button">
+                  <span class="material-symbols-outlined text-[18px]">bolt</span>
+                  <span>Xác nhận Gia hạn &amp; In phiếu thu</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-notify" class="fixed bottom-6 right-6 z-50 transform transition-all duration-300 pointer-events-none flex items-center gap-space-sm px-space-md py-3 rounded-xl bg-inverse-surface text-surface shadow-2xl translate-y-20 opacity-0">
+    <span class="material-symbols-outlined text-tertiary-fixed-dim text-[20px]">check_circle</span>
+    <span class="font-title-md text-title-md" id="toast-text">Thông báo hệ thống</span>
+  </div>
+
+  <script>
+    // State quản lý trên màn hình gia hạn độc lập
+    let currentMonths = 6;
+    let currentPrice = 4500000;
+    let currentDays = 180;
+    let discountRate = 0.10;
+    let selectedPayment = 'vietqr';
+
+    function selectDuration(months, price, days) {
+      currentMonths = months;
+      currentPrice = price;
+      currentDays = days;
+
+      const btn3 = document.getElementById('btnDuration3M');
+      const btn6 = document.getElementById('btnDuration6M');
+      const btn12 = document.getElementById('btnDuration12M');
+
+      const activeCls = 'duration-btn flex flex-col items-center justify-center p-3 rounded-xl bg-primary/10 text-primary ring-2 ring-primary font-semibold transition-all relative text-center cursor-pointer border border-primary';
+      const inactiveCls = 'duration-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all text-center cursor-pointer border border-outline-variant/30';
+
+      if (btn3) btn3.className = months === 3 ? activeCls : inactiveCls;
+      if (btn6) btn6.className = months === 6 ? activeCls : inactiveCls;
+      if (btn12) btn12.className = months === 12 ? activeCls : inactiveCls;
+
+      const tag6M = document.getElementById('tagSelected6M');
+      if (tag6M) tag6M.style.display = months === 6 ? 'inline-block' : 'none';
+
+      // Tính ngày hết hạn mới
+      const newEndDate = new Date(2026, 8, 27); // 27/09/2026
+      newEndDate.setDate(newEndDate.getDate() + days);
+      const dd = String(newEndDate.getDate()).padStart(2, '0');
+      const mm = String(newEndDate.getMonth() + 1).padStart(2, '0');
+      const yyyy = newEndDate.getFullYear();
+
+      document.getElementById('labelNewEndDate').innerText = `${dd}/${mm}/${yyyy}`;
+      document.getElementById('labelAddedDaysText').innerText = `✓ Thời hạn thêm ${days} ngày`;
+
+      calculatePricing();
+    }
+
+    function calculatePricing() {
+      const discount = Math.round(currentPrice * discountRate);
+      const total = Math.max(0, currentPrice - discount);
+
+      document.getElementById('labelPricingBaseTitle').innerText = `Giá niêm yết (Gói ${currentMonths} Tháng):`;
+      document.getElementById('labelPricingBasePrice').innerText = `${currentPrice.toLocaleString('vi-VN')} đ`;
+      document.getElementById('labelPricingDiscountTitle').innerText = `Chiết khấu tri ân khách hàng (${Math.round(discountRate * 100)}%):`;
+      document.getElementById('labelPricingDiscountAmount').innerText = `-${discount.toLocaleString('vi-VN')} đ`;
+      document.getElementById('labelGrandTotalDisplay').innerText = `${total.toLocaleString('vi-VN')} đ`;
+    }
+
+    function onRadioRenewChange(type) {
+      if (type === 'upgrade') {
+        if (currentMonths === 3) currentPrice = 3200000;
+        else if (currentMonths === 6) currentPrice = 5800000;
+        else if (currentMonths === 12) currentPrice = 9800000;
+        showToastMsg('Đã chọn: Nâng cấp gói mới (Gym + Yoga VIP)');
+      } else {
+        if (currentMonths === 3) currentPrice = 2400000;
+        else if (currentMonths === 6) currentPrice = 4500000;
+        else if (currentMonths === 12) currentPrice = 7600000;
+      }
+      calculatePricing();
+    }
+
+    function onVoucherCodeInput(val) {
+      const code = (val || '').trim().toUpperCase();
+      const badge = document.getElementById('badgeVoucherStatus');
+      if (code === 'LOYALTY10') {
+        discountRate = 0.10;
+        if (badge) {
+          badge.innerText = 'Áp dụng thành công';
+          badge.className = 'px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold shrink-0';
+        }
+      } else if (code === 'VIP20') {
+        discountRate = 0.20;
+        if (badge) {
+          badge.innerText = 'Áp dụng thành công (20%)';
+          badge.className = 'px-2 py-0.5 rounded bg-emerald-700 text-white font-label-sm text-label-sm font-semibold shrink-0';
+        }
+      } else if (code === '') {
+        discountRate = 0;
+        if (badge) {
+          badge.innerText = 'Chưa nhập mã';
+          badge.className = 'px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm shrink-0';
+        }
+      } else {
+        discountRate = 0;
+        if (badge) {
+          badge.innerText = 'Mã không đúng';
+          badge.className = 'px-2 py-0.5 rounded bg-error-container text-error font-label-sm text-label-sm font-semibold shrink-0';
+        }
+      }
+      calculatePricing();
+    }
+
+    function selectPaymentTile(method) {
+      selectedPayment = method;
+      const tiles = document.querySelectorAll('.pay-method-tile');
+      tiles.forEach(t => {
+        t.className = 'pay-method-tile p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container flex items-center justify-between transition-all cursor-pointer border border-outline-variant/30';
+        const check = t.querySelector('.material-symbols-outlined[style*="FILL"]');
+        if (check) check.remove();
+      });
+
+      const tileId = method === 'vietqr' ? 'tilePayVietQR' : (method === 'cash' ? 'tilePayCash' : 'tilePayPOS');
+      const tile = document.getElementById(tileId);
+      if (tile) {
+        tile.className = 'pay-method-tile p-3 rounded-xl bg-primary/10 text-primary ring-2 ring-primary flex items-center justify-between transition-all cursor-pointer border border-primary';
+        const icon = document.createElement('span');
+        icon.className = 'material-symbols-outlined text-[18px] text-primary';
+        icon.style.fontVariationSettings = "'FILL' 1";
+        icon.innerText = 'check_circle';
+        tile.appendChild(icon);
+      }
+    }
+
+    function handleConfirmRenewalSubmit() {
+      const total = document.getElementById('labelGrandTotalDisplay').innerText;
+      showToastMsg(`🎉 Gia hạn hợp đồng #HD-2026-0892 thêm ${currentMonths} tháng thành công! Tổng tiền: ${total}`);
+      setTimeout(() => {
+        window.location.href = '/contract-detail.html';
+      }, 1500);
+    }
+
+    function showToastMsg(msg) {
+      const toast = document.getElementById('toast-notify');
+      const text = document.getElementById('toast-text');
+      if (!toast || !text) return;
+      text.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+/* ==========================================================================
+   schedules.css - Custom styling for FitManage Class Timetable & Booking
+   ========================================================================== */
+
+/* Timetable Table Container */
+.timetable-scroll-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc3d7 #eff4ff;
+}
+
+.timetable-scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.timetable-scroll-wrapper::-webkit-scrollbar-track {
+  background: #eff4ff;
+  border-radius: 4px;
+}
+
+.timetable-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #ccc3d7;
+  border-radius: 4px;
+}
+
+.timetable-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #7b7486;
+}
+
+/* Slot Card Micro-interaction */
+.class-slot-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.class-slot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -2px rgba(11, 34, 56, 0.08);
+}
+
+/* Category Accent Left Borders */
+.border-l-yoga {
+  border-left: 4px solid #06b6d4;
+}
+
+.border-l-pilates {
+  border-left: 4px solid #9333ea;
+}
+
+.border-l-bodypump {
+  border-left: 4px solid #4f46e5;
+}
+
+.border-l-zumba {
+  border-left: 4px solid #10b981;
+}
+
+.border-l-hiit {
+  border-left: 4px solid #f43f5e;
+}
+
+.border-l-sound {
+  border-left: 4px solid #ec4899;
+}
+
+/* AI Toast Animation */
+.ai-toast-enter {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.ai-toast-exit {
+  transform: translateY(6rem);
+  opacity: 0;
+  pointer-events: none;
+}

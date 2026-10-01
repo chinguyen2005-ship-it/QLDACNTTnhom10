@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_dashboard" name="shell-type">
+  <title>FitManage Gym &amp; Yoga Suite - Chi tiết Hợp đồng #HD-2026-0892</title>
+
+  <!-- Google Fonts: DM Sans & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media print {
+      aside, header, #toast-notify, .no-print { display: none !important; }
+      .pl-64 { padding-left: 0 !important; }
+      main { padding-top: 0 !important; }
+    }
+  </style>
+
+  <!-- Tailwind CSS CDN với Bảng màu Chuẩn Thiết Kế Gốc Figma / Stitch -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "tertiary-fixed": "#acedff",
+            "surface": "#f8f9ff",
+            "secondary-fixed": "#cee5ff",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "on-background": "#0b1c30",
+            "outline-variant": "#ccc3d7",
+            "on-primary-fixed": "#250059",
+            "on-secondary-fixed-variant": "#1f4a6b",
+            "primary-container": "#6d28d9",
+            "on-tertiary-fixed": "#001f26",
+            "inverse-primary": "#d3bbff",
+            "on-surface-variant": "#4a4455",
+            "primary-fixed-dim": "#d3bbff",
+            "on-primary-container": "#dac5ff",
+            "inverse-on-surface": "#eaf1ff",
+            "outline": "#7b7486",
+            "on-tertiary-fixed-variant": "#004e5c",
+            "on-error": "#ffffff",
+            "on-primary-fixed-variant": "#5b00c5",
+            "secondary-fixed-dim": "#a3caf2",
+            "surface-variant": "#d3e4fe",
+            "primary": "#5300b7",
+            "secondary": "#3a6285",
+            "background": "#f8f9ff",
+            "surface-container": "#e5eeff",
+            "on-error-container": "#93000a",
+            "surface-dim": "#cbdbf5",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "primary-fixed": "#ebddff",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#006172",
+            "on-secondary-fixed": "#001d32",
+            "on-surface": "#0b1c30",
+            "surface-tint": "#7331df",
+            "tertiary-fixed-dim": "#4cd7f6",
+            "surface-container-highest": "#d3e4fe",
+            "on-tertiary-container": "#57dfff",
+            "on-secondary-container": "#355d80",
+            "surface-container-high": "#dce9ff",
+            "inverse-surface": "#213145",
+            "error": "#ba1a1a",
+            "surface-container-low": "#eff4ff",
+            "tertiary": "#004855",
+            "secondary-container": "#aed6fe"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-xl": "2rem",
+            gutter: "1.5rem",
+            margin: "2rem",
+            "margin-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "gutter-mobile": "1rem"
+          },
+          fontFamily: {
+            "headline-lg": ["DM Sans", "sans-serif"],
+            "label-md": ["DM Sans", "sans-serif"],
+            "headline-sm": ["DM Sans", "sans-serif"],
+            "body-lg": ["DM Sans", "sans-serif"],
+            "title-md": ["DM Sans", "sans-serif"],
+            "title-lg": ["DM Sans", "sans-serif"],
+            "body-sm": ["DM Sans", "sans-serif"],
+            "headline-xl-mobile": ["DM Sans", "sans-serif"],
+            "body-md": ["DM Sans", "sans-serif"],
+            "headline-md": ["DM Sans", "sans-serif"],
+            "metric-display": ["DM Sans", "sans-serif"],
+            "headline-lg-mobile": ["DM Sans", "sans-serif"],
+            "headline-xl": ["DM Sans", "sans-serif"],
+            "label-sm": ["DM Sans", "sans-serif"]
+          },
+          fontSize: {
+            "headline-lg": ["30px", { lineHeight: "38px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "label-md": ["13px", { lineHeight: "18px", fontWeight: "500" }],
+            "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "title-md": ["14px", { lineHeight: "20px", fontWeight: "600" }],
+            "title-lg": ["16px", { lineHeight: "24px", letterSpacing: "-0.005em", fontWeight: "600" }],
+            "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }],
+            "headline-xl-mobile": ["28px", { lineHeight: "36px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "metric-display": ["32px", { lineHeight: "38px", letterSpacing: "-0.03em", fontWeight: "700" }],
+            "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.015em", fontWeight: "700" }],
+            "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.025em", fontWeight: "700" }],
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "600" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-surface font-body-md text-on-surface antialiased">
+
+  <!-- ==================== 1. SIDEBAR (FITMANAGE SUITE) ==================== -->
+  <aside class="fixed left-0 top-0 h-full w-64 bg-[#0B2238] border-l-2 border-[#818cf8] border-r border-white/10 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] select-none">
+    <div class="flex flex-col">
+      <!-- Logo Header -->
+      <div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-white/10">
+        <div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center shadow-md">
+          <span class="material-symbols-outlined text-on-primary text-[20px]">fitness_center</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-title-lg text-title-lg text-surface tracking-tight leading-none">FitManage</span>
+          <span class="font-label-sm text-label-sm text-tertiary-fixed tracking-wider uppercase mt-space-xs">Gym &amp; Yoga Suite</span>
+        </div>
+      </div>
+
+      <!-- Branch Switcher -->
+      <div class="px-space-md py-space-sm">
+        <div class="h-9 px-space-sm bg-inverse-surface rounded-lg flex items-center justify-between cursor-pointer hover:bg-white/10 transition-colors">
+          <div class="flex items-center gap-space-xs">
+            <span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+            <span class="font-label-md text-label-md text-inverse-on-surface">Quận 1 • Flagship Studio</span>
+          </div>
+          <span class="material-symbols-outlined text-outline text-[16px]">expand_more</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links (8 Chức năng chuẩn theo thiết kế) -->
+      <nav class="px-space-sm mt-space-sm flex flex-col gap-1">
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bang-dieu-khien" href="/index.html">
+          <span class="material-symbols-outlined text-[20px] shrink-0">grid_view</span>
+          <span class="font-title-md text-title-md truncate">Bảng điều khiển</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quan-ly-hoi-vien" href="javascript:void(0)" onclick="handleNavFeature('Quản lý hội viên')">
+          <span class="material-symbols-outlined text-[20px] shrink-0">group</span>
+          <span class="font-title-md text-title-md truncate">Quản lý hội viên</span>
+        </a>
+        <!-- ACTIVE TAB: Hợp đồng & Gói tập -->
+        <a aria-current="page" class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg bg-tertiary-container text-white font-bold shadow-xs transition-colors" data-path="hop-dong-va-goi-tap" href="/packages.html">
+          <span class="material-symbols-outlined text-[20px] shrink-0 text-white">loyalty</span>
+          <span class="font-title-md text-title-md truncate">Hợp đồng &amp; Gói tập</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quan-ly-huan-luyen-vien" href="/trainers.html">
+          <span class="material-symbols-outlined text-[20px] shrink-0">fitness_center</span>
+          <span class="font-title-md text-title-md truncate">Quản lý HLV</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="lich-lop-hoc" href="/schedules.html">
+          <span class="material-symbols-outlined text-[20px] shrink-0">calendar_month</span>
+          <span class="font-title-md text-title-md truncate">Lịch lớp học</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quay-le-tan-check-in" href="javascript:void(0)" onclick="handleNavFeature('Quầy lễ tân Check-in')">
+          <span class="material-symbols-outlined text-[20px] shrink-0">how_to_reg</span>
+          <span class="font-title-md text-title-md truncate">Quầy lễ tân Check-in</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="tro-ly-ai-gia-han" href="javascript:void(0)" onclick="handleNavFeature('Trợ lý AI gia hạn')">
+          <span class="material-symbols-outlined text-[20px] shrink-0">auto_awesome</span>
+          <span class="font-title-md text-title-md truncate">Trợ lý AI gia hạn</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bao-cao-doanh-thu" href="javascript:void(0)" onclick="handleNavFeature('Báo cáo doanh thu')">
+          <span class="material-symbols-outlined text-[20px] shrink-0">bar_chart</span>
+          <span class="font-title-md text-title-md truncate">Báo cáo doanh thu</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Sidebar IOT & Settings -->
+    <div class="p-space-md flex flex-col gap-space-sm border-t border-white/10">
+      <div class="p-space-md rounded-xl bg-inverse-surface flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-space-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim animate-ping"></span>
+          <div class="flex flex-col">
+            <span class="font-label-sm text-label-sm text-inverse-on-surface uppercase font-bold">Hệ thống IOT</span>
+            <span class="font-body-sm text-body-sm text-tertiary-fixed">8 cổng Turnstile ON</span>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-tertiary-fixed text-[18px]">sensors</span>
+      </div>
+      <a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-outline-variant hover:bg-inverse-surface hover:text-surface transition-colors" data-path="settings" href="#">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        <span class="font-title-md text-title-md">Thiết lập hệ thống</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==================== 2. MAIN CONTENT WRAPPER ==================== -->
+  <div class="pl-64">
+    
+    <!-- Top Header -->
+    <header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl border-b border-outline-variant/30">
+      <div class="flex items-center gap-space-lg">
+        <!-- Breadcrumbs -->
+        <div class="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+          <a class="hover:text-primary transition-colors" data-path="dashboard" href="/index.html">Trang chủ</a>
+          <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+          <a class="hover:text-primary transition-colors font-medium" data-path="contracts-packages" href="/packages.html">Hợp đồng &amp; Gói tập</a>
+          <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+          <span class="font-title-md text-title-md text-primary font-bold">Chi tiết Hợp đồng</span>
+        </div>
+        <!-- Live Occupancy Pill -->
+        <div class="hidden xl:flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container-low text-secondary border border-outline-variant/30">
+          <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+          <span class="font-label-sm text-label-sm font-medium">Peak Hour: 184/220 Khách</span>
+        </div>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-space-md">
+        <!-- Search bar -->
+        <div class="relative w-64 2xl:w-80">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-outline">search</span>
+          <input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container-low font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all" placeholder="Tìm hội viên, hợp đồng, mã vạch..." type="text">
+        </div>
+        <!-- Language selector -->
+        <div class="flex items-center p-1 bg-surface-container-low rounded-lg gap-0.5 border border-outline-variant/30 text-xs">
+          <button class="px-2 py-1 rounded font-label-sm text-label-sm font-bold bg-surface-container-lowest text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.04)]">VN VI</button>
+          <button class="px-2 py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface">GB EN</button>
+        </div>
+        <!-- Notification button -->
+        <button class="relative w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
+        </button>
+        <!-- User Profile Dropdown -->
+        <div class="flex items-center gap-space-sm pl-space-xs cursor-pointer">
+          <div class="flex flex-col text-right">
+            <span class="font-title-md text-title-md text-on-surface leading-tight font-bold">Admin Thana</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant leading-tight text-xs">Club Director</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">
+            AT
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="w-full pt-16 bg-surface min-h-screen">
+      <div class="flex flex-col w-full">
+
+        <!-- Interactive Toast Notification Alert -->
+        <div class="fixed bottom-6 right-6 z-50 transform transition-all duration-300 pointer-events-none flex items-center gap-space-sm px-space-md py-3 rounded-xl bg-inverse-surface text-surface shadow-2xl translate-y-20 opacity-0" id="toast-notify">
+          <span class="material-symbols-outlined text-tertiary-fixed-dim text-[20px]">check_circle</span>
+          <span class="font-title-md text-title-md" id="toast-text">Thông báo hệ thống</span>
+        </div>
+
+        <div class="p-space-lg xl:p-space-xl flex flex-col gap-space-lg max-w-[1600px] mx-auto w-full">
+          
+          <!-- Top Action & Breadcrumb Control Ribbon -->
+          <section class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs">
+              <div class="flex flex-wrap items-center gap-space-sm">
+                <a href="/packages.html" class="w-8 h-8 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-primary flex items-center justify-center transition-colors shadow-xs no-print" title="Quay lại Danh mục Gói tập &amp; Hợp đồng">
+                  <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                </a>
+                <h1 id="contractIdHeader" class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">
+                  Chi tiết Hợp đồng #HD-2026-0892
+                </h1>
+                <span id="contractStatusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-title-md text-title-md shadow-sm font-semibold">
+                  <span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+                  Đang hiệu lực
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
+                  <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                  E-Signed Verified
+                </span>
+              </div>
+              <p class="font-body-md text-body-md text-on-surface-variant flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span>Ngày ký: <strong id="contractSignDate" class="text-on-surface font-semibold">26/09/2026</strong></span>
+                <span class="text-outline">•</span>
+                <span>Lập bởi: <strong id="contractCreatedBy" class="text-on-surface font-semibold">Nguyễn Văn A</strong> (Lễ tân Flagship)</span>
+                <span class="text-outline">•</span>
+                <span>Chi nhánh: <strong id="contractBranch" class="text-on-surface font-semibold">Quận 1 - Flagship Studio</strong></span>
+              </p>
+            </div>
+
+            <!-- Action Button Group (Stitch Bar) -->
+            <div class="flex items-center gap-2 flex-wrap no-print">
+              <a href="/create-contract.html" class="px-3.5 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-title-md text-title-md flex items-center gap-1.5 transition-colors shadow-xs">
+                <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                <span>+ Lập HĐ mới</span>
+              </a>
+              <button onclick="handleFreezeContractAction()" class="px-3.5 py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-title-md text-title-md flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer">
+                <span class="material-symbols-outlined text-[18px] text-cyan-600">ac_unit</span>
+                <span>Bảo lưu thẻ</span>
+              </button>
+              <button onclick="handleRenewContractAction()" class="px-3.5 py-2 rounded-lg bg-secondary hover:bg-secondary/90 text-on-secondary font-title-md text-title-md flex items-center gap-1.5 transition-colors shadow-sm font-semibold cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">autorenew</span>
+                <span>Gia hạn hợp đồng</span>
+              </button>
+              <button onclick="printContractPdf()" class="px-4 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-title-md text-title-md flex items-center gap-1.5 transition-colors shadow-md font-bold cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">print</span>
+                <span>In Hợp đồng (PDF)</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Main 2-Column Grid (65% vs 35% on Desktop) -->
+          <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+            
+            <!-- LEFT COLUMN (65% = 8 cols) -->
+            <div class="xl:col-span-8 flex flex-col gap-space-lg min-w-0">
+              
+              <!-- CARD 1: Member Legal & CRM Profile -->
+              <article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
+                <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-low">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+                      <span class="material-symbols-outlined text-primary text-[22px]">badge</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <h2 class="font-title-lg text-title-lg text-on-surface font-bold">Thông tin Hội viên &amp; Pháp lý</h2>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Định danh sinh trắc &amp; tài khoản hợp đồng số hóa</span>
+                    </div>
+                  </div>
+                  <a class="inline-flex items-center gap-1 font-title-md text-title-md text-primary hover:text-primary-container transition-colors group font-semibold" href="#">
+                    <span>Xem hồ sơ CRM hội viên</span>
+                    <span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                  </a>
+                </div>
+
+                <!-- Hero Member Banner inside Card -->
+                <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+                  <div class="flex items-center gap-space-md">
+                    <div class="relative">
+                      <div id="memberAvatar" class="w-16 h-16 rounded-full bg-gradient-to-tr from-primary to-tertiary flex items-center justify-center text-on-primary font-headline-sm text-headline-sm shadow-md font-bold">
+                        CN
+                      </div>
+                      <span class="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-xs">
+                        <span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                      </span>
+                    </div>
+                    <div class="flex flex-col">
+                      <div class="flex flex-wrap items-center gap-space-xs">
+                        <h3 id="memberName" class="font-headline-sm text-headline-sm text-on-surface font-bold">Nguyễn Đức Chí Nguyên</h3>
+                        <span id="memberRank" class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold flex items-center gap-1">
+                          <span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                          Diamond VIP
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-space-sm mt-1">
+                        <span id="memberCode" class="font-body-md text-body-md font-semibold text-secondary">Mã thẻ: MEM-2026-042</span>
+                        <span class="text-outline-variant">•</span>
+                        <span id="memberRfid" class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+                          <span class="material-symbols-outlined text-tertiary text-[16px]">fingerprint</span>
+                          RFID: 8892-004-912
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-space-xs">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Hạn mức trả sau POS</span>
+                    <span id="memberPosLimit" class="font-title-lg text-title-lg text-primary font-bold">15.000.000 đ</span>
+                  </div>
+                </div>
+
+                <!-- Structured Key-Value Metadata 3 Columns Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
+                  <div class="p-space-sm rounded-lg bg-surface flex flex-col gap-1 border border-outline-variant/20">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Số điện thoại liên lạc</span>
+                    <div class="flex items-center justify-between">
+                      <span id="memberPhone" class="font-title-md text-title-md text-on-surface font-semibold">0908 123 456</span>
+                      <button class="p-1 rounded text-outline hover:text-primary hover:bg-surface-container transition-colors cursor-pointer" onclick="copyText(document.getElementById('memberPhone').innerText, 'Đã sao chép số điện thoại!')" title="Sao chép">
+                        <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="p-space-sm rounded-lg bg-surface flex flex-col gap-1 border border-outline-variant/20">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Số định danh CCCD/CMND</span>
+                    <div class="flex items-center gap-1.5">
+                      <span id="memberCccd" class="font-title-md text-title-md text-on-surface font-semibold">079098012345</span>
+                      <span class="material-symbols-outlined text-tertiary text-[16px]" title="Xác thực VNeID C06">verified_user</span>
+                    </div>
+                  </div>
+
+                  <div class="p-space-sm rounded-lg bg-surface flex flex-col gap-1 border border-outline-variant/20">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Địa chỉ Hộp thư điện tử</span>
+                    <span id="memberEmail" class="font-title-md text-title-md text-on-surface font-semibold truncate" title="chinguyen.fit@example.com">chinguyen.fit@example.com</span>
+                  </div>
+
+                  <div class="p-space-sm rounded-lg bg-surface flex flex-col gap-1 border border-outline-variant/20">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Giới tính &amp; Độ tuổi</span>
+                    <span id="memberGenderAge" class="font-title-md text-title-md text-on-surface font-medium">Nam • 14/06/1992 (34 tuổi)</span>
+                  </div>
+
+                  <div class="p-space-sm rounded-lg bg-surface flex flex-col gap-1 sm:col-span-2 border border-outline-variant/20">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Địa chỉ thường trú &amp; liên hệ</span>
+                    <span id="memberAddress" class="font-title-md text-title-md text-on-surface truncate" title="48 Nguyễn Thị Minh Khai, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh">
+                      48 Nguyễn Thị Minh Khai, P. Bến Nghé, Q. 1, TP. HCM
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Sub-Card: Medical & Emergency Quick Contacts -->
+                <div class="p-space-md rounded-xl bg-surface-container-high/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-lowest text-tertiary-container flex items-center justify-center shadow-xs">
+                      <span class="material-symbols-outlined text-[18px]">medical_services</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-title-md text-title-md text-on-surface font-semibold">Hồ sơ y tế thể chất PAR-Q+</span>
+                      <span id="memberParq" class="font-body-sm text-body-sm text-on-surface-variant">Đã ký xác nhận không có tiền sử bệnh tim mạch / huyết áp</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-space-sm pl-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    <div class="flex flex-col text-left md:text-right">
+                      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Liên hệ khẩn cấp</span>
+                      <span id="memberEmergency" class="font-title-md text-title-md text-on-surface font-semibold">Chị Lan (Vợ) - 0912 345 678</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- CARD 2: Membership Package & Benefits Grid -->
+              <article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
+                <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-low">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+                      <span class="material-symbols-outlined text-primary text-[22px]">fitness_center</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <h2 class="font-title-lg text-title-lg text-on-surface font-bold">Thông tin Gói tập &amp; Quyền lợi Dịch vụ</h2>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Chi tiết phân quyền truy cập, thiết bị và dịch vụ kèm theo</span>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-semibold">
+                    Gói tập cá nhân dài hạn
+                  </span>
+                </div>
+
+                <!-- Highlight Core Package Tile -->
+                <div class="p-space-lg rounded-xl bg-gradient-to-r from-surface-container-low to-surface-container-high/40 flex flex-col gap-space-md">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+                    <div class="flex items-center gap-space-sm">
+                      <h3 id="packageName" class="font-headline-md text-headline-md text-on-surface tracking-tight font-bold">Gym Diamond 12 Tháng</h3>
+                      <span id="packageScope" class="px-2.5 py-0.5 rounded-md bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm uppercase tracking-wide font-semibold">
+                        🏢 Toàn hệ thống (All Clubs)
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+                      <span class="material-symbols-outlined text-[16px] text-tertiary">schedule</span>
+                      <span>Khung giờ: <strong id="packageHours">05:30 - 22:30 (Mở cửa 7 ngày/tuần)</strong></span>
+                    </div>
+                  </div>
+
+                  <!-- Visual Duration Progress Timeline -->
+                  <div class="flex flex-col gap-2 pt-space-xs">
+                    <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+                      <div class="flex flex-col">
+                        <span>Ngày bắt đầu kích hoạt</span>
+                        <strong id="packageStartDate" class="font-title-md text-title-md text-on-surface font-bold">26/09/2026</strong>
+                      </div>
+                      <div class="px-3 py-1 rounded-full bg-surface-container-lowest shadow-xs text-primary font-title-md text-title-md flex items-center gap-1 font-semibold">
+                        <span class="material-symbols-outlined text-[16px] text-primary">hourglass_bottom</span>
+                        <span id="packageRemainingDays">Còn lại <strong>312 ngày</strong> hiệu lực</span>
+                      </div>
+                      <div class="flex flex-col text-right">
+                        <span>Ngày kết thúc hợp đồng</span>
+                        <strong id="packageEndDate" class="font-title-md text-title-md text-on-surface font-bold">26/09/2027</strong>
+                      </div>
+                    </div>
+
+                    <!-- Sleek Gradient Bar -->
+                    <div class="w-full h-3 rounded-full bg-surface-container-highest overflow-hidden p-0.5">
+                      <div id="packageProgressBar" class="h-full rounded-full bg-gradient-to-r from-tertiary-fixed-dim via-primary to-primary-container transition-all duration-1000" style="width: 14.5%;"></div>
+                    </div>
+                    <div class="flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+                      <span id="packageProgressSummary">Đã qua: 53 ngày (14.5%)</span>
+                      <span id="packagePolicy">Chính sách: Miễn phí bảo lưu tối đa 60 ngày</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section: Personal Trainer (PT) Assigned -->
+                <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-md">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs border-b border-surface-container">
+                    <div class="flex items-center gap-space-sm">
+                      <div id="ptAvatar" class="w-12 h-12 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center font-headline-sm text-headline-sm font-bold">
+                        TB
+                      </div>
+                      <div class="flex flex-col">
+                        <div class="flex items-center gap-2">
+                          <span id="ptName" class="font-title-lg text-title-lg text-on-surface font-bold">HLV Trần Văn B</span>
+                          <span id="ptTitle" class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">Senior PT</span>
+                        </div>
+                        <span id="ptCert" class="font-body-sm text-body-sm text-on-surface-variant">Huấn luyện viên Thể hình Chuyên sâu (NASM Certified)</span>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container font-title-md text-title-md transition-colors shadow-xs font-semibold cursor-pointer" onclick="handleSchedulePtAction()">
+                        Xếp lịch tập
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md items-center">
+                    <div class="flex flex-col gap-1.5">
+                      <div class="flex items-center justify-between font-label-md text-label-md">
+                        <span class="text-on-surface-variant">Tiến độ gói Huấn luyện riêng (1:1)</span>
+                        <span id="ptSessionProgress" class="font-title-md text-title-md text-primary font-bold">6 / 36 buổi (16.7%)</span>
+                      </div>
+                      <div id="ptProgressGrid" class="grid grid-cols-12 gap-1 h-2.5">
+                        <div class="col-span-2 h-full rounded-sm bg-primary"></div>
+                        <div class="col-span-10 h-full rounded-sm bg-surface-container-highest"></div>
+                      </div>
+                      <span id="ptSessionNote" class="font-body-sm text-body-sm text-on-surface-variant">Còn lại 30 buổi kèm riêng • Thời hạn hoàn thành: 26/03/2027</span>
+                    </div>
+
+                    <div class="p-space-sm rounded-lg bg-surface-container-lowest flex items-center gap-space-sm shadow-xs border border-outline-variant/20">
+                      <span class="material-symbols-outlined text-secondary text-[24px]">event_repeat</span>
+                      <div class="flex flex-col">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Lịch tập đã lên</span>
+                        <span id="ptNextSchedule" class="font-title-md text-title-md text-on-surface font-bold">Thứ Bảy, 26/09 lúc 09:00</span>
+                        <span id="ptSessionTopic" class="font-body-sm text-body-sm text-secondary font-medium">Tập Chân &amp; Mông (Lower Body Blast)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section: Included Amenities & Perks Grid -->
+                <div class="flex flex-col gap-space-sm">
+                  <span class="font-title-md text-title-md text-on-surface flex items-center gap-1.5 font-bold">
+                    <span class="material-symbols-outlined text-tertiary text-[20px]">stars</span>
+                    Quyền lợi hội viên cao cấp đi kèm
+                  </span>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+                    <!-- Perk 1 -->
+                    <div class="p-space-md rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors flex items-start gap-space-sm border border-outline-variant/10">
+                      <div class="w-9 h-9 rounded-lg bg-surface-container-lowest text-primary flex items-center justify-center shadow-xs shrink-0">
+                        <span class="material-symbols-outlined text-[20px]">lock</span>
+                      </div>
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Tủ Locker VIP riêng</span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Số tủ <strong>#108 (Tầng 2 Khu Diamond)</strong> • Tích hợp khóa thẻ từ RFID cố định cả năm.</span>
+                      </div>
+                    </div>
+
+                    <!-- Perk 2 -->
+                    <div class="p-space-md rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors flex items-start gap-space-sm border border-outline-variant/10">
+                      <div class="w-9 h-9 rounded-lg bg-surface-container-lowest text-tertiary flex items-center justify-center shadow-xs shrink-0">
+                        <span class="material-symbols-outlined text-[20px]">hot_tub</span>
+                      </div>
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Sauna &amp; Hồ sục Jacuzzi</span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Không giới hạn lượt sử dụng xông khô đá muối Himalaya &amp; xông ướt thảo dược.</span>
+                      </div>
+                    </div>
+
+                    <!-- Perk 3 -->
+                    <div class="p-space-md rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors flex items-start gap-space-sm border border-outline-variant/10">
+                      <div class="w-9 h-9 rounded-lg bg-surface-container-lowest text-secondary flex items-center justify-center shadow-xs shrink-0">
+                        <span class="material-symbols-outlined text-[20px]">local_drink</span>
+                      </div>
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Khăn tập &amp; Nước uống Detox</span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Cung cấp bộ khăn lớn/nhỏ cao cấp &amp; đồ uống bù khoáng kiềm tại quầy VIP Lounge.</span>
+                      </div>
+                    </div>
+
+                    <!-- Perk 4 -->
+                    <div class="p-space-md rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors flex items-start gap-space-sm border border-outline-variant/10">
+                      <div class="w-9 h-9 rounded-lg bg-surface-container-lowest text-primary flex items-center justify-center shadow-xs shrink-0">
+                        <span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+                      </div>
+                      <div class="flex flex-col">
+                        <div class="flex items-center justify-between">
+                          <span class="font-title-md text-title-md text-on-surface font-semibold">Vé mời khách đi cùng (Guest Pass)</span>
+                          <span class="px-2 py-0.2 rounded bg-surface-container-highest font-label-sm text-label-sm font-semibold">Còn 3 / 5 vé</span>
+                        </div>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Mời bạn bè trải nghiệm tiện ích trọn vẹn trong ngày (Đã sử dụng 2 vé).</span>
+                      </div>
+                    </div>
+
+                    <!-- Perk 5 -->
+                    <div class="p-space-md rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors flex items-start gap-space-sm md:col-span-2 border border-outline-variant/10">
+                      <div class="w-9 h-9 rounded-lg bg-surface-container-lowest text-tertiary flex items-center justify-center shadow-xs shrink-0">
+                        <span class="material-symbols-outlined text-[20px]">monitoring</span>
+                      </div>
+                      <div class="flex flex-col w-full">
+                        <div class="flex items-center justify-between">
+                          <span class="font-title-md text-title-md text-on-surface font-semibold">Phân tích thể trạng InBody 3D Định kỳ</span>
+                          <span class="font-label-md text-label-md text-secondary font-bold">Đã kiểm tra 2 / 12 lần</span>
+                        </div>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Đo lượng mỡ nội tạng, cơ xương và nhận báo cáo AI phân tích dinh dưỡng mỗi tháng.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+
+            <!-- RIGHT COLUMN (35% = 4 cols) -->
+            <div class="xl:col-span-4 flex flex-col gap-space-lg min-w-0">
+              
+              <!-- CARD 3: Payment Breakdown & Invoice Ledger -->
+              <article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+                <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-low">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+                      <span class="material-symbols-outlined text-primary text-[22px]">receipt_long</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <h2 class="font-title-lg text-title-lg text-on-surface font-bold">Thanh toán &amp; Hóa đơn</h2>
+                      <span id="invoiceCodeLabel" class="font-body-sm text-body-sm text-on-surface-variant">Mã giao dịch: <strong>#INV-2026-98231</strong></span>
+                    </div>
+                  </div>
+                  <span class="material-symbols-outlined text-outline text-[20px]">sell</span>
+                </div>
+
+                <!-- Receipt Breakdown List -->
+                <div class="flex flex-col gap-2.5 py-space-xs font-body-md text-body-md text-on-surface-variant">
+                  <div class="flex items-center justify-between">
+                    <span>Gói tập Gym Diamond (12 Tháng)</span>
+                    <span id="invoiceBasePackage" class="text-on-surface font-semibold">18.500.000 đ</span>
+                  </div>
+                  <div class="flex items-center justify-between text-secondary">
+                    <div class="flex items-center gap-1">
+                      <span>Voucher Tri Ân Diamond (FITVIP2026)</span>
+                      <span class="material-symbols-outlined text-[15px]">high_res</span>
+                    </div>
+                    <span id="invoiceVoucherDiscount" class="font-semibold">-1.500.000 đ</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>Phụ phí Tủ Locker VIP riêng 12T</span>
+                    <span id="invoiceLockerFee" class="text-on-surface font-semibold">+300.000 đ</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>Phí phát hành thẻ kim loại &amp; RFID</span>
+                    <span id="invoiceRfidFee" class="text-tertiary font-medium">Miễn phí (0 đ)</span>
+                  </div>
+                  <div class="flex items-center justify-between text-on-surface-variant">
+                    <span>Thuế GTGT (VAT 8%)</span>
+                    <span class="font-label-md text-label-md font-semibold text-emerald-600">Đã bao gồm trong giá</span>
+                  </div>
+
+                  <!-- Grand Total Block -->
+                  <div class="pt-space-sm mt-space-xs border-t border-surface-container-low flex flex-col gap-1">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Tổng giá trị thanh toán thực tế</span>
+                    <div class="flex items-baseline justify-between">
+                      <span id="invoiceGrandTotal" class="font-metric-display text-metric-display text-primary font-extrabold tracking-tight">17.300.000</span>
+                      <span class="font-title-lg text-title-lg text-primary font-bold">VNĐ</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Payment Verification Container -->
+                <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm border border-outline-variant/20">
+                  <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-title-md text-title-md font-bold">
+                      <span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+                      Đã thanh toán đủ 100%
+                    </span>
+                    <span id="paymentPaidTime" class="font-label-sm text-label-sm text-on-surface-variant font-mono">26/09/2026 10:24:18</span>
+                  </div>
+                  <div class="flex flex-col gap-1 font-body-sm text-body-sm pt-1">
+                    <div class="flex items-center justify-between">
+                      <span class="text-on-surface-variant">Cổng thanh toán:</span>
+                      <strong id="paymentMethodName" class="text-on-surface font-semibold">Chuyển khoản VietQR Pro</strong>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-on-surface-variant">Ngân hàng đối soát:</span>
+                      <strong id="paymentBank" class="text-on-surface font-semibold">Techcombank Corporate</strong>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-on-surface-variant">Mã đối soát hệ thống:</span>
+                      <span id="paymentTxnId" class="font-mono text-primary font-bold">#TXN-98231-VN</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PDF & Receipt Links -->
+                <div class="flex flex-col gap-2 pt-space-xs no-print">
+                  <button class="w-full py-2.5 px-space-md rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2 font-title-md text-title-md font-semibold cursor-pointer" onclick="downloadInvoicePdf()">
+                    <span class="material-symbols-outlined text-primary text-[18px]">download_for_offline</span>
+                    <span>Tải biên lai thu tiền điện tử (PDF)</span>
+                  </button>
+                  <button class="w-full py-2 px-space-md rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center justify-center gap-1.5 font-label-md text-label-md font-medium cursor-pointer" onclick="checkVietQrGateway()">
+                    <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                    <span>Kiểm tra giao dịch tại cổng VietQR Hub</span>
+                  </button>
+                </div>
+              </article>
+
+              <!-- CARD 4: Audit Trail & Check-in Velocity -->
+              <article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
+                <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-low">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+                      <span class="material-symbols-outlined text-primary text-[22px]">history</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <h2 class="font-title-lg text-title-lg text-on-surface font-bold">Lịch sử &amp; Nhật ký Hoạt động</h2>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Audit Trail được ghi nhận bất biến</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quick Check-in Counter Widget -->
+                <div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between border border-outline-variant/20">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-full bg-surface-container-lowest text-tertiary flex items-center justify-center shadow-xs">
+                      <span class="material-symbols-outlined text-[20px]">sensor_door</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Tổng lượt Check-in</span>
+                      <span id="auditTotalCheckins" class="font-headline-sm text-headline-sm text-on-surface font-bold">18 lượt</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col text-right">
+                    <span class="font-label-sm text-label-sm text-secondary font-bold">Lần gần nhất</span>
+                    <span id="auditLastCheckinTime" class="font-body-sm text-body-sm text-on-surface font-semibold">Hôm qua, 18:20</span>
+                    <span id="auditLastCheckinGate" class="font-label-sm text-label-sm text-on-surface-variant">Gate 02 • CS Q1</span>
+                  </div>
+                </div>
+
+                <!-- Vertical Timeline Ledger -->
+                <div class="relative pl-6 space-y-5 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-high">
+                  <!-- Timeline Item 1 -->
+                  <div class="relative flex flex-col gap-0.5">
+                    <span class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-primary ring-4 ring-surface-container-lowest"></span>
+                    <div class="flex items-center justify-between">
+                      <span class="font-title-md text-title-md text-on-surface font-bold">Ký duyệt hợp đồng điện tử</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">26/09 10:24</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                      Tạo và ký số thành công qua OTP SMS. Thực hiện bởi nhân viên lễ tân: <strong>Nguyễn Văn A</strong>.
+                    </p>
+                  </div>
+
+                  <!-- Timeline Item 2 -->
+                  <div class="relative flex flex-col gap-0.5">
+                    <span class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-tertiary ring-4 ring-surface-container-lowest"></span>
+                    <div class="flex items-center justify-between">
+                      <span class="font-title-md text-title-md text-on-surface font-bold">Thanh toán hoàn tất</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">26/09 10:22</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                      Nhận 17.300.000 đ qua VietQR (#TXN-98231). Hệ thống tự động kích hoạt mã thẻ RFID #8892.
+                    </p>
+                  </div>
+
+                  <!-- Timeline Item 3 -->
+                  <div class="relative flex flex-col gap-0.5">
+                    <span class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></span>
+                    <div class="flex items-center justify-between">
+                      <span class="font-title-md text-title-md text-on-surface font-bold">Khảo sát y tế PAR-Q+</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">25/09 16:45</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                      Hội viên xác nhận trực tuyến trên FitManage Member App. Đạt chỉ số an toàn tập luyện 100%.
+                    </p>
+                  </div>
+
+                  <!-- Timeline Item 4 -->
+                  <div class="relative flex flex-col gap-0.5">
+                    <span class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-outline-variant ring-4 ring-surface-container-lowest"></span>
+                    <div class="flex items-center justify-between">
+                      <span class="font-title-md text-title-md text-on-surface font-bold">Tạo phiếu trải nghiệm VIP</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">20/09 14:10</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                      Sales Rep <strong>Hoàng Mai</strong> tạo cơ hội chuyển đổi từ hội viên tham quan sang Diamond Club.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="pt-space-xs text-center no-print">
+                  <button class="text-primary hover:text-primary-container font-label-md text-label-md font-bold transition-colors cursor-pointer" onclick="triggerToast('Đang trích xuất toàn bộ 14 bản ghi audit log...')">
+                    Xem toàn bộ nhật ký kiểm toán hệ thống (14 sự kiện) →
+                  </button>
+                </div>
+              </article>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== MODAL GIA HẠN HỢP ĐỒNG (STITCH CONTRACT RENEWAL) ==================== -->
+  <div class="fixed inset-0 z-50 bg-inverse-surface/50 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto" id="contract-modal-backdrop">
+    <!-- Modal Card (680px Width Centered) -->
+    <div class="relative w-full max-w-[680px] bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden my-6 transition-all duration-300 transform scale-100 flex flex-col border border-outline-variant/30">
+      
+      <!-- Modal Header -->
+      <div class="p-6 bg-surface-container-low/60 flex flex-col gap-3 relative border-b border-surface-container-high">
+        <!-- Close Button -->
+        <button class="absolute top-5 right-5 w-9 h-9 rounded-xl flex items-center justify-center text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer" onclick="closeRenewContractModal()" title="Đóng cửa sổ" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+        <div class="flex items-center gap-3 pr-10 flex-wrap">
+          <div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[20px]">history_edu</span>
+          </div>
+          <span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold" id="modalRenewContractTitle">Gia hạn Hợp đồng #HD-2026-0892</span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container/40 text-error font-label-sm text-label-sm font-semibold" id="modalRenewStatusBadge">
+            <span class="material-symbols-outlined text-[14px]">warning</span>
+            <span>Sắp hết hạn (Còn 5 ngày)</span>
+          </span>
+        </div>
+
+        <!-- Member Quick Details Bar -->
+        <div class="flex items-center gap-3 bg-surface-container-lowest p-2.5 rounded-xl shadow-sm border border-outline-variant/20">
+          <div class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-title-md text-title-md font-bold" id="modalRenewMemberAvatar">
+            CN
+          </div>
+          <div class="flex items-center gap-2 flex-wrap text-on-surface">
+            <span class="font-title-md text-title-md font-bold" id="modalRenewMemberName">Nguyễn Đức Chí Nguyên</span>
+            <span class="text-outline-variant">•</span>
+            <span class="font-body-md text-body-md text-on-surface-variant font-mono" id="modalRenewMemberPhone">0908 123 456</span>
+            <span class="text-outline-variant">•</span>
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold" id="modalRenewMemberRank">
+              <span class="material-symbols-outlined text-[13px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span>Diamond VIP</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body Content -->
+      <div class="p-6 flex flex-col gap-6 max-h-[737px] overflow-y-auto">
+        <!-- Khối 1: Tóm tắt hợp đồng cũ -->
+        <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-3 border border-outline-variant/20">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-secondary">fitness_center</span>
+              <span class="font-title-md text-title-md text-on-surface font-semibold" id="modalRenewCurrentPackage">Gói hiện tại: Gym Diamond 12 Tháng</span>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm font-medium">
+              <span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+              Đang hoạt động
+            </span>
+          </div>
+          <div class="flex items-center justify-between text-body-sm font-body-sm flex-wrap gap-2">
+            <div class="flex items-center gap-1.5 text-on-surface-variant">
+              <span class="material-symbols-outlined text-[16px] text-outline">event_busy</span>
+              <span>Ngày hết hạn cũ:</span>
+              <span class="font-semibold text-on-surface font-mono" id="modalRenewOldEndDate">26/09/2027</span>
+            </div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+              <span class="material-symbols-outlined text-[14px] text-primary">timelapse</span>
+              <span id="modalRenewUsageRatio">Đã sử dụng 53/365 ngày (14.5%)</span>
+            </div>
+          </div>
+          <!-- Usage Mini Bar -->
+          <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+            <div class="bg-primary h-full rounded-full transition-all duration-500" id="modalRenewUsageBar" style="width: 14.5%;"></div>
+          </div>
+        </div>
+
+        <!-- Khối 2: Cấu hình gói gia hạn -->
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center justify-between">
+            <span class="font-title-lg text-title-lg text-on-surface tracking-tight font-bold">Cấu hình gia hạn</span>
+            <div class="flex items-center gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input checked class="w-4 h-4 accent-primary cursor-pointer" name="renew_type" type="radio" value="current" onchange="onRenewTypeChange('current')"/>
+                <span class="font-body-md text-body-md text-on-surface font-medium">Gia hạn gói hiện tại</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer opacity-75 hover:opacity-100 transition-opacity">
+                <input class="w-4 h-4 accent-primary cursor-pointer" name="renew_type" type="radio" value="upgrade" onchange="onRenewTypeChange('upgrade')"/>
+                <span class="font-body-md text-body-md text-on-surface flex items-center gap-1">
+                  Nâng cấp gói mới
+                  <span class="px-1.5 py-0.5 rounded text-[10px] bg-primary-fixed text-primary font-bold tracking-wide uppercase">Khuyên dùng</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Fast duration selection (Segmented controls) -->
+          <div class="grid grid-cols-3 gap-3">
+            <button id="renewBtn3M" onclick="selectRenewDuration(3, 2400000, 90)" class="duration-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all text-center cursor-pointer border border-outline-variant/30" type="button">
+              <span class="font-title-md text-title-md font-semibold">+3 Tháng</span>
+              <span class="font-body-sm text-body-sm text-outline mt-0.5">2.400.000 đ</span>
+            </button>
+            <button id="renewBtn6M" onclick="selectRenewDuration(6, 4500000, 180)" class="duration-btn flex flex-col items-center justify-center p-3 rounded-xl bg-primary/10 text-primary ring-2 ring-primary font-semibold transition-all relative text-center cursor-pointer border border-primary" type="button">
+              <span class="font-title-md text-title-md text-primary font-bold">+6 Tháng</span>
+              <span class="font-body-sm text-body-sm text-primary/80 mt-0.5">4.500.000 đ</span>
+              <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded-full bg-primary text-on-primary font-label-sm text-[10px]" id="badgeSelected6M">Đang chọn</span>
+            </button>
+            <button id="renewBtn12M" onclick="selectRenewDuration(12, 7600000, 365)" class="duration-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all relative text-center cursor-pointer border border-outline-variant/30" type="button">
+              <span class="font-title-md text-title-md font-semibold">+12 Tháng</span>
+              <span class="font-body-sm text-body-sm text-outline mt-0.5">7.600.000 đ (-20%)</span>
+              <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[10px] font-bold">Best Deal</span>
+            </button>
+          </div>
+
+          <!-- 2 Datepicker boxes side-by-side -->
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Box 1: Start Date -->
+            <div class="flex flex-col gap-1.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
+              <span class="font-label-md text-label-md text-outline">Ngày bắt đầu mới</span>
+              <div class="flex items-center justify-between text-on-surface-variant">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px] text-outline">calendar_today</span>
+                  <span class="font-title-md text-title-md font-bold text-on-surface" id="modalRenewNewStartDate">27/09/2027</span>
+                </div>
+                <span class="material-symbols-outlined text-[16px] text-outline" title="Cố định">lock</span>
+              </div>
+              <span class="font-body-sm text-body-sm text-secondary flex items-center gap-1 font-medium">
+                <span>🔗</span> Nối tiếp hạn cũ
+              </span>
+            </div>
+
+            <!-- Box 2: New Expiry Date -->
+            <div class="flex flex-col gap-1.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
+              <span class="font-label-md text-label-md text-tertiary font-bold">Ngày hết hạn mới</span>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px] text-tertiary">event_available</span>
+                  <span class="font-title-md text-title-md font-bold text-tertiary" id="modalRenewNewEndDate">27/03/2028</span>
+                </div>
+                <span class="material-symbols-outlined text-[16px] text-tertiary">verified</span>
+              </div>
+              <span class="font-body-sm text-body-sm text-tertiary flex items-center gap-1 font-semibold" id="modalRenewAddedDaysText">
+                <span>✓</span> Thời hạn thêm 180 ngày
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Khối 3: Bảng chốt phí & Thanh toán -->
+        <div class="flex flex-col gap-4">
+          <span class="font-title-lg text-title-lg text-on-surface tracking-tight font-bold">Chi tiết thanh toán</span>
+          
+          <!-- Pricing Summary Box -->
+          <div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3 border border-outline-variant/20">
+            <div class="flex items-center justify-between font-body-md text-body-md text-on-surface-variant">
+              <span id="modalRenewBaseLabel">Giá niêm yết (Gói 6 Tháng):</span>
+              <span class="font-semibold text-on-surface" id="modalRenewBasePrice">4.500.000 đ</span>
+            </div>
+            <div class="flex items-center justify-between font-body-md text-body-md text-tertiary">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">loyalty</span>
+                <span id="modalRenewDiscountLabel">Chiết khấu tri ân khách hàng (10%):</span>
+              </span>
+              <span class="font-semibold" id="modalRenewDiscountAmount">-450.000 đ</span>
+            </div>
+
+            <!-- Voucher Input Box -->
+            <div class="flex items-center gap-2 p-1.5 bg-surface-container-low rounded-lg border border-outline-variant/30">
+              <span class="material-symbols-outlined text-[18px] text-outline pl-1.5">confirmation_number</span>
+              <input id="modalRenewVoucherInput" oninput="onRenewVoucherChange(this.value)" class="bg-transparent text-on-surface font-title-md text-title-md outline-none w-full font-mono uppercase font-bold" placeholder="Nhập mã Voucher..." type="text" value="LOYALTY10"/>
+              <span id="modalRenewVoucherBadge" class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold shrink-0">Áp dụng thành công</span>
+            </div>
+
+            <!-- Visual Separator -->
+            <div class="w-full h-[1px] bg-surface-container-highest my-1"></div>
+
+            <!-- Grand Total -->
+            <div class="flex items-baseline justify-between pt-1">
+              <div class="flex flex-col">
+                <span class="font-label-md text-label-md text-outline uppercase tracking-wider font-semibold">Tổng cộng thanh toán</span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">(Đã bao gồm VAT 8% &amp; Phí tiện ích)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-metric-display text-metric-display text-primary-container font-extrabold tracking-tight" id="modalRenewFinalTotal">4.050.000 đ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Method Selector -->
+          <div class="flex flex-col gap-2">
+            <span class="font-label-md text-label-md text-outline font-semibold">Hình thức thanh toán</span>
+            <div class="grid grid-cols-3 gap-3">
+              <!-- VietQR (Selected) -->
+              <button id="renewPayVietQR" onclick="selectRenewPaymentMethod('vietqr')" class="renew-pay-tile p-3 rounded-xl bg-primary/10 text-primary ring-2 ring-primary flex items-center justify-between transition-all cursor-pointer" type="button">
+                <div class="flex items-center gap-2.5">
+                  <span class="material-symbols-outlined text-[20px] text-primary">qr_code_2</span>
+                  <div class="flex flex-col text-left">
+                    <span class="font-title-md text-title-md font-bold leading-tight">VietQR</span>
+                    <span class="font-label-sm text-label-sm text-primary/70">Quét mã tức thì</span>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              </button>
+
+              <!-- Tiền mặt -->
+              <button id="renewPayCash" onclick="selectRenewPaymentMethod('cash')" class="renew-pay-tile p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container flex items-center justify-between transition-all cursor-pointer border border-outline-variant/30" type="button">
+                <div class="flex items-center gap-2.5">
+                  <span class="material-symbols-outlined text-[20px] text-outline">payments</span>
+                  <div class="flex flex-col text-left">
+                    <span class="font-title-md text-title-md font-medium leading-tight">Tiền mặt</span>
+                    <span class="font-label-sm text-label-sm text-outline">Thu tại quầy lễ tân</span>
+                  </div>
+                </div>
+              </button>
+
+              <!-- Quẹt thẻ POS -->
+              <button id="renewPayPOS" onclick="selectRenewPaymentMethod('pos')" class="renew-pay-tile p-3 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container flex items-center justify-between transition-all cursor-pointer border border-outline-variant/30" type="button">
+                <div class="flex items-center gap-2.5">
+                  <span class="material-symbols-outlined text-[20px] text-outline">point_of_sale</span>
+                  <div class="flex flex-col text-left">
+                    <span class="font-title-md text-title-md font-medium leading-tight">Quẹt thẻ POS</span>
+                    <span class="font-label-sm text-label-sm text-outline">Visa / Master / Napas</span>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer Action Bar -->
+      <div class="p-5 bg-surface-container-low/70 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-surface-container-high">
+        <div class="flex items-center gap-1.5 text-on-surface-variant">
+          <span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
+          <span class="font-body-sm text-body-sm text-outline">Mã hóa 256-bit SSL • Tự động đồng bộ cổng Check-in</span>
+        </div>
+        <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+          <button class="px-5 py-2.5 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-container-high transition-colors font-title-md text-title-md font-medium cursor-pointer" onclick="closeRenewContractModal()" type="button">
+            Hủy bỏ
+          </button>
+          <button onclick="confirmRenewContract()" class="px-6 py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 font-title-md text-title-md font-bold tracking-tight cursor-pointer active:scale-98" type="button">
+            <span class="material-symbols-outlined text-[18px]">bolt</span>
+            <span>Xác nhận Gia hạn &amp; In phiếu thu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Xử lý Nghiệp vụ & Dữ liệu API -->
+  <script src="/js/contract-detail.js"></script>
+
+</body>
+</html>

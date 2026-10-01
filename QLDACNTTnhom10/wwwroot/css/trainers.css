@@ -1,0 +1,62 @@
+/* ==========================================================================
+   trainers.css - Custom styling for FitManage Trainer Directory
+   ========================================================================== */
+
+/* Smooth Card Hover Animations */
+.trainer-card {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.trainer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(11, 34, 56, 0.08), 0 8px 10px -6px rgba(11, 34, 56, 0.04);
+}
+
+/* Modal Transition Helpers */
+.modal-backdrop {
+  transition: opacity 0.25s ease-out;
+}
+
+.modal-content-box {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease-out;
+}
+
+/* Custom Scrollbar for Drawer / Modal */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #eff4ff;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ccc3d7;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7b7486;
+}
+
+/* Status Indicator Dot Pulse */
+@keyframes status-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.status-dot-pulse {
+  animation: status-pulse 2s infinite ease-in-out;
+}
+
+/* Star Rating variation settings */
+.star-filled {
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 20;
+}
