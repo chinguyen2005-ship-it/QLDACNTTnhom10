@@ -669,6 +669,25 @@
         toast.classList.add('translate-y-20', 'opacity-0');
       }, 3000);
     }
+
+    // TASK-373 & TASK-354: Tự động nhận diện hợp đồng từ link đính kèm trong Email
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const cidParam = urlParams.get('cid');
+      if (cidParam) {
+        try {
+          const decodedId = atob(decodeURIComponent(cidParam));
+          const formattedCode = `HD-2026-${decodedId.padStart(4, '0')}`;
+          const titleEl = document.querySelector('.font-headline-sm');
+          if (titleEl) {
+            titleEl.innerText = `Gia hạn Hợp đồng #${formattedCode}`;
+          }
+          showToastMsg(`📨 Đã kết nối hợp đồng #${formattedCode} từ liên kết Email nhắc nhở!`);
+        } catch (e) {
+          console.warn('Không thể giải mã param cid:', e);
+        }
+      }
+    });
   </script>
 </body>
 </html>

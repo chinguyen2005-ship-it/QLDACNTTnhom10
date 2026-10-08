@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using QLDACNTTnhom10.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
         };
     });
+
+// TASK-373: Đăng ký dịch vụ Gửi Email và Quét hợp đồng tự động
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IContractExpiryService, ContractExpiryService>();
+builder.Services.AddHostedService<ContractExpiryBackgroundService>();
 
 builder.Services.AddControllers();
 
