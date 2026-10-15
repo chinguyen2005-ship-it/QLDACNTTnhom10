@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="web_dashboard" name="shell-type" />
+  <title>Dashboard Tổng Quan | FitManage GYM &amp; YOGA SUITE</title>
+  <meta name="description" content="Bảng điều khiển tổng quan quản lý phòng tập gym và yoga - FitManage Suite v4.2" />
+
+  <!-- Google Fonts: DM Sans + Be Vietnam Pro (Vietnamese fallback) -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'DM Sans', 'Be Vietnam Pro', 'Inter', system-ui, sans-serif;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ccc3d7;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7b7486;
+    }
+
+    /* Count-up animation helper */
+    .kpi-value {
+      transition: opacity 0.3s ease;
+    }
+    .kpi-value.counting {
+      opacity: 0.6;
+    }
+
+    /* Refresh icon spin */
+    @keyframes spin-once {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .spin-animation {
+      animation: spin-once 0.7s ease-in-out;
+    }
+
+    /* Smooth chart transition */
+    canvas {
+      transition: opacity 0.3s ease;
+    }
+
+    /* Search highlight */
+    .search-focused {
+      box-shadow: 0 0 0 3px rgba(0, 97, 114, 0.2) !important;
+    }
+
+    /* Activity item hover lift */
+    .activity-item {
+      transition: all 0.2s ease;
+    }
+    .activity-item:hover {
+      transform: translateX(4px);
+    }
+
+    /* Sidebar link hover animation */
+    .sidebar-link {
+      transition: all 0.2s ease;
+    }
+    .sidebar-link:hover {
+      transform: translateX(2px);
+    }
+  </style>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#F8F9FF",
+            "surface": "#F8F9FF",
+            "on-surface": "#0B1C30",
+            "on-surface-variant": "#4A4455",
+            "outline": "#7B7486",
+            "outline-variant": "#CCC3D7",
+            "primary": "#0B1C30",
+            "tertiary": "#004855",
+            "tertiary-container": "#006172",
+            "on-tertiary-container": "#57DFFF",
+            "tertiary-fixed": "#ACEDFF",
+            "on-tertiary-fixed": "#001F26",
+            "secondary": "#3A6285",
+            "secondary-fixed": "#CEE5FF",
+            "secondary-fixed-dim": "#A3CAF2",
+            "surface-container-lowest": "#FFFFFF",
+            "surface-container-low": "#EFF4FF",
+            "surface-container": "#E5EEFF",
+            "surface-container-high": "#DCE9FF",
+            "surface-container-highest": "#D3E4FE"
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'Be Vietnam Pro', 'Inter', 'system-ui', 'sans-serif'],
+            body: ['DM Sans', 'Be Vietnam Pro', 'Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-[#F8F9FF] font-sans text-[#0B1C30] antialiased">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- LEFT SIDEBAR - Fixed Navigation                            -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] text-white">
+    <div class="flex flex-col flex-1 overflow-y-auto">
+
+      <!-- Top Logo -->
+      <div class="h-16 px-6 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-[#ACEDFF] flex items-center justify-center shrink-0 shadow-sm">
+          <span class="text-xl font-bold text-[#001F26]">F</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="text-base font-bold text-white tracking-tight leading-tight">FitManage</span>
+          <span class="text-[10px] text-[#A3CAF2] tracking-wider uppercase font-semibold">GYM &amp; YOGA SUITE</span>
+        </div>
+      </div>
+
+      <!-- Menu Navigation -->
+      <div class="px-5 pt-3 pb-1">
+        <span class="text-[11px] uppercase tracking-wider text-[#A3CAF2]/70 font-semibold px-2">Quản trị hệ thống</span>
+      </div>
+
+      <nav class="flex-1 px-3 space-y-1">
+        <!-- Active: Dashboard -->
+        <a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#006172] text-[#57DFFF] font-medium shadow-sm transition-all" href="dashboard.html">
+          <span class="material-symbols-outlined text-[20px]">dashboard</span>
+          <span class="text-sm font-medium">Dashboard</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">group</span>
+          <span class="text-sm">Hội viên</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">description</span>
+          <span class="text-sm">Hợp đồng &amp; Gói tập</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">sports</span>
+          <span class="text-sm">Quản lý HLV</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+          <span class="text-sm">Lịch lớp học</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">badge</span>
+          <span class="text-sm">Quầy lễ tân Check-in</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+          <span class="text-sm">Trợ lý AI gia hạn</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">monitoring</span>
+          <span class="text-sm">Báo cáo &amp; Thống kê</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">settings</span>
+          <span class="text-sm">Cài đặt</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Branch Box & Admin Profile -->
+    <div class="p-3.5 flex flex-col gap-2.5">
+      <!-- Branch selector -->
+      <div class="bg-[#213145] p-3 rounded-xl border border-white/10 flex flex-col gap-1.5 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#57DFFF]"></span>
+            <span class="text-xs text-white font-medium truncate">Quận 1 • Flagship Studio</span>
+          </div>
+          <span class="material-symbols-outlined text-slate-400 text-[16px]">unfold_more</span>
+        </div>
+        <div class="flex items-center gap-1.5 pt-0.5">
+          <span class="material-symbols-outlined text-emerald-400 text-[15px]">sensors</span>
+          <span class="text-[10px] text-emerald-300 font-bold tracking-wider">8 CỔNG TURNSTILE ON</span>
+        </div>
+      </div>
+
+      <!-- Admin profile: Chí Nguyên -->
+      <div class="flex items-center justify-between px-2 py-1.5 bg-[#213145]/60 rounded-xl border border-white/5">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-full bg-[#6D28D9] flex items-center justify-center text-white font-bold text-xs shrink-0">
+            CN
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-xs font-semibold text-white leading-tight truncate">Chí Nguyên</span>
+            <span class="text-[10px] text-[#A3CAF2] leading-none truncate">Quản trị viên / Club Director</span>
+          </div>
+        </div>
+        <button class="p-1 rounded text-slate-400 hover:text-rose-400 hover:bg-white/10 transition-colors" title="Đăng xuất">
+          <span class="material-symbols-outlined text-[18px]">logout</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- RIGHT CONTENT CONTAINER                                    -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="pl-64 flex flex-col min-h-screen">
+
+    <!-- ─────────────────────────────────────────────────────── -->
+    <!-- TOP HEADER TOOLBAR                                      -->
+    <!-- ─────────────────────────────────────────────────────── -->
+    <header class="bg-white border-b border-slate-200/80 px-8 py-3.5 flex items-center justify-between sticky top-0 z-20 shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
+      <!-- Left Breadcrumb & Live status -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+          <span class="hover:text-[#0B1C30] cursor-pointer transition-colors">Trang chủ</span>
+          <span class="material-symbols-outlined text-[14px] text-slate-400">chevron_right</span>
+          <span class="text-[#0B1C30] font-semibold">Bảng điều khiển tổng quan</span>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold text-xs border border-emerald-100">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>07:00 – 23:00 Live</span>
+        </div>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="relative w-80 lg:w-96">
+        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-slate-400">search</span>
+        <input id="globalSearchInput"
+               class="w-full h-9 pl-9 pr-4 rounded-full bg-[#EFF4FF] border border-slate-200 text-xs text-[#0B1C30] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#006172] focus:ring-1 focus:ring-[#006172] transition-colors"
+               placeholder="Tìm kiếm hội viên, hợp đồng, lớp học... (Ctrl+K)"
+               type="text" />
+      </div>
+
+      <!-- Right Actions: Language, Notification, User -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center rounded-lg bg-[#EFF4FF] p-0.5 text-xs font-semibold">
+          <button class="px-2 py-1 rounded bg-white text-[#0B1C30] shadow-xs">VN</button>
+          <span class="text-slate-300 px-0.5">|</span>
+          <button class="px-2 py-1 text-slate-500 hover:text-[#0B1C30] transition-colors">EN</button>
+        </div>
+        <button class="relative w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 hover:bg-[#EFF4FF] hover:text-[#0B1C30] transition-colors" title="Thông báo">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
+        </button>
+        <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+          <div class="w-8 h-8 rounded-full bg-[#6D28D9] flex items-center justify-center text-white font-bold text-xs shadow-sm">
+            CN
+          </div>
+          <div class="hidden xl:flex flex-col text-left">
+            <span class="text-xs font-bold text-[#0B1C30] leading-tight">Chí Nguyên</span>
+            <span class="text-[10px] text-slate-500 leading-none">Club Director</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ─────────────────────────────────────────────────────── -->
+    <!-- MAIN OPERATIONAL WORKSPACE                              -->
+    <!-- ─────────────────────────────────────────────────────── -->
+    <main class="w-full px-8 py-6 flex flex-col gap-6 max-w-[1600px] mx-auto flex-1">
+
+      <!-- ── Section: Header Tiêu đề & Bộ lọc ── -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex flex-col gap-1">
+          <div class="flex items-center gap-3">
+            <h1 class="text-2xl font-bold text-[#0B1C30] tracking-tight">DASHBOARD TỔNG QUAN</h1>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EFF4FF] text-[#006172] border border-[#D3E4FE]">
+              Suite v4.2
+            </span>
+          </div>
+          <p class="text-sm text-slate-500">Xin chào Quản lý, dưới đây là tình hình hoạt động cơ sở hôm nay.</p>
+        </div>
+        <div class="flex items-center gap-3 self-start sm:self-auto">
+          <div class="relative">
+            <select id="periodFilter"
+                    class="appearance-none bg-white text-[#0B1C30] text-sm font-medium rounded-lg px-3.5 py-2 pr-9 border border-slate-200 focus:outline-none focus:border-[#006172] shadow-sm cursor-pointer hover:bg-slate-50 transition-colors">
+              <option value="current">Tháng này (Tháng 10/2026)</option>
+              <option value="prev">Tháng trước (Tháng 09/2026)</option>
+              <option value="q3">Quý 3/2026</option>
+              <option value="year">Cả năm 2026</option>
+            </select>
+            <span class="material-symbols-outlined text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px]">expand_more</span>
+          </div>
+          <button class="bg-[#0B1C30] hover:bg-[#1A334F] text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 shadow-sm active:scale-95 transition-all"
+                  id="refreshBtn">
+            <span class="material-symbols-outlined text-[18px]" id="refreshIcon">sync</span>
+            <span>Tải lại dữ liệu</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- 4 KPI METRIC CARDS GRID                               -->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+
+        <!-- Card 1: Doanh thu tháng này -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">DOANH THU THÁNG NÀY</span>
+              <div class="w-10 h-10 rounded-full bg-[#EFF4FF] flex items-center justify-center text-[#006172] group-hover:bg-[#006172] group-hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-[20px]">payments</span>
+              </div>
+            </div>
+            <div class="text-2xl font-bold text-[#0B1C30] tracking-tight">
+              <span class="kpi-value" data-target="185000000" data-format="currency" id="kpiRevenue">185.000.000</span> <span class="text-base font-semibold">đ</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="inline-flex items-center gap-1 bg-[#D1FAE5] text-[#065F46] font-semibold text-xs px-2.5 py-1 rounded-full">
+              <span class="material-symbols-outlined text-[14px]">trending_up</span>
+              +12.4% so với tháng trước
+            </span>
+          </div>
+        </div>
+
+        <!-- Card 2: Hội viên hoạt động -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">HỘI VIÊN HOẠT ĐỘNG</span>
+              <div class="w-10 h-10 rounded-full bg-[#EFF4FF] flex items-center justify-center text-[#006172] group-hover:bg-[#006172] group-hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-[20px]">groups</span>
+              </div>
+            </div>
+            <div class="text-2xl font-bold text-[#0B1C30] tracking-tight">
+              <span class="kpi-value" data-target="1240" data-format="number" id="kpiMembers">1.240</span> <span class="text-sm font-normal text-slate-500">người</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="inline-flex items-center gap-1 bg-[#EFF4FF] text-[#006172] font-semibold px-2 py-0.5 rounded-full">
+              <span class="material-symbols-outlined text-[13px]">person_add</span>
+              +48 mới tháng này
+            </span>
+            <span class="text-slate-500">Tỷ lệ duy trì: <strong class="text-slate-700 font-semibold">94.2%</strong></span>
+          </div>
+        </div>
+
+        <!-- Card 3: Lượt Check-in hôm nay -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">LƯỢT CHECK-IN HÔM NAY</span>
+              <div class="w-10 h-10 rounded-full bg-[#EFF4FF] flex items-center justify-center text-[#006172] group-hover:bg-[#006172] group-hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-[20px]">badge</span>
+              </div>
+            </div>
+            <div class="text-2xl font-bold text-[#0B1C30] tracking-tight">
+              <span class="kpi-value" data-target="318" data-format="number" id="kpiCheckin">318</span> <span class="text-sm font-normal text-slate-500">lượt</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#57DFFF] animate-pulse"></span>
+              <span class="text-slate-600">Đang tập: <strong class="text-[#006172] font-bold">42</strong> người</span>
+            </div>
+            <span class="text-slate-400 font-medium">Max 85</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Hợp đồng sắp hết hạn -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-500 tracking-wider uppercase">HỢP ĐỒNG SẮP HẾT HẠN</span>
+              <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-700 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-[20px]">hourglass_bottom</span>
+              </div>
+            </div>
+            <div class="text-2xl font-bold text-[#92400E] tracking-tight">
+              <span class="kpi-value" data-target="45" data-format="number" id="kpiContracts">45</span> <span class="text-sm font-normal text-slate-500">hợp đồng</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="inline-flex items-center gap-1 bg-[#FEF3C7] text-[#92400E] font-medium text-xs px-2 py-0.5 rounded-full">
+              <span class="material-symbols-outlined text-[14px]">warning</span>
+              Cần gia hạn trong 30 ngày
+            </span>
+            <a class="text-xs font-semibold text-[#006172] hover:underline" href="#">Chi tiết</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- CHARTS ROW 1: Revenue Trend (8-col) + Doughnut (4-col)-->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+        <!-- Left: Line Chart - Xu hướng Doanh thu & Đăng ký mới -->
+        <div class="lg:col-span-8 bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+            <div>
+              <h2 class="text-base font-bold text-[#0B1C30]">Xu hướng Doanh thu &amp; Đăng ký mới</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Phân tích đa chỉ số từ Tháng 01 đến Tháng 10/2026</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-medium">
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-0.5 bg-[#0B1C30] rounded"></span>
+                <span class="text-slate-700">Doanh thu (Tr.đ)</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-0.5 bg-[#006172] rounded" style="border-top: 2px dashed #006172; height:0;"></span>
+                <span class="text-slate-700">Đăng ký mới (HV)</span>
+              </div>
+            </div>
+          </div>
+          <div class="relative w-full h-[300px]">
+            <canvas id="revenueTrendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Right: Doughnut Chart - Cơ cấu Doanh số theo Gói tập -->
+        <div class="lg:col-span-4 bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <h2 class="text-base font-bold text-[#0B1C30]">Cơ cấu Doanh số theo Gói tập</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Tỷ trọng doanh thu theo các nhóm dịch vụ</p>
+          </div>
+          <div class="relative w-full h-[210px] flex items-center justify-center my-3">
+            <canvas id="packageDonutChart"></canvas>
+            <!-- Center label inside doughnut -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">TỔNG CƠ CẤU</span>
+              <span class="text-xl font-bold text-[#0B1C30]">100%</span>
+            </div>
+          </div>
+          <!-- Legend Cards -->
+          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-[#EFF4FF]/70">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#0B1C30] shrink-0"></span>
+                <span class="text-xs text-slate-700 font-medium truncate">Gym Classic</span>
+              </div>
+              <span class="text-xs font-bold text-[#0B1C30]">45%</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-[#EFF4FF]/70">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#3A6285] shrink-0"></span>
+                <span class="text-xs text-slate-700 font-medium truncate">Yoga Pure</span>
+              </div>
+              <span class="text-xs font-bold text-[#3A6285]">25%</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-[#EFF4FF]/70">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#006172] shrink-0"></span>
+                <span class="text-xs text-slate-700 font-medium truncate">PT 1:1 Elite</span>
+              </div>
+              <span class="text-xs font-bold text-[#006172]">15%</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-[#EFF4FF]/70">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#4cd7f6] shrink-0"></span>
+                <span class="text-xs text-slate-700 font-medium truncate">GroupX / Zumba</span>
+              </div>
+              <span class="text-xs font-bold text-slate-700">15%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- CHARTS ROW 2: Check-in Bar (6-col) + Activities (6-col)-->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch pb-6">
+
+        <!-- Left: Bar Chart - Tần suất Check-in theo giờ -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-base font-bold text-[#0B1C30]">Tần suất Check-in theo giờ</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Lưu lượng vào cổng hôm nay từ 06:00 đến 21:00</p>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#EFF4FF] text-[#006172] text-xs font-semibold">
+              <span class="material-symbols-outlined text-[14px]">schedule</span>
+              Giờ cao điểm
+            </span>
+          </div>
+          <div class="relative w-full h-[260px]">
+            <canvas id="checkInHourlyChart"></canvas>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Cao điểm sáng: <strong class="text-[#0B1C30] font-semibold">06:00 – 08:00</strong></span>
+            <span>Cao điểm tối: <strong class="text-[#0B1C30] font-semibold">17:00 – 19:30</strong></span>
+          </div>
+        </div>
+
+        <!-- Right: Recent Activities -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h2 class="text-base font-bold text-[#0B1C30]">Hoạt động gần đây (Recent Activities)</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Dòng sự kiện check-in &amp; giao dịch tức thời</p>
+            </div>
+            <a class="text-xs font-semibold text-[#006172] hover:underline" href="#">Xem toàn bộ nhật ký</a>
+          </div>
+
+          <div class="flex flex-col gap-2.5" id="activitiesList">
+            <!-- 1. Nguyễn Văn An -->
+            <div class="activity-item flex items-center justify-between p-2.5 rounded-lg bg-[#EFF4FF]/60 hover:bg-[#EFF4FF] transition-colors cursor-pointer">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-full bg-[#E5EEFF] text-[#006172] flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-sm font-semibold text-[#0B1C30] truncate">Nguyễn Văn An</span>
+                  <span class="text-xs text-slate-500 truncate">Cơ sở Q.1 – Cổng 01 (Vào quầy)</span>
+                </div>
+              </div>
+              <div class="flex flex-col items-end shrink-0 pl-2">
+                <span class="text-xs font-semibold text-[#006172]">16:30</span>
+                <span class="text-[10px] text-slate-400">Vừa xong</span>
+              </div>
+            </div>
+
+            <!-- 2. Trần Thị Bích -->
+            <div class="activity-item flex items-center justify-between p-2.5 rounded-lg bg-[#EFF4FF]/60 hover:bg-[#EFF4FF] transition-colors cursor-pointer">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[18px]">credit_card</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-sm font-semibold text-[#0B1C30] truncate">Trần Thị Bích</span>
+                  <span class="text-xs text-slate-500 truncate">Gia hạn VIP 6 Tháng (4.500.000 đ qua VietQR)</span>
+                </div>
+              </div>
+              <div class="flex flex-col items-end shrink-0 pl-2">
+                <span class="text-xs font-semibold text-emerald-700">16:15</span>
+                <span class="text-[10px] text-slate-400">VietQR</span>
+              </div>
+            </div>
+
+            <!-- 3. Lê Hoàng Quân -->
+            <div class="activity-item flex items-center justify-between p-2.5 rounded-lg bg-[#EFF4FF]/60 hover:bg-[#EFF4FF] transition-colors cursor-pointer">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[18px]">assignment_turned_in</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-sm font-semibold text-[#0B1C30] truncate">Lê Hoàng Quân</span>
+                  <span class="text-xs text-slate-500 truncate">Đăng ký mới gói Yoga 12 Tháng (#HD-1042)</span>
+                </div>
+              </div>
+              <div class="flex flex-col items-end shrink-0 pl-2">
+                <span class="text-xs font-semibold text-[#0B1C30]">15:52</span>
+                <span class="text-[10px] text-slate-400">#HD-1042</span>
+              </div>
+            </div>
+
+            <!-- 4. Phạm Minh Đức -->
+            <div class="activity-item flex items-center justify-between p-2.5 rounded-lg bg-[#EFF4FF]/60 hover:bg-[#EFF4FF] transition-colors cursor-pointer">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[18px]">sports</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-sm font-semibold text-[#0B1C30] truncate">Phạm Minh Đức</span>
+                  <span class="text-xs text-slate-500 truncate">Hoàn thành buổi tập với HLV David Trần (PT 1:1)</span>
+                </div>
+              </div>
+              <div class="flex flex-col items-end shrink-0 pl-2">
+                <span class="text-xs font-semibold text-[#0B1C30]">15:30</span>
+                <span class="text-[10px] text-slate-400">Xong buổi 12/24</span>
+              </div>
+            </div>
+
+            <!-- 5. Đặng Thu Thảo -->
+            <div class="activity-item flex items-center justify-between p-2.5 rounded-lg bg-[#EFF4FF]/60 hover:bg-[#EFF4FF] transition-colors cursor-pointer">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-full bg-teal-100 text-[#006172] flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[18px]">self_improvement</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-sm font-semibold text-[#0B1C30] truncate">Đặng Thu Thảo</span>
+                  <span class="text-xs text-slate-500 truncate">Check-in lớp Vinyasa Flow (Studio 01)</span>
+                </div>
+              </div>
+              <div class="flex flex-col items-end shrink-0 pl-2">
+                <span class="text-xs font-semibold text-[#0B1C30]">15:05</span>
+                <span class="text-[10px] text-slate-400">Hội viên Gold</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- CHART.JS v4 CDN + Dashboard Logic                         -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    // ─── DATA SETS PER PERIOD ───────────────────────────────────
+    const DATA_SETS = {
+      current: {
+        label: 'Tháng 10/2026',
+        kpi: { revenue: 185000000, members: 1240, checkin: 318, contracts: 45 },
+        badges: { revenueChange: '+12.4%', newMembers: '+48', retention: '94.2%', currentlyTraining: 42 },
+        revenue: [110, 125, 118, 142, 138, 160, 155, 172, 168, 185],
+        registrations: [30, 36, 28, 45, 36, 52, 48, 59, 53, 62],
+        revenueLabels: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10'],
+        donut: [45, 25, 15, 15],
+        checkinHourly: [48, 52, 22, 18, 16, 38, 72, 42, 10]
+      },
+      prev: {
+        label: 'Tháng 09/2026',
+        kpi: { revenue: 164600000, members: 1192, checkin: 295, contracts: 38 },
+        badges: { revenueChange: '+8.7%', newMembers: '+35', retention: '92.8%', currentlyTraining: 38 },
+        revenue: [105, 118, 112, 135, 130, 148, 145, 160, 165],
+        registrations: [25, 30, 24, 38, 32, 45, 42, 52, 48],
+        revenueLabels: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9'],
+        donut: [42, 27, 16, 15],
+        checkinHourly: [42, 48, 20, 15, 14, 35, 68, 38, 15]
+      },
+      q3: {
+        label: 'Quý 3/2026',
+        kpi: { revenue: 495000000, members: 1180, checkin: 285, contracts: 52 },
+        badges: { revenueChange: '+15.2%', newMembers: '+142', retention: '93.5%', currentlyTraining: 36 },
+        revenue: [145, 148, 160, 155, 172, 168, 175, 180, 185],
+        registrations: [42, 45, 52, 48, 59, 53, 56, 58, 62],
+        revenueLabels: ['T7/W1','T7/W2','T7/W3','T8/W1','T8/W2','T8/W3','T9/W1','T9/W2','T9/W3'],
+        donut: [44, 26, 16, 14],
+        checkinHourly: [45, 50, 24, 20, 18, 40, 70, 45, 12]
+      },
+      year: {
+        label: 'Cả năm 2026',
+        kpi: { revenue: 1620000000, members: 1240, checkin: 310, contracts: 78 },
+        badges: { revenueChange: '+22.6%', newMembers: '+520', retention: '91.8%', currentlyTraining: 42 },
+        revenue: [98, 105, 110, 125, 118, 142, 138, 160, 155, 172, 168, 185],
+        registrations: [22, 28, 30, 36, 28, 45, 36, 52, 48, 59, 53, 62],
+        revenueLabels: ['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12'],
+        donut: [43, 26, 17, 14],
+        checkinHourly: [50, 55, 25, 20, 18, 42, 75, 48, 12]
+      }
+    };
+
+    const CHECKIN_LABELS = ['06h','08h','10h','12h','14h','16h','18h','20h','21h'];
+    const PEAK_HOURS = ['06h', '08h', '18h'];
+    const DONUT_COLORS = ['#0B1C30', '#3A6285', '#006172', '#4cd7f6'];
+    const DONUT_LABELS = ['Gym Classic', 'Yoga Pure', 'PT 1:1 Elite', 'GroupX / Zumba'];
+
+    // ─── Chart instances ────────────────────────────────────────
+    let revenueTrendChart = null;
+    let packageDonutChart = null;
+    let checkInHourlyChart = null;
+
+    // ─── COUNT-UP ANIMATION ─────────────────────────────────────
+    function animateCountUp(element, targetValue, format, duration = 800) {
+      const startValue = 0;
+      const startTime = performance.now();
+      element.classList.add('counting');
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        const currentValue = Math.floor(startValue + (targetValue - startValue) * easedProgress);
+
+        if (format === 'currency') {
+          element.textContent = currentValue.toLocaleString('vi-VN');
+        } else {
+          element.textContent = currentValue.toLocaleString('vi-VN');
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          element.classList.remove('counting');
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // ─── UPDATE KPI CARDS ───────────────────────────────────────
+    function updateKPIs(dataKey) {
+      const data = DATA_SETS[dataKey];
+      if (!data) return;
+
+      const kpiRevenue = document.getElementById('kpiRevenue');
+      const kpiMembers = document.getElementById('kpiMembers');
+      const kpiCheckin = document.getElementById('kpiCheckin');
+      const kpiContracts = document.getElementById('kpiContracts');
+
+      if (kpiRevenue) animateCountUp(kpiRevenue, data.kpi.revenue, 'currency');
+      if (kpiMembers) animateCountUp(kpiMembers, data.kpi.members, 'number');
+      if (kpiCheckin) animateCountUp(kpiCheckin, data.kpi.checkin, 'number');
+      if (kpiContracts) animateCountUp(kpiContracts, data.kpi.contracts, 'number');
+    }
+
+    // ─── CHART 1: Revenue Trend (Dual-Axis Line Chart) ─────────
+    function createRevenueTrendChart(dataKey) {
+      const ctx = document.getElementById('revenueTrendChart');
+      if (!ctx) return;
+      const data = DATA_SETS[dataKey];
+      const chartCtx = ctx.getContext('2d');
+
+      // Create gradient fill
+      const gradientBg = chartCtx.createLinearGradient(0, 0, 0, 300);
+      gradientBg.addColorStop(0, 'rgba(11, 28, 48, 0.18)');
+      gradientBg.addColorStop(0.6, 'rgba(11, 28, 48, 0.04)');
+      gradientBg.addColorStop(1, 'rgba(11, 28, 48, 0.0)');
+
+      if (revenueTrendChart) {
+        // Update existing chart
+        revenueTrendChart.data.labels = data.revenueLabels;
+        revenueTrendChart.data.datasets[0].data = data.revenue;
+        revenueTrendChart.data.datasets[0].backgroundColor = gradientBg;
+        revenueTrendChart.data.datasets[1].data = data.registrations;
+        revenueTrendChart.update('active');
+        return;
+      }
+
+      revenueTrendChart = new Chart(chartCtx, {
+        type: 'line',
+        data: {
+          labels: data.revenueLabels,
+          datasets: [
+            {
+              label: 'Doanh thu (Tr.đ)',
+              data: data.revenue,
+              borderColor: '#0B1C30',
+              backgroundColor: gradientBg,
+              fill: true,
+              tension: 0.4,
+              borderWidth: 2.5,
+              pointBackgroundColor: '#0B1C30',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              pointRadius: 4,
+              pointHoverRadius: 7,
+              pointHoverBorderWidth: 3,
+              yAxisID: 'y'
+            },
+            {
+              label: 'Đăng ký mới (HV)',
+              data: data.registrations,
+              borderColor: '#006172',
+              backgroundColor: 'transparent',
+              borderDash: [5, 5],
+              tension: 0.4,
+              borderWidth: 2,
+              pointBackgroundColor: '#006172',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              pointRadius: 3,
+              pointHoverRadius: 6,
+              pointHoverBorderWidth: 3,
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0B1C30',
+              titleColor: '#FFFFFF',
+              bodyColor: '#EFF4FF',
+              borderColor: '#213145',
+              borderWidth: 1,
+              padding: 12,
+              boxPadding: 4,
+              cornerRadius: 8,
+              bodyFont: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 12 },
+              titleFont: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 12, weight: 'bold' },
+              callbacks: {
+                label: function(context) {
+                  if (context.datasetIndex === 0) return ' Doanh thu: ' + context.raw + ' Tr.đ';
+                  return ' Đăng ký mới: ' + context.raw + ' HV';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: '#E5EEFF', drawBorder: false },
+              ticks: { color: '#4A4455', font: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 11 } }
+            },
+            y: {
+              position: 'left',
+              min: 90,
+              grid: { color: '#E5EEFF', drawBorder: false },
+              ticks: {
+                color: '#4A4455',
+                font: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 11 },
+                callback: function(v) { return v + ' Tr'; }
+              }
+            },
+            y1: {
+              position: 'right',
+              min: 20,
+              grid: { drawOnChartArea: false, drawBorder: false },
+              ticks: {
+                color: '#006172',
+                font: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 11 },
+                callback: function(v) { return v + ' HV'; }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // ─── CHART 2: Package Doughnut ──────────────────────────────
+    function createPackageDonutChart(dataKey) {
+      const ctx = document.getElementById('packageDonutChart');
+      if (!ctx) return;
+      const data = DATA_SETS[dataKey];
+
+      if (packageDonutChart) {
+        packageDonutChart.data.datasets[0].data = data.donut;
+        packageDonutChart.update('active');
+        return;
+      }
+
+      packageDonutChart = new Chart(ctx.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: DONUT_LABELS,
+          datasets: [{
+            data: data.donut,
+            backgroundColor: DONUT_COLORS,
+            borderWidth: 3,
+            borderColor: '#FFFFFF',
+            hoverOffset: 8,
+            hoverBorderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0B1C30',
+              titleColor: '#FFFFFF',
+              bodyColor: '#EFF4FF',
+              borderColor: '#213145',
+              borderWidth: 1,
+              padding: 10,
+              cornerRadius: 8,
+              bodyFont: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 12 },
+              callbacks: {
+                label: function(c) { return ' ' + c.label + ': ' + c.raw + '%'; }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // ─── CHART 3: Check-in Hourly (Bar Chart) ──────────────────
+    function createCheckInHourlyChart(dataKey) {
+      const ctx = document.getElementById('checkInHourlyChart');
+      if (!ctx) return;
+      const data = DATA_SETS[dataKey];
+
+      // Compute bar colors: peak hours get dark navy, others get light blue
+      const barColors = CHECKIN_LABELS.map((label) => {
+        return PEAK_HOURS.includes(label) ? '#0B1C30' : '#A3CAF2';
+      });
+
+      if (checkInHourlyChart) {
+        checkInHourlyChart.data.datasets[0].data = data.checkinHourly;
+        checkInHourlyChart.data.datasets[0].backgroundColor = barColors;
+        checkInHourlyChart.update('active');
+        return;
+      }
+
+      checkInHourlyChart = new Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: CHECKIN_LABELS,
+          datasets: [{
+            label: 'Lượt khách',
+            data: data.checkinHourly,
+            backgroundColor: barColors,
+            borderRadius: 6,
+            borderSkipped: false,
+            maxBarThickness: 40
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0B1C30',
+              titleColor: '#FFFFFF',
+              bodyColor: '#EFF4FF',
+              borderColor: '#213145',
+              borderWidth: 1,
+              padding: 10,
+              cornerRadius: 8,
+              bodyFont: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 12 },
+              callbacks: {
+                label: function(c) { return ' ' + c.raw + ' lượt check-in'; }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false, drawBorder: false },
+              ticks: { color: '#4A4455', font: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 11 } }
+            },
+            y: {
+              grid: { color: '#E5EEFF', drawBorder: false },
+              ticks: { color: '#4A4455', font: { family: "'DM Sans', 'Be Vietnam Pro', sans-serif", size: 11 } }
+            }
+          }
+        }
+      });
+    }
+
+    // ─── MASTER REFRESH FUNCTION ────────────────────────────────
+    function refreshDashboard(dataKey) {
+      updateKPIs(dataKey);
+      createRevenueTrendChart(dataKey);
+      createPackageDonutChart(dataKey);
+      createCheckInHourlyChart(dataKey);
+    }
+
+    // ─── REFRESH BUTTON HANDLER ─────────────────────────────────
+    function handleRefreshClick() {
+      const icon = document.getElementById('refreshIcon');
+      if (icon) {
+        icon.classList.add('spin-animation');
+        icon.addEventListener('animationend', () => {
+          icon.classList.remove('spin-animation');
+        }, { once: true });
+      }
+
+      const periodFilter = document.getElementById('periodFilter');
+      const selectedPeriod = periodFilter ? periodFilter.value : 'current';
+      refreshDashboard(selectedPeriod);
+    }
+
+    // ─── PERIOD FILTER CHANGE HANDLER ───────────────────────────
+    function handlePeriodChange(event) {
+      refreshDashboard(event.target.value);
+    }
+
+    // ─── CTRL+K SEARCH SHORTCUT ─────────────────────────────────
+    function handleGlobalKeyDown(event) {
+      if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+        event.preventDefault();
+        const searchInput = document.getElementById('globalSearchInput');
+        if (searchInput) {
+          searchInput.focus();
+          searchInput.classList.add('search-focused');
+          searchInput.addEventListener('blur', () => {
+            searchInput.classList.remove('search-focused');
+          }, { once: true });
+        }
+      }
+    }
+
+    // ─── SEARCH FILTER FOR ACTIVITIES ───────────────────────────
+    function handleSearchInput(event) {
+      const query = event.target.value.toLowerCase().trim();
+      const activities = document.querySelectorAll('#activitiesList .activity-item');
+
+      activities.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (!query || text.includes(query)) {
+          item.style.display = '';
+          item.style.opacity = '1';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // ─── INIT ───────────────────────────────────────────────────
+    function initDashboard() {
+      if (typeof Chart === 'undefined') {
+        console.warn('Chart.js not loaded yet.');
+        return;
+      }
+
+      // Default font for Chart.js
+      Chart.defaults.font.family = "'DM Sans', 'Be Vietnam Pro', 'Inter', sans-serif";
+
+      // Initialize all charts with default period
+      refreshDashboard('current');
+
+      // Event listeners
+      const refreshBtn = document.getElementById('refreshBtn');
+      if (refreshBtn) refreshBtn.addEventListener('click', handleRefreshClick);
+
+      const periodFilter = document.getElementById('periodFilter');
+      if (periodFilter) periodFilter.addEventListener('change', handlePeriodChange);
+
+      const searchInput = document.getElementById('globalSearchInput');
+      if (searchInput) searchInput.addEventListener('input', handleSearchInput);
+
+      document.addEventListener('keydown', handleGlobalKeyDown);
+    }
+
+    // Wait for DOM + Chart.js
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDashboard);
+    } else {
+      initDashboard();
+    }
+  })();
+  </script>
+</body>
+</html>
