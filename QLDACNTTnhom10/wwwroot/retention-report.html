@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Báo cáo Tỷ lệ Gia hạn Hợp đồng | FitManage GYM &amp; YOGA SUITE</title>
+  <meta name="description" content="TASK-386: Phân tích biến động tái ký hợp đồng, tỷ lệ duy trì CRR và chiến lược giữ chân hội viên - FitManage Suite v4.2" />
+
+  <!-- Google Fonts: Be Vietnam Pro + Inter (Chuẩn Typography Tiếng Việt Web) -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Be Vietnam Pro', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #ccc3d7; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7b7486; }
+
+    /* Sidebar link animation */
+    .sidebar-link { transition: all 0.2s ease; }
+    .sidebar-link:hover { transform: translateX(2px); }
+
+    /* Table row hover lift */
+    .table-row-hover { transition: all 0.15s ease; }
+    .table-row-hover:hover { background-color: rgba(239, 244, 255, 0.5); }
+
+    /* Tab active underline animation */
+    .tab-btn { position: relative; transition: all 0.2s ease; }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #0B1C30;
+      border-radius: 1px;
+    }
+  </style>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#F8F9FF",
+            "surface": "#F8F9FF",
+            "on-surface": "#0B1C30",
+            "on-surface-variant": "#4A4455",
+            "outline": "#7B7486",
+            "outline-variant": "#CCC3D7",
+            "primary": "#0B1C30",
+            "tertiary": "#004855",
+            "tertiary-container": "#006172",
+            "on-tertiary-container": "#57DFFF",
+            "tertiary-fixed": "#ACEDFF",
+            "on-tertiary-fixed": "#001F26",
+            "secondary": "#3A6285",
+            "secondary-fixed": "#CEE5FF",
+            "secondary-fixed-dim": "#A3CAF2",
+            "surface-container-lowest": "#FFFFFF",
+            "surface-container-low": "#EFF4FF",
+            "surface-container": "#E5EEFF",
+            "surface-container-high": "#DCE9FF",
+            "surface-container-highest": "#D3E4FE"
+          },
+          fontFamily: {
+            sans: ['Be Vietnam Pro', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            body: ['Be Vietnam Pro', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            display: ['Be Vietnam Pro', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Chart.js v4 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-[#F8F9FF] font-sans text-[#0B1C30] antialiased">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- LEFT SIDEBAR                                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] text-white">
+    <div class="flex flex-col flex-1 overflow-y-auto">
+      <!-- Logo -->
+      <div class="h-16 px-6 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-[#ACEDFF] flex items-center justify-center shrink-0 shadow-sm">
+          <span class="text-xl font-bold text-[#001F26]">F</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="text-base font-bold text-white tracking-tight leading-tight">FitManage</span>
+          <span class="text-[10px] text-[#A3CAF2] tracking-wider uppercase font-semibold">GYM &amp; YOGA SUITE</span>
+        </div>
+      </div>
+
+      <!-- Menu Section Label -->
+      <div class="px-5 pt-3 pb-1">
+        <span class="text-[11px] uppercase tracking-wider text-[#A3CAF2]/70 font-semibold px-2">Quản trị hệ thống</span>
+      </div>
+
+      <nav class="flex-1 px-3 space-y-1">
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="dashboard.html">
+          <span class="material-symbols-outlined text-[20px]">dashboard</span>
+          <span class="text-sm">Dashboard</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">group</span>
+          <span class="text-sm">Hội viên</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">description</span>
+          <span class="text-sm">Hợp đồng &amp; Gói tập</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">sports</span>
+          <span class="text-sm">Quản lý HLV</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+          <span class="text-sm">Lịch lớp học</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">badge</span>
+          <span class="text-sm">Quầy lễ tân Check-in</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+          <span class="text-sm">Trợ lý AI gia hạn</span>
+        </a>
+        <!-- Active: Báo cáo & Thống kê -->
+        <a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#006172] text-[#57DFFF] font-medium shadow-sm transition-all" href="retention-report.html">
+          <span class="material-symbols-outlined text-[20px]">monitoring</span>
+          <span class="text-sm font-medium">Báo cáo &amp; Thống kê</span>
+        </a>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+          <span class="material-symbols-outlined text-[20px]">settings</span>
+          <span class="text-sm">Cài đặt</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom: Branch + Admin Profile -->
+    <div class="p-3.5 flex flex-col gap-2.5">
+      <div class="bg-[#213145] p-3 rounded-xl border border-white/10 flex flex-col gap-1.5 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#57DFFF]"></span>
+            <span class="text-xs text-white font-medium truncate">Quận 1 • Flagship Studio</span>
+          </div>
+          <span class="material-symbols-outlined text-slate-400 text-[16px]">unfold_more</span>
+        </div>
+        <div class="flex items-center gap-1.5 pt-0.5">
+          <span class="material-symbols-outlined text-emerald-400 text-[15px]">sensors</span>
+          <span class="text-[10px] text-emerald-300 font-bold tracking-wider">8 CỔNG TURNSTILE ON</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between px-2 py-1.5 bg-[#213145]/60 rounded-xl border border-white/5">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-full bg-[#6D28D9] flex items-center justify-center text-white font-bold text-xs shrink-0">CN</div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-xs font-semibold text-white leading-tight truncate">Chí Nguyên</span>
+            <span class="text-[10px] text-[#A3CAF2] leading-none truncate">Quản trị viên / Club Director</span>
+          </div>
+        </div>
+        <button class="p-1 rounded text-slate-400 hover:text-rose-400 hover:bg-white/10 transition-colors" title="Đăng xuất">
+          <span class="material-symbols-outlined text-[18px]">logout</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- RIGHT CONTENT                                              -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="pl-64 flex flex-col min-h-screen">
+
+    <!-- TOP HEADER -->
+    <header class="bg-white border-b border-slate-200/80 px-8 py-3.5 flex items-center justify-between sticky top-0 z-20 shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+          <span class="hover:text-[#0B1C30] cursor-pointer transition-colors">Trang chủ</span>
+          <span class="material-symbols-outlined text-[14px] text-slate-400">chevron_right</span>
+          <span class="hover:text-[#0B1C30] cursor-pointer transition-colors">Báo cáo &amp; Thống kê</span>
+          <span class="material-symbols-outlined text-[14px] text-slate-400">chevron_right</span>
+          <span class="text-[#0B1C30] font-semibold">Tỷ lệ gia hạn hợp đồng</span>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold text-xs border border-emerald-100">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>07:00 – 23:00 Live</span>
+        </div>
+      </div>
+      <!-- Search -->
+      <div class="relative w-80 lg:w-96">
+        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-slate-400">search</span>
+        <input id="globalSearchInput" class="w-full h-9 pl-9 pr-4 rounded-full bg-[#EFF4FF] border border-slate-200 text-xs text-[#0B1C30] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#006172] focus:ring-1 focus:ring-[#006172] transition-colors" placeholder="Tìm kiếm hội viên, hợp đồng, lớp học... (Ctrl+K)" type="text" />
+      </div>
+      <!-- Right Actions -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center rounded-lg bg-[#EFF4FF] p-0.5 text-xs font-semibold">
+          <button class="px-2 py-1 rounded bg-white text-[#0B1C30] shadow-xs">VN</button>
+          <span class="text-slate-300 px-0.5">|</span>
+          <button class="px-2 py-1 text-slate-500 hover:text-[#0B1C30] transition-colors">EN</button>
+        </div>
+        <button class="relative w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 hover:bg-[#EFF4FF] hover:text-[#0B1C30] transition-colors" title="Thông báo">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
+        </button>
+        <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+          <div class="w-8 h-8 rounded-full bg-[#6D28D9] flex items-center justify-center text-white font-bold text-xs shadow-sm">CN</div>
+          <div class="hidden xl:flex flex-col text-left">
+            <span class="text-xs font-bold text-[#0B1C30] leading-tight">Chí Nguyên</span>
+            <span class="text-[10px] text-slate-500 leading-none">Club Director</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ─────────────────────────────────────────────────────── -->
+    <!-- MAIN CONTENT                                            -->
+    <!-- ─────────────────────────────────────────────────────── -->
+    <main class="w-full px-8 py-6 flex flex-col gap-6 max-w-[1600px] mx-auto flex-1">
+
+      <!-- ══ SECTION A: Title + Action Bar ══ -->
+      <section class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+        <div class="flex flex-col gap-1.5">
+          <div class="flex flex-wrap items-center gap-3">
+            <h1 class="text-2xl font-bold text-[#0B1C30] tracking-tight">BÁO CÁO TỶ LỆ GIA HẠN HỢP ĐỒNG (RETENTION RATE)</h1>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#ACEDFF] text-[#001F26] uppercase tracking-wider">
+              TASK-386 • Suite v4.2
+            </span>
+          </div>
+          <p class="text-sm text-slate-500 max-w-2xl">
+            Phân tích biến động tái ký hợp đồng, tỷ lệ duy trì (CRR) và chiến lược giữ chân hội viên nguy cơ rời bỏ (Churn).
+          </p>
+        </div>
+        <!-- Filters & Export -->
+        <div class="flex flex-wrap items-center gap-2.5 self-start lg:self-auto shrink-0">
+          <div class="relative">
+            <select class="appearance-none h-10 pl-3.5 pr-8 bg-white text-[#0B1C30] text-sm font-medium rounded-lg shadow-sm border border-slate-200 focus:outline-none focus:border-[#006172] focus:ring-1 focus:ring-[#006172] cursor-pointer hover:bg-slate-50 transition-colors">
+              <option>Tháng này (Tháng 10/2026)</option>
+              <option>Quý 3/2026 (T7 – T9)</option>
+              <option>Quý 2/2026 (T4 – T6)</option>
+              <option>Cả năm 2026</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px] text-slate-400 pointer-events-none">expand_more</span>
+          </div>
+          <div class="relative">
+            <select class="appearance-none h-10 pl-3.5 pr-8 bg-white text-[#0B1C30] text-sm font-medium rounded-lg shadow-sm border border-slate-200 focus:outline-none focus:border-[#006172] focus:ring-1 focus:ring-[#006172] cursor-pointer hover:bg-slate-50 transition-colors">
+              <option>Tất cả chi nhánh</option>
+              <option>Flagship Quận 1 (Le Lai)</option>
+              <option>Trung Sơn Studio (Bình Chánh)</option>
+              <option>Thảo Điền Wellness Hub</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px] text-slate-400 pointer-events-none">expand_more</span>
+          </div>
+          <button class="inline-flex items-center gap-1.5 h-10 px-3.5 bg-white hover:bg-slate-50 text-[#0B1C30] text-sm font-semibold rounded-lg shadow-sm border border-slate-200 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">download</span>
+            <span>Xuất Excel</span>
+          </button>
+          <button class="inline-flex items-center gap-1.5 h-10 px-4 bg-[#0B1C30] hover:bg-[#1a334f] text-white text-sm font-semibold rounded-lg shadow-md transition-all active:scale-[0.98]">
+            <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+            <span>Xuất PDF</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ══ SECTION B: 4 KPI Metric Cards ══ -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+
+        <!-- Card 1: CRR Rate -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100/80 flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+          <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-50 rounded-full blur-xl pointer-events-none"></div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Tỷ lệ gia hạn chung (CRR)</span>
+            <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">sync_alt</span>
+            </span>
+          </div>
+          <div class="my-3">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-emerald-700 tracking-tight">78.5%</span>
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[11px] font-semibold">
+                <span class="material-symbols-outlined text-[13px]">trending_up</span>
+                +4.2%
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">So với tháng 09/2026 (74.3%)</p>
+          </div>
+          <div>
+            <div class="flex items-center justify-between text-[11px] text-slate-500 mb-1.5">
+              <span>Tiến độ mục tiêu (Kỳ vọng: 80.0%)</span>
+              <span class="font-semibold text-emerald-700">98.1% target</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-[#E5EEFF] overflow-hidden">
+              <div class="h-full rounded-full bg-emerald-600 transition-all duration-700" style="width: 78.5%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Hết hạn trong kỳ -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100/80 flex flex-col justify-between group hover:shadow-md transition-shadow">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Hết hạn trong kỳ</span>
+            <span class="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">event_busy</span>
+            </span>
+          </div>
+          <div class="my-3">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-[#0B1C30] tracking-tight">160</span>
+              <span class="text-sm text-slate-500">hội viên</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Gồm 4 phân nhóm gói dịch vụ</p>
+          </div>
+          <div class="pt-2 border-t border-[#E5EEFF] flex items-center justify-between text-xs">
+            <span class="text-slate-500">Kỳ đánh giá:</span>
+            <span class="font-semibold text-[#3A6285]">01/10 – 31/10/2026</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Đã gia hạn thành công -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100/80 flex flex-col justify-between group hover:shadow-md transition-shadow">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Đã gia hạn thành công</span>
+            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">verified</span>
+            </span>
+          </div>
+          <div class="my-3">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-teal-800 tracking-tight">126</span>
+              <span class="text-sm font-semibold text-teal-700">hợp đồng</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Đạt 342.500.000 đ doanh thu tái ký</p>
+          </div>
+          <div class="pt-2 border-t border-[#E5EEFF] flex items-center justify-between text-xs">
+            <span class="text-slate-500">Tái ký đúng hạn:</span>
+            <span class="font-semibold text-teal-800">114 HV (90.4%)</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Churn -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100/80 flex flex-col justify-between group hover:shadow-md transition-shadow">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Hội viên rời đi (Churn)</span>
+            <span class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">person_off</span>
+            </span>
+          </div>
+          <div class="my-3">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold text-rose-600 tracking-tight">34</span>
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 text-[11px] font-bold">
+                21.5% Churn Rate
+              </span>
+            </div>
+            <p class="text-xs text-rose-600 mt-1 font-medium">Cần kích hoạt chiến dịch hồi phục (Task #373)</p>
+          </div>
+          <div class="pt-2 border-t border-[#E5EEFF] flex items-center justify-between text-xs">
+            <span class="text-slate-500">Tiềm năng khôi phục:</span>
+            <span class="font-semibold text-[#006172]">18 khách (53%)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION C: Charts Grid (65% + 35%) ══ -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Chart 1: Grouped Bar - Gia hạn vs Rời đi -->
+        <div class="lg:col-span-8 bg-white rounded-2xl p-6 shadow-sm border border-slate-100/80 flex flex-col">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E5EEFF]">
+            <div>
+              <h2 class="text-base font-bold text-[#0B1C30]">So sánh Hợp đồng Gia hạn vs Rời đi theo tháng</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Dữ liệu theo dõi 10 tháng đầu năm 2026 (Tháng 1 đến Tháng 10)</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-medium shrink-0">
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded bg-[#0B1C30]"></span>
+                <span class="text-slate-700">Đã gia hạn (CRR)</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded bg-[#f59e0b]"></span>
+                <span class="text-slate-500">Rời đi (Churn)</span>
+              </div>
+            </div>
+          </div>
+          <div class="relative w-full h-[320px] pt-4 flex-1">
+            <canvas id="retentionMonthlyChart"></canvas>
+          </div>
+          <div class="pt-4 mt-2 border-t border-[#E5EEFF] flex flex-wrap items-center justify-between text-xs text-slate-500">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-[#006172]">insights</span>
+              <span>Tỷ lệ duy trì trung bình 10 tháng đạt <strong class="text-[#0B1C30]">76.8%</strong>, xu hướng tăng dần đều kể từ Quý 2.</span>
+            </div>
+            <span class="text-[11px] font-semibold text-[#3A6285] uppercase">Cập nhật lúc 09:30 AM hôm nay</span>
+          </div>
+        </div>
+
+        <!-- Chart 2: Donut - Tỷ lệ gia hạn theo gói tập -->
+        <div class="lg:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-100/80 flex flex-col">
+          <div class="pb-3 border-b border-[#E5EEFF]">
+            <h2 class="text-base font-bold text-[#0B1C30]">Tỷ lệ gia hạn theo gói tập</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Cơ cấu khách hàng tái ký kỳ Tháng 10/2026</p>
+          </div>
+          <!-- Donut with center text -->
+          <div class="relative w-full h-[210px] my-auto flex items-center justify-center py-4">
+            <canvas id="retentionPackageChart"></canvas>
+            <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">TỔNG TÁI KÝ</span>
+              <span class="text-2xl font-bold text-[#0B1C30] leading-tight">126</span>
+              <span class="text-xs text-emerald-700 font-semibold">78.5% tỉ lệ</span>
+            </div>
+          </div>
+          <!-- Legend -->
+          <div class="space-y-2.5 pt-3 border-t border-[#E5EEFF]">
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#0B1C30]"></span>
+                <span class="font-semibold text-[#0B1C30]">VIP Diamond (12 Tháng)</span>
+              </div>
+              <span class="font-bold text-[#0B1C30]">45% <span class="text-slate-500 font-normal">(57 HV)</span></span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#006172]"></span>
+                <span class="font-semibold text-[#0B1C30]">Yoga Pure Studio (6T)</span>
+              </div>
+              <span class="font-bold text-[#0B1C30]">30% <span class="text-slate-500 font-normal">(38 HV)</span></span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#57DFFF]"></span>
+                <span class="font-semibold text-[#0B1C30]">Classic Gym / 1-3 Tháng</span>
+              </div>
+              <span class="font-bold text-[#0B1C30]">25% <span class="text-slate-500 font-normal">(31 HV)</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION D: Churn Recovery Table ══ -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-100/80 overflow-hidden flex flex-col">
+
+        <!-- Table Header Toolbar -->
+        <div class="p-6 border-b border-[#E5EEFF] flex flex-col gap-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h2 class="text-base font-bold text-[#0B1C30]">Danh sách Hội viên Hết hạn &amp; Cảnh báo Rời đi</h2>
+                <span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 text-[11px] font-bold border border-rose-100">Churn Recovery Plan</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">Phân loại khách hàng theo rủi ro để nhân viên tư vấn triển khai ưu đãi kích hoạt lại</p>
+            </div>
+            <button class="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-[#006172] hover:bg-[#004855] text-white text-sm font-semibold shadow-sm transition-all active:scale-[0.98] shrink-0" type="button">
+              <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+              <span>Chạy AI Kích Hoạt Tự Động</span>
+            </button>
+          </div>
+
+          <!-- Filter Tabs + Search -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+            <div class="flex items-center gap-1 bg-[#EFF4FF] p-1 rounded-xl overflow-x-auto" id="filterTabs">
+              <button class="tab-btn active px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-white text-[#0B1C30] shadow-xs" data-filter="all" type="button">
+                Tất cả (160)
+              </button>
+              <button class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors text-rose-700 hover:bg-white/60 flex items-center gap-1" data-filter="churn" type="button">
+                <span>Nguy cơ cao / Đã rời đi</span>
+                <span class="px-1.5 py-px rounded-full bg-rose-100 text-[10px] font-bold">34</span>
+              </button>
+              <button class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors text-amber-800 hover:bg-white/60 flex items-center gap-1" data-filter="hotlead" type="button">
+                <span>Đang cân nhắc (Hot Lead)</span>
+                <span class="px-1.5 py-px rounded-full bg-amber-100 text-[10px] font-bold">18</span>
+              </button>
+              <button class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors text-emerald-800 hover:bg-white/60 flex items-center gap-1" data-filter="renewed" type="button">
+                <span>Đã gia hạn thành công</span>
+                <span class="px-1.5 py-px rounded-full bg-emerald-100 text-[10px] font-bold">126</span>
+              </button>
+            </div>
+            <div class="relative w-full sm:w-72 shrink-0">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-slate-400">search</span>
+              <input id="tableSearchInput" class="w-full h-9 pl-9 pr-3 text-xs bg-[#EFF4FF] rounded-lg border-0 focus:ring-2 focus:ring-[#006172] text-[#0B1C30] placeholder:text-slate-400" placeholder="Tìm theo mã HV, tên, SĐT..." type="text" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="w-full overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[1100px]">
+            <thead>
+              <tr class="bg-[#EFF4FF]/60 text-slate-500 text-[11px] font-bold uppercase tracking-wider">
+                <th class="py-3 px-5">Mã HV</th>
+                <th class="py-3 px-4">Hội viên &amp; Liên hệ</th>
+                <th class="py-3 px-4">Gói tập cũ</th>
+                <th class="py-3 px-4">Ngày hết hạn</th>
+                <th class="py-3 px-4">Tần suất tập &amp; Lý do ghi nhận</th>
+                <th class="py-3 px-4">Trạng thái</th>
+                <th class="py-3 px-5 text-right">Hành động giữ chân</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#E5EEFF] text-xs text-[#0B1C30]" id="memberTableBody">
+
+              <!-- Row 1: Churn -->
+              <tr class="table-row-hover" data-status="churn">
+                <td class="py-3.5 px-5 font-semibold text-[#3A6285]">#HV-1082</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#ACEDFF] text-[#001F26] font-semibold text-xs flex items-center justify-center shrink-0">LN</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-semibold text-[#0B1C30]">Lê Ngọc Thảo</span>
+                      <span class="text-[11px] text-slate-500">0903.118.234 • thaoln@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-semibold">VIP Diamond (12T)</span>
+                  <div class="text-[11px] text-slate-500">PT 1:1 Elite kèm theo</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-rose-700">12/10/2026</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex flex-col">
+                    <span class="text-rose-600 font-semibold">1 buổi/tháng qua (Rất thấp)</span>
+                    <span class="text-[11px] text-slate-500">Bận công tác dài hạn tại Singapore</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 text-[11px] font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                    Đã rời đi (Churn)
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <div class="inline-flex items-center gap-1.5">
+                    <button class="inline-flex items-center gap-1 h-8 px-2.5 bg-[#006172] hover:bg-[#004855] text-white rounded-lg text-[11px] font-semibold shadow-xs transition-colors" type="button">
+                      <span class="material-symbols-outlined text-[14px]">mail</span>
+                      Gửi Voucher 10%
+                    </button>
+                    <button class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-[#EFF4FF] hover:text-[#0B1C30] transition-colors" title="Gọi điện chăm sóc" type="button">
+                      <span class="material-symbols-outlined text-[18px]">call</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 2: Hot Lead -->
+              <tr class="table-row-hover" data-status="hotlead">
+                <td class="py-3.5 px-5 font-semibold text-[#3A6285]">#HV-2041</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#CEE5FF] text-[#001F26] font-semibold text-xs flex items-center justify-center shrink-0">TH</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-semibold text-[#0B1C30]">Trần Minh Hoàng</span>
+                      <span class="text-[11px] text-slate-500">0918.442.901 • hoang.tran@outlook.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-semibold">Yoga Pure Studio (6T)</span>
+                  <div class="text-[11px] text-slate-500">Chi nhánh Quận 1</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-amber-700">18/10/2026</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex flex-col">
+                    <span class="text-amber-800 font-semibold">3 buổi/tuần (Đều đặn)</span>
+                    <span class="text-[11px] text-slate-500">Đang so sánh học phí với trung tâm khác</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 text-[11px] font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                    Đang cân nhắc (Hot Lead)
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <div class="inline-flex items-center gap-1.5">
+                    <button class="inline-flex items-center gap-1 h-8 px-2.5 bg-[#0B1C30] hover:bg-[#1a334f] text-white rounded-lg text-[11px] font-semibold shadow-xs transition-colors" type="button">
+                      <span class="material-symbols-outlined text-[14px]">local_offer</span>
+                      Tạo Deal Giữ Chân
+                    </button>
+                    <button class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-[#EFF4FF] hover:text-[#0B1C30] transition-colors" title="Xem nhật ký check-in" type="button">
+                      <span class="material-symbols-outlined text-[18px]">history</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 3: Renewed -->
+              <tr class="table-row-hover" data-status="renewed">
+                <td class="py-3.5 px-5 font-semibold text-[#3A6285]">#HV-0923</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-800 font-semibold text-xs flex items-center justify-center shrink-0">NH</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-semibold text-[#0B1C30]">Nguyễn Thu Hà</span>
+                      <span class="text-[11px] text-slate-500">0987.321.654 • thuha.yoga@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-semibold">VIP Diamond (12T)</span>
+                  <div class="text-[11px] text-slate-500">Đã tái ký sang năm 2027</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-emerald-700">05/10/2026</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex flex-col">
+                    <span class="text-emerald-700 font-semibold">4 buổi/tuần (Tích cực)</span>
+                    <span class="text-[11px] text-slate-500">Hài lòng dịch vụ Sauna &amp; PT</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    Đã gia hạn thành công
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg inline-block">
+                    Hợp đồng #HD-2027-89
+                  </span>
+                </td>
+              </tr>
+
+              <!-- Row 4: Churn -->
+              <tr class="table-row-hover" data-status="churn">
+                <td class="py-3.5 px-5 font-semibold text-[#3A6285]">#HV-3110</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-800 font-semibold text-xs flex items-center justify-center shrink-0">VK</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-semibold text-[#0B1C30]">Vũ Đăng Khoa</span>
+                      <span class="text-[11px] text-slate-500">0932.771.889 • dangkhoa.arch@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-semibold">Classic Gym (3 Tháng)</span>
+                  <div class="text-[11px] text-slate-500">Chi nhánh Trung Sơn</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-rose-700">20/10/2026</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex flex-col">
+                    <span class="text-rose-600 font-semibold">0 buổi trong 3 tuần</span>
+                    <span class="text-[11px] text-slate-500">Chuyển nhà sang Quận 2, xa cơ sở tập</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 text-[11px] font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                    Đã rời đi (Churn)
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <button class="inline-flex items-center gap-1 h-8 px-2.5 bg-[#EFF4FF] hover:bg-[#E5EEFF] text-[#0B1C30] rounded-lg text-[11px] font-semibold transition-colors" type="button">
+                    <span class="material-symbols-outlined text-[14px]">swap_horiz</span>
+                    Đề xuất CN Thảo Điền
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 5: Hot Lead -->
+              <tr class="table-row-hover" data-status="hotlead">
+                <td class="py-3.5 px-5 font-semibold text-[#3A6285]">#HV-1765</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-amber-100 text-amber-800 font-semibold text-xs flex items-center justify-center shrink-0">ĐP</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-semibold text-[#0B1C30]">Đỗ Phương Linh</span>
+                      <span class="text-[11px] text-slate-500">0971.229.012 • linh.dophuong@vng.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-semibold">Pilates &amp; Yoga (6T)</span>
+                  <div class="text-[11px] text-slate-500">HLV Trực tiếp: Celine Vũ</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-amber-700">25/10/2026</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex flex-col">
+                    <span class="text-amber-800 font-semibold">2 buổi/tuần</span>
+                    <span class="text-[11px] text-slate-500">Yêu cầu đổi khung giờ tập buổi trưa</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 text-[11px] font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                    Đang cân nhắc (Hot Lead)
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <button class="inline-flex items-center gap-1 h-8 px-2.5 bg-[#006172] hover:bg-[#004855] text-white rounded-lg text-[11px] font-semibold shadow-xs transition-colors" type="button">
+                    <span class="material-symbols-outlined text-[14px]">mail</span>
+                    Gửi Offer Lớp Trưa
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 6: Renewed -->
+              <tr class="table-row-hover" data-status="renewed">
+                <td class="py-3.5 px-5 font-semibold text-[#3A6285]">#HV-0844</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-800 font-semibold text-xs flex items-center justify-center shrink-0">PM</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-semibold text-[#0B1C30]">Phạm Mạnh Cường</span>
+                      <span class="text-[11px] text-slate-500">0909.882.115 • cuongpm.fin@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-semibold">VIP Diamond (12T)</span>
+                  <div class="text-[11px] text-slate-500">Đã gia hạn 2 năm liên tiếp</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-emerald-700">02/10/2026</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex flex-col">
+                    <span class="text-emerald-700 font-semibold">5 buổi/tuần (Rất tích cực)</span>
+                    <span class="text-[11px] text-slate-500">Hài lòng với Master Trainer Tuấn Anh</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    Đã gia hạn thành công
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg inline-block">
+                    Hợp đồng #HD-2027-14
+                  </span>
+                </td>
+              </tr>
+
+              <!-- Row 7: Churn -->
+              <tr class="table-row-hover" data-status="churn">
+                <td class="py-3.5 px-5 font-semibold text-[#3A6285]">#HV-2908</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-rose-100 text-rose-800 font-semibold text-xs flex items-center justify-center shrink-0">HB</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-semibold text-[#0B1C30]">Hoàng Bảo Trâm</span>
+                      <span class="text-[11px] text-slate-500">0945.612.389 • baotram.h@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-semibold">GroupX &amp; Zumba (6T)</span>
+                  <div class="text-[11px] text-slate-500">Chi nhánh Quận 1</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-rose-700">28/10/2026</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex flex-col">
+                    <span class="text-rose-600 font-semibold">Giảm sút (1 buổi/2 tuần)</span>
+                    <span class="text-[11px] text-slate-500">Chi phí gia hạn tăng so với hợp đồng cũ</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 text-[11px] font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                    Đã rời đi (Churn)
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <div class="inline-flex items-center gap-1.5">
+                    <button class="inline-flex items-center gap-1 h-8 px-2.5 bg-[#006172] hover:bg-[#004855] text-white rounded-lg text-[11px] font-semibold shadow-xs transition-colors" type="button">
+                      <span class="material-symbols-outlined text-[14px]">mail</span>
+                      Gửi Voucher 10%
+                    </button>
+                    <button class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-[#EFF4FF] hover:text-[#0B1C30] transition-colors" title="Xem ghi chú" type="button">
+                      <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Footer -->
+        <div class="p-4 px-6 border-t border-[#E5EEFF] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500">
+          <div>
+            Hiển thị <span class="font-semibold text-[#0B1C30]">1 – 7</span> trên tổng số <span class="font-semibold text-[#0B1C30]">34</span> hội viên cần chăm sóc
+          </div>
+          <div class="flex items-center gap-1">
+            <button class="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 text-slate-400 hover:bg-[#EFF4FF] transition-colors disabled:opacity-40" disabled type="button">
+              <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+            </button>
+            <button class="w-8 h-8 rounded-lg font-semibold bg-[#0B1C30] text-white flex items-center justify-center shadow-xs text-xs" type="button">1</button>
+            <button class="w-8 h-8 rounded-lg font-semibold hover:bg-[#EFF4FF] text-[#0B1C30] flex items-center justify-center transition-colors text-xs" type="button">2</button>
+            <button class="w-8 h-8 rounded-lg font-semibold hover:bg-[#EFF4FF] text-[#0B1C30] flex items-center justify-center transition-colors text-xs" type="button">3</button>
+            <button class="w-8 h-8 rounded-lg font-semibold hover:bg-[#EFF4FF] text-[#0B1C30] flex items-center justify-center transition-colors text-xs" type="button">4</button>
+            <button class="w-8 h-8 rounded-lg font-semibold hover:bg-[#EFF4FF] text-[#0B1C30] flex items-center justify-center transition-colors text-xs" type="button">5</button>
+            <button class="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 text-[#0B1C30] hover:bg-[#EFF4FF] transition-colors" type="button">
+              <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- CHART.JS INITIALIZATION & INTERACTIVE LOGIC               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Default font for all Chart.js instances
+    Chart.defaults.font.family = "'Be Vietnam Pro', 'Inter', sans-serif";
+
+    // ─── CHART 1: Grouped Bar Chart ────────────────────────────
+    function initBarChart() {
+      const el = document.getElementById('retentionMonthlyChart');
+      if (!el) return;
+
+      new Chart(el.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10'],
+          datasets: [
+            {
+              label: 'Đã gia hạn (HĐ)',
+              data: [98, 104, 92, 115, 110, 122, 118, 130, 120, 126],
+              backgroundColor: '#0B1C30',
+              borderRadius: 4,
+              barPercentage: 0.7,
+              categoryPercentage: 0.65
+            },
+            {
+              label: 'Rời đi / Churn (HĐ)',
+              data: [35, 38, 42, 32, 29, 31, 30, 28, 33, 34],
+              backgroundColor: '#f59e0b',
+              borderRadius: 4,
+              barPercentage: 0.7,
+              categoryPercentage: 0.65
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0B1C30',
+              titleColor: '#fff',
+              bodyColor: '#EFF4FF',
+              padding: 12,
+              cornerRadius: 8,
+              bodyFont: { family: "'Be Vietnam Pro', 'Inter', sans-serif", size: 12 },
+              titleFont: { family: "'Be Vietnam Pro', 'Inter', sans-serif", size: 12, weight: 'bold' },
+              callbacks: {
+                label: function(ctx) {
+                  const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                  return ' ' + ctx.dataset.label + ': ' + ctx.raw + ' hợp đồng';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false, drawBorder: false },
+              ticks: { color: '#4A4455', font: { size: 11 } }
+            },
+            y: {
+              grid: { color: '#E5EEFF', drawBorder: false },
+              ticks: { color: '#4A4455', font: { size: 11 }, stepSize: 30 },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    // ─── CHART 2: Doughnut Chart ───────────────────────────────
+    function initDonutChart() {
+      const el = document.getElementById('retentionPackageChart');
+      if (!el) return;
+
+      new Chart(el.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['VIP Diamond (12T)', 'Yoga Pure Studio (6T)', 'Classic Gym / 1-3T'],
+          datasets: [{
+            data: [45, 30, 25],
+            backgroundColor: ['#0B1C30', '#006172', '#57DFFF'],
+            borderWidth: 3,
+            borderColor: '#ffffff',
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '74%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0B1C30',
+              titleColor: '#fff',
+              bodyColor: '#EFF4FF',
+              padding: 10,
+              cornerRadius: 8,
+              bodyFont: { family: "'Be Vietnam Pro', 'Inter', sans-serif", size: 12 },
+              callbacks: {
+                label: function(ctx) {
+                  const hvMap = { 0: 57, 1: 38, 2: 31 };
+                  return ' ' + ctx.label + ': ' + ctx.raw + '% (' + hvMap[ctx.dataIndex] + ' HV)';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // ─── FILTER TABS LOGIC ─────────────────────────────────────
+    function initFilterTabs() {
+      const tabContainer = document.getElementById('filterTabs');
+      const rows = document.querySelectorAll('#memberTableBody tr[data-status]');
+      if (!tabContainer || !rows.length) return;
+
+      tabContainer.addEventListener('click', function(e) {
+        const btn = e.target.closest('[data-filter]');
+        if (!btn) return;
+
+        // Update active tab styling
+        tabContainer.querySelectorAll('.tab-btn').forEach(t => {
+          t.classList.remove('active', 'bg-white', 'shadow-xs', 'text-[#0B1C30]');
+        });
+        btn.classList.add('active', 'bg-white', 'shadow-xs', 'text-[#0B1C30]');
+
+        const filter = btn.dataset.filter;
+
+        rows.forEach(row => {
+          if (filter === 'all' || row.dataset.status === filter) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // ─── TABLE SEARCH LOGIC ────────────────────────────────────
+    function initTableSearch() {
+      const input = document.getElementById('tableSearchInput');
+      const rows = document.querySelectorAll('#memberTableBody tr[data-status]');
+      if (!input || !rows.length) return;
+
+      input.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = (!query || text.includes(query)) ? '' : 'none';
+        });
+      });
+    }
+
+    // ─── CTRL+K SEARCH SHORTCUT ────────────────────────────────
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        const searchInput = document.getElementById('globalSearchInput');
+        if (searchInput) searchInput.focus();
+      }
+    });
+
+    // ─── INIT ALL ──────────────────────────────────────────────
+    function init() {
+      if (typeof Chart === 'undefined') {
+        setTimeout(init, 100);
+        return;
+      }
+      initBarChart();
+      initDonutChart();
+      initFilterTabs();
+      initTableSearch();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
+</body>
+</html>

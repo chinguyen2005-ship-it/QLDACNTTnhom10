@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Thời khóa biểu Yoga &amp; Gym (Class Timetable) - FitManage GYM &amp; YOGA SUITE</title>
+
+  <!-- Typography & Icons -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <!-- Tailwind CSS & Design System Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-high": "#dce9ff",
+            "on-primary": "#ffffff",
+            "surface-container-low": "#eff4ff",
+            "surface-container-highest": "#d3e4fe",
+            "on-primary-fixed": "#250059",
+            "primary": "#5300b7",
+            "error-container": "#ffdad6",
+            "inverse-surface": "#213145",
+            "inverse-on-surface": "#eaf1ff",
+            "secondary-fixed-dim": "#a3caf2",
+            "on-error": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#004e5c",
+            "secondary": "#3a6285",
+            "on-surface-variant": "#4a4455",
+            "surface-tint": "#7331df",
+            "tertiary-container": "#006172",
+            "primary-fixed": "#ebddff",
+            "surface-variant": "#d3e4fe",
+            "primary-fixed-dim": "#d3bbff",
+            "tertiary-fixed": "#acedff",
+            "outline-variant": "#ccc3d7",
+            "on-surface": "#0b1c30",
+            "on-primary-container": "#dac5ff",
+            "surface-dim": "#cbdbf5",
+            "background": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#d3bbff",
+            "on-secondary-fixed": "#001d32",
+            "outline": "#7b7486",
+            "tertiary": "#004855",
+            "on-background": "#0b1c30",
+            "on-tertiary-container": "#57dfff",
+            "surface": "#f8f9ff",
+            "on-secondary-container": "#355d80",
+            "secondary-container": "#aed6fe",
+            "on-error-container": "#93000a",
+            "surface-bright": "#f8f9ff",
+            "secondary-fixed": "#cee5ff",
+            "on-primary-fixed-variant": "#5b00c5",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed": "#001f26",
+            "on-secondary-fixed-variant": "#1f4a6b",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed-dim": "#4cd7f6",
+            "surface-container": "#e5eeff",
+            "primary-container": "#6d28d9"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin": "2rem",
+            "space-xl": "2rem"
+          },
+          fontFamily: {
+            "label-sm": ["DM Sans"],
+            "body-lg": ["DM Sans"],
+            "headline-sm": ["DM Sans"],
+            "headline-lg": ["DM Sans"],
+            "body-md": ["DM Sans"],
+            "body-sm": ["DM Sans"],
+            "headline-md": ["DM Sans"],
+            "title-lg": ["DM Sans"],
+            "title-md": ["DM Sans"],
+            "metric-display": ["DM Sans"],
+            "headline-xl": ["DM Sans"],
+            "label-md": ["DM Sans"]
+          },
+          fontSize: {
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "600" }],
+            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "headline-lg": ["30px", { lineHeight: "38px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }],
+            "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "title-lg": ["16px", { lineHeight: "24px", letterSpacing: "-0.005em", fontWeight: "600" }],
+            "title-md": ["14px", { lineHeight: "20px", fontWeight: "600" }],
+            "metric-display": ["32px", { lineHeight: "38px", letterSpacing: "-0.03em", fontWeight: "700" }],
+            "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.025em", fontWeight: "700" }],
+            "label-md": ["13px", { lineHeight: "18px", fontWeight: "500" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="/css/schedules.css"/>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased">
+
+  <!-- =========================================================================
+       1. SIDEBAR NAVIGATION (#0B2238 Dark Navy)
+       ========================================================================= -->
+  <aside class="fixed left-0 top-0 h-full w-64 bg-[#0B2238] border-l-2 border-[#818cf8] border-r border-white/10 z-50 flex flex-col justify-between select-none shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col">
+      <!-- App Brand Logo -->
+      <div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-white/10">
+        <div class="w-9 h-9 rounded-lg bg-tertiary-fixed-dim flex items-center justify-center shrink-0">
+          <span class="font-headline-sm text-headline-sm font-bold text-[#0B2238]">F</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="font-title-md text-title-md text-white font-bold tracking-tight truncate leading-tight">FitManage</span>
+          <span class="font-label-sm text-label-sm text-secondary-fixed-dim tracking-wider uppercase truncate">GYM &amp; YOGA SUITE</span>
+        </div>
+      </div>
+
+      <!-- Main Navigation Menu (8 Chức năng chuẩn theo thiết kế) -->
+      <nav class="flex flex-col gap-1 px-space-sm mt-space-sm">
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bang-dieu-khien" href="/index.html">
+          <span class="material-symbols-outlined text-[20px] shrink-0">grid_view</span>
+          <span class="font-title-md text-title-md truncate">Bảng điều khiển</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quan-ly-hoi-vien" href="javascript:void(0)" onclick="handleNavFeature('Quản lý hội viên')">
+          <span class="material-symbols-outlined text-[20px] shrink-0">group</span>
+          <span class="font-title-md text-title-md truncate">Quản lý hội viên</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="hop-dong-va-goi-tap" href="/packages.html">
+          <span class="material-symbols-outlined text-[20px] shrink-0">loyalty</span>
+          <span class="font-title-md text-title-md truncate">Hợp đồng &amp; Gói tập</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quan-ly-huan-luyen-vien" href="/trainers.html">
+          <span class="material-symbols-outlined text-[20px] shrink-0">fitness_center</span>
+          <span class="font-title-md text-title-md truncate">Quản lý HLV</span>
+        </a>
+        <!-- ACTIVE TAB: Lịch lớp học (Chuẩn theo ảnh thiết kế) -->
+        <a aria-current="page" class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg transition-colors bg-tertiary-container text-white font-bold shadow-xs" data-path="lich-lop-hoc" href="/schedules.html">
+          <span class="material-symbols-outlined text-[20px] shrink-0 text-white">calendar_month</span>
+          <span class="font-title-md text-title-md truncate">Lịch lớp học</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quay-le-tan-check-in" href="javascript:void(0)" onclick="handleNavFeature('Quầy lễ tân Check-in')">
+          <span class="material-symbols-outlined text-[20px] shrink-0">how_to_reg</span>
+          <span class="font-title-md text-title-md truncate">Quầy lễ tân Check-in</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="tro-ly-ai-gia-han" href="javascript:void(0)" onclick="handleNavFeature('Trợ lý AI gia hạn')">
+          <span class="material-symbols-outlined text-[20px] shrink-0">auto_awesome</span>
+          <span class="font-title-md text-title-md truncate">Trợ lý AI gia hạn</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bao-cao-doanh-thu" href="javascript:void(0)" onclick="handleNavFeature('Báo cáo doanh thu')">
+          <span class="material-symbols-outlined text-[20px] shrink-0">bar_chart</span>
+          <span class="font-title-md text-title-md truncate">Báo cáo doanh thu</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Sidebar IOT & Settings -->
+    <div class="p-space-sm flex flex-col gap-space-xs border-t border-white/10">
+      <div class="bg-white/5 rounded-xl p-3 flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+            <span class="font-label-md text-label-md text-white font-medium truncate">Quận 1 • Flagship Studio</span>
+          </div>
+          <span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-white">unfold_more</span>
+        </div>
+        <div class="flex items-center gap-1.5 pt-1">
+          <span class="material-symbols-outlined text-emerald-400 text-[16px]">sensors</span>
+          <span class="font-label-sm text-label-sm text-emerald-300 font-semibold">8 CỔNG TURNSTILE ON</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between px-2 py-1">
+        <a class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors" data-path="cai-dat-he-thong" href="#">
+          <span class="material-symbols-outlined text-[20px]">settings</span>
+          <span class="font-body-sm text-body-sm">Cài đặt hệ thống</span>
+        </a>
+        <span class="font-label-sm text-label-sm text-slate-500">v2.4.0</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       2. TOP FIXED HEADER
+       ========================================================================= -->
+  <div class="pl-64">
+    <header class="fixed top-0 left-64 right-0 z-40 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-outline-variant/30">
+      <div class="h-16 px-space-lg flex items-center justify-between gap-space-md">
+        <!-- Breadcrumb & Live Status -->
+        <div class="flex items-center gap-space-md min-w-0">
+          <div class="flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface-variant truncate">
+            <a href="/index.html" class="hover:text-on-surface cursor-pointer">Trang chủ</a>
+            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+            <span class="text-on-surface font-medium truncate">Quản lý Lịch lớp học</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="font-label-sm text-label-sm font-semibold">07:00 – 23:00 Live</span>
+          </div>
+        </div>
+
+        <!-- Search Bar, Lang Toggle, Notifications, Profile -->
+        <div class="flex items-center gap-space-sm">
+          <div class="relative hidden md:block w-72 lg:w-96">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant">search</span>
+            <input class="w-full h-10 pl-9 pr-3 rounded-full bg-surface-container-low text-on-surface font-body-sm text-body-sm placeholder:text-on-surface-variant/70 focus:outline-none focus:bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]" placeholder="Tìm kiếm hội viên, mã HLV, lớp học..." type="text"/>
+          </div>
+          <button class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors">
+            <span class="font-label-sm text-label-sm font-bold text-on-surface">VN</span>
+            <span class="font-label-sm text-label-sm text-outline-variant">|</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">EN</span>
+          </button>
+          <button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined text-[20px]">notifications</span>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-white"></span>
+          </button>
+          <div class="flex items-center gap-2 pl-2 border-l border-outline-variant/30">
+            <div class="w-8 h-8 rounded-full bg-[#0B2238] flex items-center justify-center shrink-0 text-white font-bold text-xs">
+              AT
+            </div>
+            <div class="hidden xl:flex flex-col text-left">
+              <span class="font-title-md text-title-md text-on-surface font-semibold leading-tight">Admin Thana</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Club Director</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         3. MAIN CONTENT
+         ========================================================================= -->
+    <main class="w-full pt-16 bg-surface min-h-screen">
+      <div class="flex flex-col w-full">
+        <div class="p-space-lg flex flex-col gap-space-lg">
+
+          <!-- Breadcrumb & Page Header -->
+          <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+            <div class="flex flex-col gap-1 min-w-0">
+              <div class="flex items-center gap-2 font-label-sm text-label-sm text-secondary tracking-wider uppercase font-bold">
+                <a href="/index.html" class="hover:text-on-surface cursor-pointer transition-colors">Trang chủ</a>
+                <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+                <span class="text-tertiary font-bold">Lịch lớp học &amp; Đặt chỗ</span>
+              </div>
+              <div class="flex items-center gap-3 flex-wrap">
+                <h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+                  Thời khóa biểu Yoga &amp; Gym (Class Timetable)
+                </h1>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold shadow-sm">
+                  <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                  Suite v4.2
+                </span>
+              </div>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+                Lịch tập theo tuần, phòng tập, tỷ lệ lấp đầy chỗ và công cụ xếp lịch AI tự động.
+              </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-space-sm shrink-0 flex-wrap">
+              <a href="/class-booking.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-title-md text-title-md transition-all shadow-md hover:shadow-lg active:scale-95">
+                <span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+                <span>Đăng ký lớp cho hội viên</span>
+              </a>
+              <button id="btnAiRecommend" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-title-md text-title-md transition-all shadow-md hover:shadow-lg active:scale-95">
+                <span class="material-symbols-outlined text-[20px] text-yellow-300">auto_awesome</span>
+                <span>✨ Đề xuất lịch AI</span>
+              </button>
+              <button onclick="openCreateClassModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#0B2238] hover:bg-[#13304d] text-white font-title-md text-title-md transition-all shadow-md hover:shadow-lg active:scale-95">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                <span>+ Mở lớp mới</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Performance Strip / Overview Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+            <!-- Card 1: Tổng số lớp -->
+            <div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between border border-outline-variant/30">
+              <div class="flex flex-col">
+                <span class="font-label-md text-label-md text-secondary font-bold">Tổng số lớp tuần này</span>
+                <span id="kpiTotalClasses" class="font-metric-display text-metric-display text-on-surface font-bold">54</span>
+                <span class="font-label-sm text-label-sm text-emerald-600 font-semibold flex items-center gap-1 mt-0.5">
+                  <span class="material-symbols-outlined text-[14px]">trending_up</span> +6 lớp so với tuần trước
+                </span>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[26px]">calendar_view_week</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Tỷ lệ lấp đầy -->
+            <div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between border border-outline-variant/30">
+              <div class="flex flex-col">
+                <span class="font-label-md text-label-md text-secondary font-bold">Tỷ lệ lấp đầy bình quân</span>
+                <span id="kpiFillRate" class="font-metric-display text-metric-display text-on-surface font-bold">84.2%</span>
+                <span class="font-label-sm text-label-sm text-emerald-600 font-semibold flex items-center gap-1 mt-0.5">
+                  <span class="material-symbols-outlined text-[14px]">check_circle</span> Mức tối ưu phòng tập
+                </span>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <span class="material-symbols-outlined text-[26px]">pie_chart</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Lớp kín chỗ -->
+            <div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between border border-outline-variant/30">
+              <div class="flex flex-col">
+                <span class="font-label-md text-label-md text-secondary font-bold">Lớp kín chỗ (Full 100%)</span>
+                <span id="kpiFullClasses" class="font-metric-display text-metric-display text-on-surface font-bold">18</span>
+                <span class="font-label-sm text-label-sm text-amber-700 font-semibold flex items-center gap-1 mt-0.5">
+                  <span class="material-symbols-outlined text-[14px]">group_add</span> 29 khách đang chờ waitlist
+                </span>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
+                <span class="material-symbols-outlined text-[26px]">event_seat</span>
+              </div>
+            </div>
+
+            <!-- Card 4: HLV phục vụ -->
+            <div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between border border-outline-variant/30">
+              <div class="flex flex-col">
+                <span class="font-label-md text-label-md text-secondary font-bold">HLV phục vụ trong ngày</span>
+                <span class="font-metric-display text-metric-display text-on-surface font-bold">12 / 14</span>
+                <span class="font-label-sm text-label-sm text-secondary font-semibold flex items-center gap-1 mt-0.5">
+                  <span class="material-symbols-outlined text-[14px]">health_and_safety</span> 2 HLV nghỉ phép tuần
+                </span>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[26px]">sports_gymnastics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter & Week Navigation Bar -->
+          <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-space-md border border-outline-variant/30">
+            <!-- Left: Week Navigation Controls -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <button onclick="shiftWeek(-1)" class="inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-title-md text-title-md transition-colors shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                <span>Tuần trước</span>
+              </button>
+              <div class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container-low">
+                <span class="material-symbols-outlined text-tertiary text-[20px]">calendar_today</span>
+                <span id="currentWeekLabel" class="font-title-md text-title-md font-bold text-[#0B2238]">Tuần này: 05/10/2026 - 11/10/2026</span>
+              </div>
+              <button onclick="shiftWeek(1)" class="inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-title-md text-title-md transition-colors shadow-sm">
+                <span>Tuần sau</span>
+                <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+              </button>
+              <button onclick="resetToToday()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-highest text-primary font-label-sm text-label-sm font-bold shadow-sm hover:bg-surface-container-high transition-colors">
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                <span>Hôm nay (Thứ Hai 05/10)</span>
+              </button>
+            </div>
+
+            <!-- Middle: Discipline Filter Pills -->
+            <div class="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none">
+              <button class="filter-pill px-3.5 py-1.5 rounded-full bg-[#0B2238] text-white font-title-md text-title-md font-bold shadow-sm whitespace-nowrap" data-discipline="all">
+                Tất cả (All)
+              </button>
+              <button class="filter-pill px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-title-md text-title-md transition-colors whitespace-nowrap" data-discipline="Yoga Flow">
+                Yoga Flow
+              </button>
+              <button class="filter-pill px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-title-md text-title-md transition-colors whitespace-nowrap" data-discipline="BodyPump">
+                BodyPump
+              </button>
+              <button class="filter-pill px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-title-md text-title-md transition-colors whitespace-nowrap" data-discipline="Pilates Reformer">
+                Pilates Reformer
+              </button>
+              <button class="filter-pill px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-title-md text-title-md transition-colors whitespace-nowrap" data-discipline="Zumba Dance">
+                Zumba Dance
+              </button>
+              <button class="filter-pill px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-title-md text-title-md transition-colors whitespace-nowrap" data-discipline="HIIT &amp; Cardio">
+                HIIT &amp; Cardio
+              </button>
+            </div>
+
+            <!-- Right: Dropdown Selectors -->
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="relative">
+                <select id="filterStudio" class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface pl-3 pr-8 py-2 rounded-lg font-title-md text-title-md focus:outline-none cursor-pointer transition-colors shadow-sm">
+                  <option value="all">Phòng: Tất cả Studio</option>
+                  <option value="Studio 01">Studio 01 (Yoga Sanctuary)</option>
+                  <option value="Studio 02">Studio 02 (Dynamic Flow)</option>
+                  <option value="Studio Pilates">Studio Pilates Reformer</option>
+                  <option value="Studio GroupX">Studio GroupX Central</option>
+                  <option value="Boxing">Boxing &amp; Performance Ring</option>
+                  <option value="Studio VIP">Studio VIP Sound Healing</option>
+                </select>
+                <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">keyboard_arrow_down</span>
+              </div>
+              <div class="relative">
+                <select id="filterTrainer" class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface pl-3 pr-8 py-2 rounded-lg font-title-md text-title-md focus:outline-none cursor-pointer transition-colors shadow-sm">
+                  <option value="all">HLV: Tất cả giảng viên</option>
+                  <option value="Thu Trang">HLV Trần Thu Trang</option>
+                  <option value="Hoàng Nam">HLV Hoàng Nam</option>
+                  <option value="David Trần">HLV David Trần</option>
+                  <option value="Minh Quân">HLV Minh Quân</option>
+                  <option value="Ngọc Anh">HLV Phan Ngọc Anh</option>
+                </select>
+                <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">keyboard_arrow_down</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Timetable Grid Wrapper -->
+          <div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col border border-outline-variant/30">
+            <!-- Calendar Table -->
+            <div class="timetable-scroll-wrapper overflow-x-auto w-full">
+              <table class="w-full text-left table-fixed min-w-[1200px]">
+                <!-- Table Head: 7 Columns with Today Highlight -->
+                <thead class="bg-surface-container-low border-b border-outline-variant/30">
+                  <tr>
+                    <!-- Time label column -->
+                    <th class="w-28 p-3 font-label-md text-label-md text-secondary uppercase tracking-wider text-center font-bold">Khung giờ</th>
+                    <!-- Mon -->
+                    <th class="p-3 bg-surface-container-high rounded-t-xl transition-all">
+                      <div class="flex items-center justify-between">
+                        <div class="flex flex-col">
+                          <span class="font-title-md text-title-md text-[#0B2238] font-bold">Thứ Hai</span>
+                          <span class="font-label-sm text-label-sm text-primary font-bold">05/10 · Hôm nay</span>
+                        </div>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      </div>
+                    </th>
+                    <!-- Tue -->
+                    <th class="p-3">
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Thứ Ba</span>
+                        <span class="font-label-sm text-label-sm text-secondary">06/10</span>
+                      </div>
+                    </th>
+                    <!-- Wed -->
+                    <th class="p-3">
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Thứ Tư</span>
+                        <span class="font-label-sm text-label-sm text-secondary">07/10</span>
+                      </div>
+                    </th>
+                    <!-- Thu -->
+                    <th class="p-3">
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Thứ Năm</span>
+                        <span class="font-label-sm text-label-sm text-secondary">08/10</span>
+                      </div>
+                    </th>
+                    <!-- Fri -->
+                    <th class="p-3">
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Thứ Sáu</span>
+                        <span class="font-label-sm text-label-sm text-secondary">09/10</span>
+                      </div>
+                    </th>
+                    <!-- Sat -->
+                    <th class="p-3 bg-surface-container/50">
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Thứ Bảy</span>
+                        <span class="font-label-sm text-label-sm text-secondary font-medium">10/10 (Cuối tuần)</span>
+                      </div>
+                    </th>
+                    <!-- Sun -->
+                    <th class="p-3 bg-surface-container/50">
+                      <div class="flex flex-col">
+                        <span class="font-title-md text-title-md text-on-surface font-semibold">Chủ Nhật</span>
+                        <span class="font-label-sm text-label-sm text-secondary font-medium">11/10 (Cuối tuần)</span>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="align-top font-body-md text-body-md divide-y divide-outline-variant/20">
+                  
+                  <!-- ================= SÁNG (06:00 - 11:30) ================= -->
+                  <tr class="bg-surface-container-lowest">
+                    <td class="p-3 text-center bg-surface-container-low font-bold">
+                      <div class="sticky top-20 flex flex-col items-center justify-center py-4">
+                        <span class="material-symbols-outlined text-amber-500 text-[22px]">wb_sunny</span>
+                        <span class="font-label-sm text-label-sm text-[#0B2238] font-bold mt-1">SÁNG</span>
+                        <span class="font-label-sm text-label-sm text-secondary">06:00 - 11:30</span>
+                      </div>
+                    </td>
+                    <!-- Mon AM -->
+                    <td id="cell-mon-morning" class="p-2 bg-surface-container-low/40"></td>
+                    <!-- Tue AM -->
+                    <td id="cell-tue-morning" class="p-2"></td>
+                    <!-- Wed AM -->
+                    <td id="cell-wed-morning" class="p-2"></td>
+                    <!-- Thu AM -->
+                    <td id="cell-thu-morning" class="p-2"></td>
+                    <!-- Fri AM -->
+                    <td id="cell-fri-morning" class="p-2"></td>
+                    <!-- Sat AM -->
+                    <td id="cell-sat-morning" class="p-2 bg-surface-container/20"></td>
+                    <!-- Sun AM -->
+                    <td id="cell-sun-morning" class="p-2 bg-surface-container/20"></td>
+                  </tr>
+
+                  <!-- ================= CHIỀU (14:00 - 17:30) ================= -->
+                  <tr class="bg-surface-container-lowest">
+                    <td class="p-3 text-center bg-surface-container-low font-bold">
+                      <div class="sticky top-20 flex flex-col items-center justify-center py-4">
+                        <span class="material-symbols-outlined text-orange-500 text-[22px]">light_mode</span>
+                        <span class="font-label-sm text-label-sm text-[#0B2238] font-bold mt-1">CHIỀU</span>
+                        <span class="font-label-sm text-label-sm text-secondary">14:00 - 17:30</span>
+                      </div>
+                    </td>
+                    <!-- Mon PM -->
+                    <td id="cell-mon-afternoon" class="p-2 bg-surface-container-low/40"></td>
+                    <!-- Tue PM -->
+                    <td id="cell-tue-afternoon" class="p-2"></td>
+                    <!-- Wed PM -->
+                    <td id="cell-wed-afternoon" class="p-2"></td>
+                    <!-- Thu PM -->
+                    <td id="cell-thu-afternoon" class="p-2"></td>
+                    <!-- Fri PM -->
+                    <td id="cell-fri-afternoon" class="p-2"></td>
+                    <!-- Sat PM -->
+                    <td id="cell-sat-afternoon" class="p-2 bg-surface-container/20"></td>
+                    <!-- Sun PM -->
+                    <td id="cell-sun-afternoon" class="p-2 bg-surface-container/20"></td>
+                  </tr>
+
+                  <!-- ================= TỐI (18:00 - 21:00) ================= -->
+                  <tr class="bg-surface-container-lowest">
+                    <td class="p-3 text-center bg-surface-container-low font-bold">
+                      <div class="sticky top-20 flex flex-col items-center justify-center py-4">
+                        <span class="material-symbols-outlined text-indigo-600 text-[22px]">dark_mode</span>
+                        <span class="font-label-sm text-label-sm text-[#0B2238] font-bold mt-1">TỐI</span>
+                        <span class="font-label-sm text-label-sm text-secondary">18:00 - 21:00</span>
+                      </div>
+                    </td>
+                    <!-- Mon Night -->
+                    <td id="cell-mon-evening" class="p-2 bg-surface-container-low/40"></td>
+                    <!-- Tue Night -->
+                    <td id="cell-tue-evening" class="p-2"></td>
+                    <!-- Wed Night -->
+                    <td id="cell-wed-evening" class="p-2"></td>
+                    <!-- Thu Night -->
+                    <td id="cell-thu-evening" class="p-2"></td>
+                    <!-- Fri Night -->
+                    <td id="cell-fri-evening" class="p-2"></td>
+                    <!-- Sat Night -->
+                    <td id="cell-sat-evening" class="p-2 bg-surface-container/20"></td>
+                    <!-- Sun Night -->
+                    <td id="cell-sun-evening" class="p-2 bg-surface-container/20"></td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Table Bottom Legend Bar -->
+            <div class="p-4 bg-surface-container-low flex flex-wrap items-center justify-between gap-space-md text-secondary font-label-sm text-label-sm border-t border-outline-variant/30">
+              <div class="flex items-center gap-4 flex-wrap">
+                <span class="font-bold text-on-surface">Chú thích bộ môn:</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-cyan-500"></span>
+                  <span>Yoga &amp; Thiền</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-purple-600"></span>
+                  <span>Pilates Reformer</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-indigo-600"></span>
+                  <span>BodyPump &amp; Strength</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                  <span>Zumba Dance</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                  <span>HIIT / Combat</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-pink-500"></span>
+                  <span>Sound Healing (VIP)</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-on-surface-variant font-medium">Thao tác nhanh:</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container-lowest font-semibold shadow-xs text-on-surface">
+                  Nhấp vào ô lớp để Đặt chỗ
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       4. MODAL: ĐĂNG KÝ ĐẶT CHỖ LỚP HỌC (BOOKING MODAL)
+       ========================================================================= -->
+  <div id="bookingModal" class="fixed inset-0 z-50 bg-[#0B2238]/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="modalBox" class="w-full max-w-xl bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col border border-outline-variant/30">
+      <!-- Modal Header -->
+      <div class="bg-[#0B2238] p-5 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-tertiary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">bookmark_add</span>
+          </div>
+          <div class="flex flex-col">
+            <h3 id="modalClassTitle" class="font-headline-sm text-headline-sm font-bold">Đặt chỗ lớp: Vinyasa Flow Yoga</h3>
+            <span id="modalClassTime" class="font-label-sm text-label-sm text-secondary-fixed-dim">07:00 - 08:00 · Thứ Hai 05/10</span>
+          </div>
+        </div>
+        <button onclick="closeBookingModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Information Snippet Bar -->
+      <div class="bg-surface-container px-6 py-3 flex items-center justify-between gap-4 text-secondary font-label-md text-label-md flex-wrap border-b border-outline-variant/30">
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">meeting_room</span>
+          <span id="modalStudio">Studio 01</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">person</span>
+          <span id="modalTrainer">HLV Thu Trang</span>
+        </div>
+        <div id="modalCapacity" class="flex items-center gap-1.5 text-emerald-700 font-bold">
+          <span class="material-symbols-outlined text-[18px]">check_circle</span>
+          <span>Còn 8/15 chỗ trống</span>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 flex flex-col gap-space-md">
+        <!-- Search Input -->
+        <div class="flex flex-col gap-1.5">
+          <label class="font-title-md text-title-md text-on-surface font-semibold">Tìm kiếm Hội viên</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+            <input id="modalMemberSearch" class="w-full h-11 pl-10 pr-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary shadow-xs" placeholder="Nhập SĐT hoặc Mã hội viên (VD: 0908 345...)" type="text" value="0908 345 889 (Sarah Mitchel)"/>
+          </div>
+        </div>
+
+        <!-- Result Member Card Preview -->
+        <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-3 border border-outline-variant/20">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-[#0B2238] flex items-center justify-center text-white font-bold text-title-lg shadow-sm">
+                SM
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center gap-2">
+                  <span class="font-title-lg text-title-lg font-bold text-on-surface">Sarah Mitchel</span>
+                  <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-label-sm text-label-sm font-bold">Gold VIP</span>
+                </div>
+                <span class="font-body-sm text-body-sm text-secondary">Mã HV: #MB-1042 • SĐT: 0908 345 889</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-emerald-600 text-[24px]">verified</span>
+          </div>
+
+          <!-- Membership Package Status -->
+          <div class="p-2.5 rounded-lg bg-emerald-50 text-emerald-800 flex items-center justify-between text-body-sm border border-emerald-200">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-emerald-600">workspace_premium</span>
+              <span class="font-semibold">✓ Gói Gym Diamond 12T (Hợp lệ, miễn phí đặt lịch)</span>
+            </div>
+            <span class="font-label-sm text-label-sm bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full font-bold">Còn 184 ngày</span>
+          </div>
+        </div>
+
+        <!-- Note Input -->
+        <div class="flex flex-col gap-1.5">
+          <label class="font-title-md text-title-md text-on-surface font-semibold">Ghi chú bổ sung (Tùy chọn)</label>
+          <input class="w-full h-10 px-3.5 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary shadow-xs" type="text" value="Yêu cầu thảm riêng hoặc khăn tập dự phòng"/>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-5 bg-surface-container-low flex items-center justify-end gap-3 border-t border-outline-variant/30">
+        <button onclick="closeBookingModal()" class="px-5 py-2.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-title-md text-title-md transition-colors shadow-sm">
+          Hủy
+        </button>
+        <button onclick="confirmBooking()" class="px-6 py-2.5 rounded-xl bg-[#0B2238] hover:bg-[#13304d] text-white font-title-md text-title-md font-bold transition-all shadow-md active:scale-95 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">check</span>
+          <span>Xác nhận Đặt chỗ (Confirm Booking)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       5. MODAL: THÊM MỚI CA LỚP HỌC (+ Mở lớp mới)
+       ========================================================================= -->
+  <div id="createClassModal" class="fixed inset-0 z-50 bg-[#0B2238]/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="createClassBox" class="w-full max-w-lg bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col border border-outline-variant/30">
+      <div class="bg-[#0B2238] p-5 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-tertiary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">add_circle</span>
+          </div>
+          <div class="flex flex-col">
+            <h3 class="font-headline-sm text-headline-sm font-bold">Mở Ca Lớp Học Mới</h3>
+            <span class="font-label-sm text-label-sm text-secondary-fixed-dim">Xếp lịch và phân bổ HLV đứng lớp</span>
+          </div>
+        </div>
+        <button onclick="closeCreateClassModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleSaveNewClass(event)" class="p-6 flex flex-col gap-4">
+        <div class="flex flex-col gap-1.5">
+          <label class="font-title-md text-title-md text-on-surface font-semibold">Tên lớp học *</label>
+          <input id="newClassName" required class="h-10 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none shadow-xs" placeholder="VD: Hatha Yoga Thư Giãn, BodyCombat..." type="text"/>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="flex flex-col gap-1.5">
+            <label class="font-title-md text-title-md text-on-surface font-semibold">Bộ môn</label>
+            <select id="newClassDiscipline" class="h-10 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none cursor-pointer shadow-xs">
+              <option value="Yoga Flow">Yoga Flow</option>
+              <option value="BodyPump">BodyPump</option>
+              <option value="Pilates Reformer">Pilates Reformer</option>
+              <option value="Zumba Dance">Zumba Dance</option>
+              <option value="HIIT &amp; Cardio">HIIT &amp; Cardio</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="font-title-md text-title-md text-on-surface font-semibold">Phòng Studio</label>
+            <select id="newClassStudio" class="h-10 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none cursor-pointer shadow-xs">
+              <option value="Studio 01">Studio 01</option>
+              <option value="Studio 02">Studio 02</option>
+              <option value="Studio Pilates">Studio Pilates</option>
+              <option value="Studio GroupX">Studio GroupX</option>
+              <option value="Boxing Ring">Boxing Ring</option>
+              <option value="Studio VIP">Studio VIP</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="flex flex-col gap-1.5">
+            <label class="font-title-md text-title-md text-on-surface font-semibold">Thứ trong tuần</label>
+            <select id="newClassDay" class="h-10 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none cursor-pointer shadow-xs">
+              <option value="mon">Thứ Hai</option>
+              <option value="tue">Thứ Ba</option>
+              <option value="wed">Thứ Tư</option>
+              <option value="thu">Thứ Năm</option>
+              <option value="fri">Thứ Sáu</option>
+              <option value="sat">Thứ Bảy</option>
+              <option value="sun">Chủ Nhật</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="font-title-md text-title-md text-on-surface font-semibold">Buổi</label>
+            <select id="newClassShift" class="h-10 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none cursor-pointer shadow-xs">
+              <option value="morning">Sáng</option>
+              <option value="afternoon">Chiều</option>
+              <option value="evening">Tối</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="font-title-md text-title-md text-on-surface font-semibold">Khung giờ</label>
+            <input id="newClassTime" required class="h-10 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none shadow-xs" placeholder="07:00 - 08:00" value="07:00 - 08:00"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="flex flex-col gap-1.5">
+            <label class="font-title-md text-title-md text-on-surface font-semibold">HLV Đứng lớp</label>
+            <select id="newClassTrainer" class="h-10 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none cursor-pointer shadow-xs">
+              <option value="HLV Thu Trang">HLV Thu Trang</option>
+              <option value="HLV Hoàng Nam">HLV Hoàng Nam</option>
+              <option value="HLV David Trần">HLV David Trần</option>
+              <option value="HLV Minh Quân">HLV Minh Quân</option>
+              <option value="HLV Ngọc Anh">HLV Ngọc Anh</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="font-title-md text-title-md text-on-surface font-semibold">Sĩ số tối đa</label>
+            <input id="newClassCapacity" type="number" required min="1" max="50" class="h-10 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none shadow-xs" value="18"/>
+          </div>
+        </div>
+
+        <div class="p-4 bg-surface-container-low flex items-center justify-end gap-3 border-t border-outline-variant/30 mt-2 -mx-6 -mb-6">
+          <button type="button" onclick="closeCreateClassModal()" class="px-5 py-2.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-title-md text-title-md transition-colors shadow-sm">
+            Hủy
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#0B2238] hover:bg-[#123352] text-white font-title-md text-title-md font-bold transition-all shadow-md active:scale-95 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">playlist_add</span>
+            <span>Mở Lớp Ngay</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       6. AI SUGGESTION TOAST NOTIFICATION
+       ========================================================================= -->
+  <div id="aiToast" class="fixed bottom-6 right-6 z-50 max-w-md bg-[#0B2238] text-white p-4 rounded-2xl shadow-2xl flex items-start gap-3 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="w-10 h-10 rounded-xl bg-[#7C3AED] flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[22px] text-yellow-300">auto_awesome</span>
+    </div>
+    <div class="flex flex-col min-w-0 pr-2">
+      <span class="font-title-md text-title-md font-bold">AI Studio Recommender</span>
+      <p class="font-body-sm text-body-sm text-slate-300 mt-1 leading-snug">
+        Đã tối ưu 3 lớp Yoga khung giờ 18:30 dựa trên 82 lượt đặt chỗ bị từ chối tuần trước.
+      </p>
+    </div>
+    <button onclick="hideAiToast()" class="text-slate-400 hover:text-white shrink-0 p-1">
+      <span class="material-symbols-outlined text-[18px]">close</span>
+    </button>
+  </div>
+
+  <!-- =========================================================================
+       7. GLOBAL TOAST NOTIFICATION
+       ========================================================================= -->
+  <div id="appToast" class="fixed bottom-6 right-6 z-50 max-w-md bg-[#0B2238] text-white p-4 rounded-2xl shadow-2xl flex items-start gap-3 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+      <span id="toastIcon" class="material-symbols-outlined text-[22px]">check_circle</span>
+    </div>
+    <div class="flex flex-col min-w-0 pr-2">
+      <span id="toastTitle" class="font-title-md text-title-md font-bold leading-tight">Thành công!</span>
+      <p id="toastMessage" class="font-body-sm text-body-sm text-slate-300 mt-1 leading-snug"></p>
+    </div>
+    <button onclick="hideToast()" class="text-slate-400 hover:text-white shrink-0 p-1">
+      <span class="material-symbols-outlined text-[18px]">close</span>
+    </button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/schedules.js"></script>
+</body>
+</html>
