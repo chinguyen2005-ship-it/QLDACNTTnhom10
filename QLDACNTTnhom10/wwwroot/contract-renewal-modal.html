@@ -6,10 +6,10 @@
   <meta content="web_dashboard" name="shell-type"/>
   <title>FitManage Gym &amp; Yoga Suite - Gia hạn Hợp đồng #HD-2026-0892</title>
 
-  <!-- Google Fonts: DM Sans & Material Symbols -->
+  <!-- Google Fonts: Be Vietnam Pro & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 
@@ -22,7 +22,7 @@
     }
     ::-webkit-scrollbar { display: none; }
     body {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
     .material-symbols-outlined {
@@ -108,20 +108,20 @@
             "gutter-mobile": "1rem"
           },
           fontFamily: {
-            "headline-lg": ["DM Sans", "sans-serif"],
-            "label-md": ["DM Sans", "sans-serif"],
-            "headline-sm": ["DM Sans", "sans-serif"],
-            "body-lg": ["DM Sans", "sans-serif"],
-            "title-md": ["DM Sans", "sans-serif"],
-            "title-lg": ["DM Sans", "sans-serif"],
-            "body-sm": ["DM Sans", "sans-serif"],
-            "headline-xl-mobile": ["DM Sans", "sans-serif"],
-            "body-md": ["DM Sans", "sans-serif"],
-            "headline-md": ["DM Sans", "sans-serif"],
-            "metric-display": ["DM Sans", "sans-serif"],
-            "headline-lg-mobile": ["DM Sans", "sans-serif"],
-            "headline-xl": ["DM Sans", "sans-serif"],
-            "label-sm": ["DM Sans", "sans-serif"]
+            "headline-lg": ["Be Vietnam Pro", "sans-serif"],
+            "label-md": ["Be Vietnam Pro", "sans-serif"],
+            "headline-sm": ["Be Vietnam Pro", "sans-serif"],
+            "body-lg": ["Be Vietnam Pro", "sans-serif"],
+            "title-md": ["Be Vietnam Pro", "sans-serif"],
+            "title-lg": ["Be Vietnam Pro", "sans-serif"],
+            "body-sm": ["Be Vietnam Pro", "sans-serif"],
+            "headline-xl-mobile": ["Be Vietnam Pro", "sans-serif"],
+            "body-md": ["Be Vietnam Pro", "sans-serif"],
+            "headline-md": ["Be Vietnam Pro", "sans-serif"],
+            "metric-display": ["Be Vietnam Pro", "sans-serif"],
+            "headline-lg-mobile": ["Be Vietnam Pro", "sans-serif"],
+            "headline-xl": ["Be Vietnam Pro", "sans-serif"],
+            "label-sm": ["Be Vietnam Pro", "sans-serif"]
           },
           fontSize: {
             "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
@@ -143,78 +143,14 @@
       }
     };
   </script>
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <script src="/js/sidebar.js" defer></script>
 </head>
 
 <body class="bg-surface font-body-md text-on-surface antialiased">
   
   <!-- Sidebar Navigation -->
-  <aside class="fixed left-0 top-0 h-full w-64 bg-inverse-surface z-50 flex flex-col justify-between py-6 px-4 shadow-[0_1px_8px_rgba(0,0,0,0.04)] select-none">
-    <div class="flex flex-col gap-6">
-      <div class="flex items-center gap-3 px-3">
-        <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-          <span class="material-symbols-outlined text-on-primary text-[20px]">fitness_center</span>
-        </div>
-        <div class="flex flex-col">
-          <span class="font-title-lg text-title-lg text-inverse-on-surface leading-tight tracking-tight font-bold">FitManage</span>
-          <span class="font-label-sm text-label-sm text-outline-variant tracking-wider uppercase">Gym &amp; Yoga Suite</span>
-        </div>
-      </div>
-      
-      <!-- Navigation Links (8 Chức năng chuẩn theo thiết kế) -->
-      <nav class="flex flex-col gap-1" style="max-height:calc(100vh - 280px);overflow-y:auto">
-        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="bang-dieu-khien" href="/dashboard.html">
-          <span class="material-symbols-outlined text-[20px]">grid_view</span>
-          <span>Bảng điều khiển</span>
-        </a>
-        <span class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="quan-ly-hoi-vien" aria-disabled="true" title="Chưa có giao diện trong repository">
-          <span class="material-symbols-outlined text-[20px]">group</span>
-          <span>Quản lý hội viên</span>
-        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
-        <!-- ACTIVE TAB: Hợp đồng & Gói tập -->
-        <a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors bg-tertiary-container text-white font-title-md font-semibold" data-path="hop-dong-va-goi-tap" href="/packages.html">
-          <span class="material-symbols-outlined text-[20px]">loyalty</span>
-          <span>Hợp đồng &amp; Gói tập</span>
-        </a>
-        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="quan-ly-huan-luyen-vien" href="/trainers.html">
-          <span class="material-symbols-outlined text-[20px]">fitness_center</span>
-          <span>Quản lý HLV</span>
-        </a>
-        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="lich-lop-hoc" href="/schedules.html">
-          <span class="material-symbols-outlined text-[20px]">calendar_month</span>
-          <span>Lịch lớp học</span>
-        </a>
-        <span class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="quay-le-tan-check-in" aria-disabled="true" title="Chưa có giao diện trong repository">
-          <span class="material-symbols-outlined text-[20px]">how_to_reg</span>
-          <span>Quầy lễ tân Check-in</span>
-        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
-        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="tro-ly-ai-gia-han" href="/ai-retention-copilot.html">
-          <span class="material-symbols-outlined text-[20px]">auto_awesome</span>
-          <span>Trợ lý AI gia hạn</span>
-        </a>
-        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" data-path="bao-cao-doanh-thu" href="/retention-report.html">
-          <span class="material-symbols-outlined text-[20px]">bar_chart</span>
-          <span>Báo cáo tỷ lệ gia hạn</span>
-        </a>
-
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/class-booking.html">Đăng ký lớp tập</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/data-tools.html">Bộ lọc dữ liệu</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/templates/email-expiry-reminder.html">Mẫu email nhắc hạn</a></nav>
-    </div>
-
-    <div class="flex flex-col gap-2 pt-4 border-t border-white/10">
-      <div class="p-3 rounded-xl bg-surface-container-low/10 flex items-center justify-between">
-        <div class="flex flex-col">
-          <span class="font-label-sm text-label-sm text-tertiary-fixed font-bold">Chi nhánh: Landmark 81</span>
-          <span class="font-body-sm text-body-sm text-outline-variant">Studio Open • 86% Peak</span>
-        </div>
-        <span class="inline-block w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
-      </div>
-      <a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-inverse-on-surface/70 hover:bg-surface-container/10 hover:text-inverse-on-surface transition-colors" href="#">
-        <span class="material-symbols-outlined text-[20px]">settings</span>
-        <span>Thiết lập hệ thống</span>
-      </a>
-    </div>
-  </aside>
+  <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between text-white select-none shadow-[0_1px_8px_rgba(0,0,0,0.04)]" data-fitmanage-sidebar aria-label="Sidebar FitManage"><a href="/dashboard.html">FitManage · Bảng điều khiển</a></aside>
 
   <!-- Main Content Wrapper -->
   <div class="pl-64">

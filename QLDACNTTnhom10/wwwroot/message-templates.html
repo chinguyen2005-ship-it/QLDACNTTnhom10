@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mẫu Email &amp; Tin nhắn | FitManage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <script src="/js/sidebar.js" defer></script>
+</head>
+<body class="bg-[#f8f9ff] font-sans text-[#0b1c30] antialiased">
+  <!-- 1. SIDEBAR NAVIGATION -->
+  <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between text-white select-none shadow-[0_1px_8px_rgba(0,0,0,0.04)] fm-shell-sidebar" data-fitmanage-sidebar aria-label="Sidebar FitManage">
+    <a href="/dashboard.html">FitManage · Bảng điều khiển</a>
+  </aside>
+
+  <!-- 2. MAIN CONTENT WRAPPER -->
+  <main class="ml-64 p-8 min-h-screen bg-[#f8f9ff] fm-shell-main">
+    <h1 class="text-2xl font-bold mb-2">Mẫu Email &amp; Tin nhắn</h1>
+    <p class="text-slate-500 mb-6">Quản lý nội dung chăm sóc hội viên.</p>
+
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+      <h2 class="font-semibold text-lg">Email nhắc hết hạn hợp đồng</h2>
+      <p class="text-sm text-slate-500 mt-2 mb-4">
+        Xem trước mẫu nội dung. Các biến hội viên chưa được điền và không gửi email từ màn hình này.
+      </p>
+      <a class="inline-block rounded-xl px-4 py-2 bg-[#0b1c30] text-white hover:bg-[#163b4e] transition-colors" href="/templates/email-expiry-reminder.html" target="_blank" rel="noopener">
+        Xem mẫu email ↗
+      </a>
+    </section>
+
+    <section class="mt-6 p-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <h2 class="font-semibold">Mẫu tin nhắn <span class="text-xs text-slate-500 ml-2 font-normal">Sắp ra mắt</span></h2>
+    </section>
+  </main>
+</body>
+</html>

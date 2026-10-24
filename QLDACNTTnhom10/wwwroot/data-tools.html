@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bộ lọc dữ liệu | FitManage</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Material+Symbols+Outlined&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Material+Symbols+Outlined&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>body { font-family: 'DM Sans', sans-serif; background:#f8f9ff; color:#0b1c30; } #fitmanageDataFilter { font-family:inherit; }</style>
+  <style>body { font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif; background:#f8f9ff; color:#0b1c30; } #fitmanageDataFilter { font-family:inherit; }</style>
   <script src="/js/data-tools.js" defer></script>
 </head>
 <body>
-  <header class="bg-[#0b1c30] text-white p-5"><a href="/dashboard.html">← Dashboard · FitManage</a></header>
+  <header class="bg-[#0b1c30] text-white p-5 flex items-center gap-4 text-sm font-medium">
+    <a href="/dashboard.html" class="hover:underline">← Dashboard</a>
+    <span class="text-slate-400">|</span>
+    <a href="/members.html" class="hover:underline">Quản lý hội viên</a>
+  </header>
   <main class="max-w-7xl mx-auto p-6">
     <h1 class="text-2xl font-bold mb-2">Bộ lọc dữ liệu</h1>
     <p class="text-slate-600 mb-6">Xem và thử bộ lọc. Chức năng tìm dữ liệu và xuất Excel đang chờ kết nối API.</p>

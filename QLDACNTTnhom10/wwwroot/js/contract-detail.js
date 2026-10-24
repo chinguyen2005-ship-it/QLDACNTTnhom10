@@ -4,7 +4,7 @@
 // =============================================================================
 
 // Cấu hình Base API Endpoint
-const API_BASE = '/api';
+var API_BASE = window.API_BASE || '/api';
 
 // Dữ liệu mẫu (Mock Data) chuẩn theo schema CSDL CONTRACTS & MEMBERS
 const mockContractDetails = {

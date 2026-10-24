@@ -3,7 +3,7 @@
 // FitManage Gym & Yoga Suite (TASK-349)
 // =============================================================================
 
-const API_BASE = '/api';
+var API_BASE = window.API_BASE || '/api';
 
 // Dữ liệu giả lập (Mock Data) chuẩn theo database PACKAGES
 let packagesList = [

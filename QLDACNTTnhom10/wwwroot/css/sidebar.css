@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap');
+
+/* =========================================================================
+   FITMANAGE UNIFIED SIDEBAR DESIGN SYSTEM (Be Vietnam Pro)
+   ========================================================================= */
+
+[data-fitmanage-sidebar] {
+  box-sizing: border-box !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 16rem !important; /* 256px = w-64 */
+  height: 100vh !important;
+  height: 100dvh !important;
+  z-index: 50 !important;
+  background: #0b1c30 !important;
+  color: #d5deeb !important;
+  font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04) !important;
+}
+[data-fitmanage-sidebar] * { box-sizing: border-box; }
+
+/* 1. Brand Logo Header */
+.fm-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 18px;
+  color: #fff;
+  text-decoration: none;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.fm-logo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #b5eff7;
+  color: #0b1c30;
+  font-size: 24px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.fm-brand strong { display: block; font-size: 18px; line-height: 1.2; font-weight: 700; color: #fff; }
+.fm-brand small { display: block; font-size: 9px; color: #a0b8d2; letter-spacing: 1.3px; margin-top: 4px; font-weight: 600; }
+
+/* 2. Navigation Scroll Area */
+.fm-nav {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 12px 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #30455e transparent;
+}
+.fm-nav::-webkit-scrollbar {
+  width: 4px;
+}
+.fm-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+.fm-nav::-webkit-scrollbar-thumb {
+  background: #30455e;
+  border-radius: 4px;
+}
+.fm-nav::-webkit-scrollbar-thumb:hover {
+  background: #46607e;
+}
+
+/* 3. Group Titles & Lists */
+.fm-group { margin: 0 0 20px; }
+.fm-group:last-child { margin-bottom: 0; }
+.fm-group h2 {
+  padding: 0 10px;
+  margin: 0 0 8px;
+  color: #8298b3;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .65px;
+}
+.fm-group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+
+/* 4. Menu Link Items */
+.fm-link {
+  position: relative;
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #c6d3e3;
+  background: transparent;
+  text-decoration: none;
+  font: 500 13px/1.4 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  text-align: left;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.fm-link svg { width: 19px; height: 19px; flex-shrink: 0; }
+.fm-label { flex: 1; min-width: 0; }
+a.fm-link:hover { background: #172c43; color: #fff; }
+
+/* 5. Trạng thái Active: Nền sáng hơn, icon nổi bật, có indicator */
+.fm-link[aria-current='page'] {
+  background: #163b4e;
+  color: #a9eef5;
+  border-color: #285465;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.fm-link[aria-current='page'] svg {
+  color: #57dfff;
+  stroke-width: 2;
+}
+.fm-link[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #22d3ee;
+  box-shadow: 0 0 8px #06b6d4;
+}
+.fm-link[aria-current='page']::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 8px #06b6d4;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.fm-link:focus-visible, .fm-brand:focus-visible { outline: 2px solid #a9eef5; outline-offset: 2px; }
+.fm-coming { cursor: not-allowed; color: #8da0b7; }
+.fm-badge { flex-shrink: 0; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 6px; white-space: nowrap; }
+.fm-soon { background: #29394b; color: #bcc9d8; }
+.fm-ai { background: #7c3aed; color: #fff; }
+
+/* 6. Pinned Bottom Footer (Groq Engine & Admin Profile) */
+.fm-footer {
+  flex-shrink: 0;
+  padding: 14px 16px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
+  background: #081627;
+}
+.fm-engine { border: 1px solid #263c51; border-radius: 12px; padding: 10px; background: #10263a; }
+.fm-engine > div { display: flex; align-items: center; gap: 6px; }
+.fm-engine strong { font-size: 11px; font-weight: 600; color: #e2e8f0; }
+.fm-dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px #10b981; }
+.fm-online { margin-left: auto; color: #6ee7b7; font-size: 9px; font-weight: 700; font-family: monospace; }
+.fm-engine small { display: block; color: #92a5b9; font-size: 9px; line-height: 1.4; margin-top: 4px; }
+.fm-profile { display: flex; align-items: center; gap: 10px; padding-top: 12px; }
+.fm-avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #dcd1fc; color: #53389e; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.fm-profile strong { display: block; color: #eff5ff; font-size: 12px; font-weight: 600; }
+.fm-profile small { display: block; color: #91a4ba; font-size: 10px; margin-top: 2px; }
+
+/* 7. Standalone Shell Helper Classes */
+.fm-shell-sidebar {
+  position: fixed !important;
+  inset: 0 auto 0 0 !important;
+  width: 16rem !important;
+  z-index: 50 !important;
+}
+.fm-shell-main {
+  margin-left: 16rem !important; /* 256px */
+  padding: 32px;
+  min-height: 100vh;
+  background: #f8f9ff;
+  font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  color: #0b1c30;
+}

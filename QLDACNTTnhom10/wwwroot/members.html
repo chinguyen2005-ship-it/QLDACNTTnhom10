@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Quản lý hội viên | FitManage GYM &amp; YOGA SUITE</title>
+  
+  <!-- Google Fonts: Be Vietnam Pro & Material Symbols -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FitManage Unified Sidebar CSS & JS -->
+  <link rel="stylesheet" href="/css/sidebar.css"/>
+  <script src="/js/sidebar.js" defer></script>
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    body { font-family: 'Be Vietnam Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="bg-[#f8f9ff] text-[#0b1c30] antialiased">
+
+  <!-- 1. UNIFIED STANDARDIZED SIDEBAR (TASK-376) -->
+  <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between text-white select-none fm-shell-sidebar shadow-[0_1px_8px_rgba(0,0,0,0.04)]" data-fitmanage-sidebar aria-label="Sidebar FitManage">
+    <a href="/dashboard.html">FitManage · Bảng điều khiển</a>
+  </aside>
+
+  <!-- 2. MAIN CONTENT WRAPPER -->
+  <div class="ml-64 min-h-screen flex flex-col fm-shell-main">
+    
+    <!-- Top Global App Bar -->
+    <header class="h-16 bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40 flex items-center justify-between px-8 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+          <span class="hover:text-slate-800 transition-colors cursor-pointer">FitManage</span>
+          <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+          <span class="text-slate-800 font-semibold">Quản lý trung tâm</span>
+          <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+          <span class="text-[#0b1c30] font-bold">Hội viên</span>
+        </div>
+        <div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-[11px] font-bold tracking-tight">07:00 – 23:00 Live</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Quick Global Search -->
+        <div class="relative hidden md:block w-72">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+          <input id="global-search-input" class="w-full h-9 pl-9 pr-3 rounded-lg bg-slate-100/80 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0b1c30] transition-colors border border-transparent focus:border-slate-300" placeholder="Tìm kiếm nhanh hội viên..." type="text"/>
+        </div>
+        
+        <!-- Language Switcher -->
+        <div class="flex items-center bg-slate-100 p-0.5 rounded-lg text-xs font-bold">
+          <button class="px-2 py-1 rounded bg-white shadow-sm text-slate-800">VN</button>
+          <button class="px-2 py-1 rounded text-slate-500 hover:text-slate-800 transition-colors">EN</button>
+        </div>
+
+        <!-- Notification Button -->
+        <button class="relative w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" title="Thông báo">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500"></span>
+        </button>
+
+        <!-- Current User Avatar -->
+        <div class="w-8 h-8 rounded-full bg-[#0b1c30] text-white flex items-center justify-center text-xs font-bold shadow-sm">
+          AT
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace Body -->
+    <main class="p-8 flex-1">
+      <div class="max-w-[1400px] mx-auto flex flex-col gap-6">
+
+        <!-- 1. TOP HEADER & GLOBAL ACTIONS -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-[#0b1c30] tracking-tight">Hồ sơ Hội viên</h1>
+            <p class="text-sm text-slate-500 mt-1">Theo dõi hồ sơ, gói tập, lịch sử tham gia và hợp đồng hội viên toàn hệ thống</p>
+          </div>
+          <div class="flex items-center gap-3 shrink-0">
+            <!-- Xuất Excel (kết nối trực tiếp GET /api/Reports/export-members) -->
+            <button onclick="handleExportExcel()" class="px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold transition-all shadow-sm flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-slate-500">file_download</span>
+              <span>Xuất Excel</span>
+            </button>
+            <!-- Thêm hội viên mới (mở Modal POST /api/Members) -->
+            <button onclick="openCreateModal()" class="px-5 py-2.5 rounded-xl bg-[#0b1c30] hover:bg-[#152e4d] text-white text-sm font-bold transition-all shadow-md flex items-center gap-2 hover:scale-[1.01]">
+              <span class="material-symbols-outlined text-[20px] text-cyan-300">person_add</span>
+              <span>Thêm hội viên mới</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. KPI METRIC STAT CARDS (4 Khối thống kê tự động) -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+          <!-- Card 1: Tổng Hội viên -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tổng hội viên</span>
+                <div id="statTotal" class="text-3xl font-black text-[#0b1c30] mt-1.5">...</div>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">group</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mt-4 pt-3 border-t border-slate-100 text-xs">
+              <span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center gap-0.5">
+                <span class="material-symbols-outlined text-[14px]">trending_up</span> +12% tháng này
+              </span>
+              <span class="text-slate-400">so với chu kỳ trước</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Đang hoạt động -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Đang hoạt động</span>
+                <div id="statActive" class="text-3xl font-black text-emerald-600 mt-1.5">...</div>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mt-4 pt-3 border-t border-slate-100 text-xs">
+              <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Tỷ lệ cao
+              </span>
+              <span id="statActivePercent" class="text-slate-400">94.5% tổng quy mô</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Hồ sơ tạm khóa -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Hồ sơ tạm khóa</span>
+                <div id="statLocked" class="text-3xl font-black text-rose-500 mt-1.5">...</div>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">lock</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mt-4 pt-3 border-t border-slate-100 text-xs">
+              <span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold">Cần rà soát</span>
+              <span class="text-slate-400">Tài khoản bị khóa mềm</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Cơ cấu Giới tính -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Cơ cấu giới tính</span>
+                <div id="statGenderRatio" class="text-xl font-bold text-[#0b1c30] mt-2">54% Nam · 46% Nữ</div>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">wc</span>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100">
+              <div class="w-full h-2 rounded-full bg-slate-100 flex overflow-hidden">
+                <div id="barMale" class="h-full bg-blue-600 transition-all duration-300" style="width: 54%" title="Nam"></div>
+                <div id="barFemale" class="h-full bg-purple-500 transition-all duration-300" style="width: 46%" title="Nữ"></div>
+              </div>
+              <div class="flex justify-between items-center mt-1.5 text-[11px] font-semibold text-slate-500">
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-600"></span><span id="labelMaleCount">Nam</span></span>
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-purple-500"></span><span id="labelFemaleCount">Nữ</span></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. SMART SEARCH & FILTER TOOLBAR -->
+        <section class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
+          <!-- Search input -->
+          <div class="relative flex-1">
+            <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+            <input id="member-search-input" class="w-full h-10 pl-10 pr-4 rounded-xl bg-slate-50 text-sm text-slate-800 placeholder:text-slate-400 border border-slate-200 focus:outline-none focus:bg-white focus:border-[#0b1c30] focus:ring-1 focus:ring-[#0b1c30] transition-all" placeholder="Tìm theo Tên, SĐT, Email hoặc Mã #HV-..." type="text"/>
+          </div>
+
+          <!-- Dropdowns filter -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <div class="relative min-w-[130px]">
+              <select id="select-gender" class="w-full h-10 pl-3 pr-8 rounded-xl bg-slate-50 text-xs font-semibold text-slate-700 border border-slate-200 focus:outline-none focus:bg-white focus:border-[#0b1c30] cursor-pointer appearance-none">
+                <option value="">Tất cả giới tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+              </select>
+              <span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">expand_more</span>
+            </div>
+
+            <div class="relative min-w-[145px]">
+              <select id="select-status" class="w-full h-10 pl-3 pr-8 rounded-xl bg-slate-50 text-xs font-semibold text-slate-700 border border-slate-200 focus:outline-none focus:bg-white focus:border-[#0b1c30] cursor-pointer appearance-none">
+                <option value="">Tất cả trạng thái</option>
+                <option value="true">🟢 Hoạt động</option>
+                <option value="false">🔒 Đã khóa</option>
+              </select>
+              <span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">expand_more</span>
+            </div>
+
+            <button onclick="applyFilters()" class="h-10 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors text-xs font-bold flex items-center gap-1.5 shrink-0">
+              <span class="material-symbols-outlined text-[16px]">tune</span>
+              <span>Lọc dữ liệu</span>
+            </button>
+
+            <button onclick="resetFilters()" class="h-10 px-3 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors text-xs font-semibold shrink-0" title="Đặt lại bộ lọc">
+              Đặt lại
+            </button>
+          </div>
+        </section>
+
+        <!-- 4. ENTERPRISE DATA TABLE -->
+        <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-left text-sm">
+              <thead>
+                <tr class="bg-slate-50/80 border-b border-slate-200/90 text-slate-500 font-bold uppercase text-[11px] tracking-wider">
+                  <th class="py-4 pl-6 pr-3 w-12 text-center">
+                    <input class="w-4 h-4 rounded cursor-pointer accent-[#0b1c30]" id="check-all" type="checkbox"/>
+                  </th>
+                  <th class="py-4 px-4">MÃ HV</th>
+                  <th class="py-4 px-4">HỘI VIÊN &amp; AVATAR</th>
+                  <th class="py-4 px-4">SỐ ĐIỆN THOẠI &amp; EMAIL</th>
+                  <th class="py-4 px-4">NGÀY SINH / TUỔI</th>
+                  <th class="py-4 px-4">TRẠNG THÁI</th>
+                  <th class="py-4 pr-6 pl-4 text-right">THAO TÁC</th>
+                </tr>
+              </thead>
+              <tbody id="members-table-body" class="divide-y divide-slate-100 font-medium">
+                <!-- JavaScript sẽ render danh sách thực tế vào đây -->
+                <tr>
+                  <td colspan="7" class="py-12 text-center text-slate-400">
+                    <div class="inline-flex items-center gap-2">
+                      <span class="w-4 h-4 border-2 border-slate-400 border-t-transparent rounded-full animate-spin"></span>
+                      <span>Đang tải dữ liệu hội viên từ hệ thống...</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 5. TABLE FOOTER & PAGINATION -->
+          <div class="p-4 bg-slate-50/60 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div class="flex items-center gap-4">
+              <span id="pagination-info">Hiển thị <strong class="text-slate-800 font-bold">...</strong> hội viên</span>
+            </div>
+            <div class="flex items-center gap-1 font-bold">
+              <button class="h-8 px-2.5 rounded-lg border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 transition-colors flex items-center gap-0.5" type="button">
+                <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                <span>Trước</span>
+              </button>
+              <button class="w-8 h-8 rounded-lg bg-[#0b1c30] text-white flex items-center justify-center">1</button>
+              <button class="h-8 px-2.5 rounded-lg border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 transition-colors flex items-center gap-0.5" type="button">
+                <span>Sau</span>
+                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL: THÊM MỚI HỘI VIÊN (GỌI POST /api/Members)           -->
+  <!-- ========================================================= -->
+  <div id="modal-create" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl border border-slate-200 overflow-hidden transform transition-all">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
+        <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+          <span class="material-symbols-outlined text-cyan-600">person_add</span>
+          <span>Thêm hội viên mới</span>
+        </h3>
+        <button onclick="closeCreateModal()" class="w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center">
+          ✕
+        </button>
+      </div>
+
+      <form id="form-create-member" onsubmit="handleCreateMember(event)" class="p-6 flex flex-col gap-4 text-sm">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Họ và tên *</label>
+            <input required id="c-fullname" type="text" placeholder="Nguyễn Văn A" class="w-full h-10 px-3 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:border-[#0b1c30]"/>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tài khoản (Username) *</label>
+            <input required id="c-username" type="text" placeholder="vana_gym" class="w-full h-10 px-3 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:border-[#0b1c30] font-mono"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Số điện thoại *</label>
+            <input required id="c-phone" type="tel" placeholder="0912345678" class="w-full h-10 px-3 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:border-[#0b1c30]"/>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Email *</label>
+            <input required id="c-email" type="email" placeholder="vana@example.com" class="w-full h-10 px-3 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:border-[#0b1c30]"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ngày sinh</label>
+            <input id="c-dob" type="date" class="w-full h-10 px-3 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:border-[#0b1c30]"/>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Giới tính</label>
+            <select id="c-gender" class="w-full h-10 px-3 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:border-[#0b1c30]">
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mật khẩu khởi tạo *</label>
+          <input required id="c-password" type="password" value="Gym@123" class="w-full h-10 px-3 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:border-[#0b1c30]"/>
+          <small class="text-slate-400 text-xs">Mặc định: Gym@123 (Hội viên có thể đổi sau khi đăng nhập)</small>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3 mt-2">
+          <button type="button" onclick="closeCreateModal()" class="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold hover:bg-slate-50">Hủy</button>
+          <button type="submit" id="btn-submit-create" class="px-5 py-2.5 rounded-xl bg-[#0b1c30] hover:bg-[#152e4d] text-white font-bold transition-all shadow">
+            Tạo hội viên
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- JAVASCRIPT KẾT NỐI API & ĐỒNG BỘ DỮ LIỆU                  -->
+  <!-- ========================================================= -->
+  <script>
+    const API_BASE = '/api';
+    let membersList = [];
+
+    // Lấy Token xác thực Bearer nếu đã lưu
+    function getAuthHeaders() {
+      const token = localStorage.getItem('token') || '';
+      return {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+      };
+    }
+
+    // 1. TẢI TOÀN BỘ HỘI VIÊN TỪ API BACKEND (GET /api/Members)
+    async function loadMembers(search = '') {
+      const tbody = document.getElementById('members-table-body');
+      try {
+        const url = search 
+          ? `${API_BASE}/Members?search=${encodeURIComponent(search)}` 
+          : `${API_BASE}/Members`;
+
+        const res = await fetch(url, { headers: getAuthHeaders() });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        
+        membersList = await res.json();
+        renderTable(membersList);
+        updateStats(membersList);
+      } catch (err) {
+        console.warn('[FitManage] Lỗi kết nối API Members, hiển thị dữ liệu dự phòng.', err);
+        // Fallback mẫu khi chưa bật server
+        membersList = [
+          { memberID: 1, fullName: "Võ Nguyễn Đăng Khôi", username: "khoi_fit", phone: "0987 654 321", email: "khoi@example.com", gender: "Nam", dateOfBirth: "1998-05-14", isActive: true },
+          { memberID: 2, fullName: "Võ Minh Nhiệm", username: "nhiem_yoga", phone: "0912 345 678", email: "nhiem.vo@outlook.com", gender: "Nam", dateOfBirth: "1994-08-20", isActive: true },
+          { memberID: 3, fullName: "Lê Anh Tâm", username: "tam_crossfit", phone: "0977 889 900", email: "tam.le@gmail.com", gender: "Nữ", dateOfBirth: "2001-11-05", isActive: false }
+        ];
+        renderTable(membersList);
+        updateStats(membersList);
+      }
+    }
+
+    // 2. RENDER BẢNG HỘI VIÊN
+    function renderTable(data) {
+      const tbody = document.getElementById('members-table-body');
+      const info = document.getElementById('pagination-info');
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-12 text-center text-slate-400">Không tìm thấy hội viên nào phù hợp.</td></tr>`;
+        info.innerHTML = `Hiển thị <strong class="text-slate-800 font-bold">0</strong> hội viên`;
+        return;
+      }
+
+      info.innerHTML = `Hiển thị <strong class="text-slate-800 font-bold">1 - ${data.length}</strong> trong <strong class="text-slate-800 font-bold">${data.length}</strong> hội viên`;
+
+      tbody.innerHTML = data.map(m => {
+        const initials = m.fullName ? m.fullName.split(' ').map(n => n[0]).slice(-2).join('') : 'HV';
+        let ageStr = '';
+        if (m.dateOfBirth) {
+          const birthYear = new Date(m.dateOfBirth).getFullYear();
+          const currentYear = new Date().getFullYear();
+          ageStr = ` • ${currentYear - birthYear}t`;
+        }
+
+        const dobDisplay = m.dateOfBirth 
+          ? new Date(m.dateOfBirth).toLocaleDateString('vi-VN') 
+          : '—';
+
+        const statusPill = m.isActive 
+          ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Hoạt động
+             </span>`
+          : `<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+               <span class="material-symbols-outlined text-[13px]">lock</span> Đã khóa
+             </span>`;
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition-colors">
+            <td class="py-4 pl-6 pr-3 text-center">
+              <input class="row-checkbox w-4 h-4 rounded cursor-pointer accent-[#0b1c30]" type="checkbox"/>
+            </td>
+            <td class="py-4 px-4 whitespace-nowrap">
+              <span class="font-mono font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded text-xs">#HV-${String(m.memberID).padStart(4, '0')}</span>
+            </td>
+            <td class="py-4 px-4 whitespace-nowrap">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#0b1c30] text-white flex items-center justify-center font-bold text-xs uppercase shrink-0 shadow-sm overflow-hidden">
+                  ${m.avatarUrl ? `<img src="${m.avatarUrl}" class="w-full h-full object-cover">` : initials}
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-bold text-slate-800 truncate">${m.fullName}</span>
+                    <span class="px-1.5 py-0.2 rounded text-[10px] font-medium bg-slate-100 text-slate-600">${m.gender || 'N/A'}${ageStr}</span>
+                  </div>
+                  <span class="text-xs text-slate-400 font-mono">@${m.username || 'member'}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-4 whitespace-nowrap">
+              <div class="flex flex-col">
+                <span class="text-xs font-semibold text-slate-700">${m.phone || '—'}</span>
+                <span class="text-[11px] text-slate-400">${m.email || '—'}</span>
+              </div>
+            </td>
+            <td class="py-4 px-4 whitespace-nowrap">
+              <div class="flex flex-col">
+                <span class="text-xs font-medium text-slate-700">${dobDisplay}</span>
+                <span class="text-[11px] text-slate-400">${m.gender || 'Chưa cập nhật'}</span>
+              </div>
+            </td>
+            <td class="py-4 px-4 whitespace-nowrap">
+              ${statusPill}
+            </td>
+            <td class="py-4 pr-6 pl-4 whitespace-nowrap text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <a href="/create-contract.html?memberId=${m.memberID}" class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors text-xs font-bold flex items-center gap-1" title="Lập hợp đồng mới">
+                  <span class="material-symbols-outlined text-[15px]">post_add</span>
+                  <span>+ Hợp đồng</span>
+                </a>
+                <button onclick="lockMember(${m.memberID})" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="${m.isActive ? 'Khóa tài khoản' : 'Mở khóa'}">
+                  <span class="material-symbols-outlined text-[18px]">${m.isActive ? 'lock' : 'lock_open'}</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 3. TÍNH TOÁN 4 KHỐI KPI
+    function updateStats(data) {
+      const total = data.length;
+      const active = data.filter(d => d.isActive).length;
+      const locked = total - active;
+      const male = data.filter(d => d.gender === 'Nam').length;
+      const female = data.filter(d => d.gender === 'Nữ').length;
+
+      document.getElementById('statTotal').innerText = total.toLocaleString();
+      document.getElementById('statActive').innerText = active.toLocaleString();
+      document.getElementById('statLocked').innerText = locked.toLocaleString();
+
+      const activePct = total > 0 ? ((active / total) * 100).toFixed(1) : 0;
+      document.getElementById('statActivePercent').innerText = `${activePct}% tổng quy mô`;
+
+      const malePct = total > 0 ? Math.round((male / total) * 100) : 50;
+      const femalePct = total > 0 ? 100 - malePct : 50;
+      document.getElementById('statGenderRatio').innerText = `${malePct}% Nam · ${femalePct}% Nữ`;
+      document.getElementById('barMale').style.width = `${malePct}%`;
+      document.getElementById('barFemale').style.width = `${femalePct}%`;
+      document.getElementById('labelMaleCount').innerText = `Nam (${male})`;
+      document.getElementById('labelFemaleCount').innerText = `Nữ (${female})`;
+    }
+
+    // 4. BỘ LỌC DỮ LIỆU
+    function applyFilters() {
+      const gender = document.getElementById('select-gender').value;
+      const status = document.getElementById('select-status').value;
+
+      let filtered = [...membersList];
+      if (gender) filtered = filtered.filter(m => m.gender === gender);
+      if (status !== '') filtered = filtered.filter(m => String(m.isActive) === status);
+
+      renderTable(filtered);
+    }
+
+    function resetFilters() {
+      document.getElementById('member-search-input').value = '';
+      document.getElementById('select-gender').value = '';
+      document.getElementById('select-status').value = '';
+      renderTable(membersList);
+    }
+
+    // 5. TÌM KIẾM NHANH (DEBOUNCE)
+    let searchTimeout;
+    const searchInput = document.getElementById('member-search-input');
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        loadMembers(e.target.value.trim());
+      }, 300);
+    });
+
+    // 6. THAO TÁC MODAL THÊM HỘI VIÊN
+    function openCreateModal() {
+      document.getElementById('modal-create').classList.remove('hidden');
+    }
+    function closeCreateModal() {
+      document.getElementById('modal-create').classList.add('hidden');
+    }
+
+    async function handleCreateMember(e) {
+      e.preventDefault();
+      const payload = {
+        fullName: document.getElementById('c-fullname').value.trim(),
+        username: document.getElementById('c-username').value.trim(),
+        phone: document.getElementById('c-phone').value.trim(),
+        email: document.getElementById('c-email').value.trim(),
+        dateOfBirth: document.getElementById('c-dob').value || null,
+        gender: document.getElementById('c-gender').value,
+        password: document.getElementById('c-password').value
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/Members`, {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert('Tạo hội viên mới thành công!');
+          closeCreateModal();
+          document.getElementById('form-create-member').reset();
+          loadMembers();
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert('Lỗi tạo hội viên: ' + (err.message || 'Kiểm tra trùng lặp Username hoặc Email.'));
+        }
+      } catch (err) {
+        alert('Lỗi kết nối máy chủ.');
+      }
+    }
+
+    // 7. KHÓA HỘI VIÊN (DELETE /api/Members/{id})
+    async function lockMember(id) {
+      if (!confirm(`Bạn có chắc chắn muốn thay đổi trạng thái hội viên #HV-${id}?`)) return;
+      try {
+        const res = await fetch(`${API_BASE}/Members/${id}`, {
+          method: 'DELETE',
+          headers: getAuthHeaders()
+        });
+        if (res.ok) {
+          alert('Thao tác thành công!');
+          loadMembers();
+        }
+      } catch (err) {
+        alert('Lỗi kết nối máy chủ.');
+      }
+    }
+
+    // 8. XUẤT EXCEL (GET /api/Reports/export-members)
+    function handleExportExcel() {
+      window.location.href = `${API_BASE}/Reports/export-members`;
+    }
+
+    // Select-all checkbox handler
+    const checkAll = document.getElementById('check-all');
+    if (checkAll) {
+      checkAll.addEventListener('change', (e) => {
+        document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
+      });
+    }
+
+    // Tự động tải dữ liệu khi trang sẵn sàng
+    document.addEventListener('DOMContentLoaded', () => {
+      loadMembers();
+    });
+  </script>
+</body>
+</html>

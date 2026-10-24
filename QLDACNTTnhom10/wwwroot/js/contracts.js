@@ -175,7 +175,8 @@ async function handleCreateContract(event) {
     paymentMethod: document.getElementById("paymentMethod").value
   };
 
-  console.log("Dữ liệu gửi lên API Backend:", payload);
+  // Mock payload ready for backend API integration
+  // console.log("Dữ liệu gửi lên API Backend:", payload);
 
   // Tạo hợp đồng mới thêm vào danh sách Mock
   const today = new Date();

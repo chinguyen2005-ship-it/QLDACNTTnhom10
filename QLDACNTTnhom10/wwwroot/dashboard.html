@@ -124,6 +124,8 @@
       }
     }
   </script>
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <script src="/js/sidebar.js" defer></script>
 </head>
 
 <body class="bg-[#F8F9FF] font-sans text-[#0B1C30] antialiased">
@@ -131,103 +133,7 @@
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- LEFT SIDEBAR - Fixed Navigation                            -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] text-white">
-    <div class="flex flex-col flex-1 overflow-y-auto">
-
-      <!-- Top Logo -->
-      <div class="h-16 px-6 flex items-center gap-3">
-        <div class="w-9 h-9 rounded-lg bg-[#ACEDFF] flex items-center justify-center shrink-0 shadow-sm">
-          <span class="text-xl font-bold text-[#001F26]">F</span>
-        </div>
-        <div class="flex flex-col min-w-0">
-          <span class="text-base font-bold text-white tracking-tight leading-tight">FitManage</span>
-          <span class="text-[10px] text-[#A3CAF2] tracking-wider uppercase font-semibold">GYM &amp; YOGA SUITE</span>
-        </div>
-      </div>
-
-      <!-- Menu Navigation -->
-      <div class="px-5 pt-3 pb-1">
-        <span class="text-[11px] uppercase tracking-wider text-[#A3CAF2]/70 font-semibold px-2">Quản trị hệ thống</span>
-      </div>
-
-      <nav class="flex-1 px-3 space-y-1" style="max-height:calc(100vh - 280px);overflow-y:auto">
-        <!-- Active: Dashboard -->
-        <a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#006172] text-[#57DFFF] font-medium shadow-sm transition-all" href="/dashboard.html">
-          <span class="material-symbols-outlined text-[20px]">dashboard</span>
-          <span class="text-sm font-medium">Dashboard</span>
-        </a>
-        <span class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" aria-disabled="true" title="Chưa có giao diện trong repository">
-          <span class="material-symbols-outlined text-[20px]">group</span>
-          <span class="text-sm">Hội viên</span>
-        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/packages.html">
-          <span class="material-symbols-outlined text-[20px]">description</span>
-          <span class="text-sm">Hợp đồng &amp; Gói tập</span>
-        </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/trainers.html">
-          <span class="material-symbols-outlined text-[20px]">sports</span>
-          <span class="text-sm">Quản lý HLV</span>
-        </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/schedules.html">
-          <span class="material-symbols-outlined text-[20px]">calendar_month</span>
-          <span class="text-sm">Lịch lớp học</span>
-        </a>
-        <span class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" aria-disabled="true" title="Chưa có giao diện trong repository">
-          <span class="material-symbols-outlined text-[20px]">badge</span>
-          <span class="text-sm">Quầy lễ tân Check-in</span>
-        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/ai-retention-copilot.html">
-          <span class="material-symbols-outlined text-[20px]">auto_awesome</span>
-          <span class="text-sm">Trợ lý AI gia hạn</span>
-        </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/retention-report.html">
-          <span class="material-symbols-outlined text-[20px]">monitoring</span>
-          <span class="text-sm">Báo cáo &amp; Thống kê</span>
-        </a>
-        <span class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" aria-disabled="true" title="Chưa có giao diện trong repository">
-          <span class="material-symbols-outlined text-[20px]">settings</span>
-          <span class="text-sm">Cài đặt</span>
-        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
-
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/class-booking.html">Đăng ký lớp tập</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/data-tools.html">Bộ lọc dữ liệu</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/templates/email-expiry-reminder.html">Mẫu email nhắc hạn</a></nav>
-    </div>
-
-    <!-- Bottom Branch Box & Admin Profile -->
-    <div class="p-3.5 flex flex-col gap-2.5">
-      <!-- Branch selector -->
-      <div class="bg-[#213145] p-3 rounded-xl border border-white/10 flex flex-col gap-1.5 shadow-sm">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-[#57DFFF]"></span>
-            <span class="text-xs text-white font-medium truncate">Quận 1 • Flagship Studio</span>
-          </div>
-          <span class="material-symbols-outlined text-slate-400 text-[16px]">unfold_more</span>
-        </div>
-        <div class="flex items-center gap-1.5 pt-0.5">
-          <span class="material-symbols-outlined text-emerald-400 text-[15px]">sensors</span>
-          <span class="text-[10px] text-emerald-300 font-bold tracking-wider">8 CỔNG TURNSTILE ON</span>
-        </div>
-      </div>
-
-      <!-- Admin profile: Chí Nguyên -->
-      <div class="flex items-center justify-between px-2 py-1.5 bg-[#213145]/60 rounded-xl border border-white/5">
-        <div class="flex items-center gap-2.5 min-w-0">
-          <div class="w-8 h-8 rounded-full bg-[#6D28D9] flex items-center justify-center text-white font-bold text-xs shrink-0">
-            CN
-          </div>
-          <div class="flex flex-col min-w-0">
-            <span class="text-xs font-semibold text-white leading-tight truncate">Chí Nguyên</span>
-            <span class="text-[10px] text-[#A3CAF2] leading-none truncate">Quản trị viên / Club Director</span>
-          </div>
-        </div>
-        <button class="p-1 rounded text-slate-400 hover:text-rose-400 hover:bg-white/10 transition-colors" title="Đăng xuất">
-          <span class="material-symbols-outlined text-[18px]">logout</span>
-        </button>
-      </div>
-    </div>
-  </aside>
+  <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] text-white" data-fitmanage-sidebar aria-label="Sidebar FitManage"><a href="/dashboard.html">FitManage · Bảng điều khiển</a></aside>
 
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- RIGHT CONTENT CONTAINER                                    -->

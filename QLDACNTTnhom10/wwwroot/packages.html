@@ -5,10 +5,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>FitManage GYM &amp; YOGA SUITE - Danh mục Gói tập &amp; Biểu phí Dịch vụ</title>
   
-  <!-- Google Fonts: DM Sans & Material Symbols -->
+  <!-- Google Fonts: Be Vietnam Pro & Material Symbols -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 
@@ -24,7 +24,7 @@
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     body {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
     .material-symbols-outlined {
@@ -106,102 +106,26 @@
             "space-xl": "2rem"
           },
           fontFamily: {
-            "sans": ["DM Sans", "sans-serif"]
+            "sans": ["Be Vietnam Pro", "sans-serif"]
           }
         }
       }
     };
   </script>
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <script src="/js/sidebar.js" defer></script>
 </head>
 
 <body class="bg-surface font-sans text-on-surface antialiased min-h-screen relative overflow-x-hidden">
 
   <!-- ==================== 1. SIDEBAR (NGUYÊN BẢN THEO THIẾT KẾ GỐC) ==================== -->
-  <aside class="fixed left-0 top-0 h-full w-[260px] bg-[#0B2238] border-l-2 border-[#818cf8] border-r border-white/10 z-30 flex flex-col justify-between select-none shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-    <div class="flex flex-col">
-      <!-- Logo Header -->
-      <div class="h-16 px-space-md flex items-center gap-space-sm border-b border-white/10">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-white text-xl font-bold shadow-md">
-          F
-        </div>
-        <div class="flex flex-col min-w-0">
-          <span class="text-base text-white font-bold tracking-tight truncate leading-tight">FitManage</span>
-          <span class="text-[11px] text-cyan-300 tracking-wider font-semibold truncate leading-none uppercase">GYM &amp; YOGA SUITE</span>
-        </div>
-      </div>
-
-      <!-- Menu Section Header -->
-      <div class="px-space-md pt-space-md pb-space-xs">
-        <span class="text-[11px] text-slate-400 uppercase tracking-wider font-bold">MENU CHÍNH</span>
-      </div>
-
-      <!-- Navigation Links (8 Chức năng chuẩn theo thiết kế) -->
-      <nav class="flex flex-col px-space-sm space-y-1" style="max-height:calc(100vh - 280px);overflow-y:auto">
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bang-dieu-khien" href="/dashboard.html">
-          <span class="material-symbols-outlined text-[20px] shrink-0">grid_view</span>
-          <span class="text-sm truncate">Bảng điều khiển</span>
-        </a>
-        <span class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quan-ly-hoi-vien" aria-disabled="true" title="Chưa có giao diện trong repository">
-          <span class="material-symbols-outlined text-[20px] shrink-0">group</span>
-          <span class="text-sm truncate">Quản lý hội viên</span>
-        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
-        <!-- ACTIVE TAB: Hợp đồng & Gói tập -->
-        <a aria-current="page" class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg bg-tertiary-container text-white font-bold shadow-xs transition-colors" data-path="hop-dong-va-goi-tap" href="/packages.html">
-          <span class="material-symbols-outlined text-[20px] shrink-0 text-white">loyalty</span>
-          <span class="text-sm truncate">Hợp đồng &amp; Gói tập</span>
-        </a>
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quan-ly-huan-luyen-vien" href="/trainers.html">
-          <span class="material-symbols-outlined text-[20px] shrink-0">fitness_center</span>
-          <span class="text-sm truncate">Quản lý HLV</span>
-        </a>
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="lich-lop-hoc" href="/schedules.html">
-          <span class="material-symbols-outlined text-[20px] shrink-0">calendar_month</span>
-          <span class="text-sm truncate">Lịch lớp học</span>
-        </a>
-        <span class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quay-le-tan-check-in" aria-disabled="true" title="Chưa có giao diện trong repository">
-          <span class="material-symbols-outlined text-[20px] shrink-0">how_to_reg</span>
-          <span class="text-sm truncate">Quầy lễ tân Check-in</span>
-        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="tro-ly-ai-gia-han" href="/ai-retention-copilot.html">
-          <span class="material-symbols-outlined text-[20px] shrink-0">auto_awesome</span>
-          <span class="text-sm truncate">Trợ lý AI gia hạn</span>
-        </a>
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bao-cao-doanh-thu" href="/retention-report.html">
-          <span class="material-symbols-outlined text-[20px] shrink-0">bar_chart</span>
-          <span class="text-sm truncate">Báo cáo tỷ lệ gia hạn</span>
-        </a>
-
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/class-booking.html">Đăng ký lớp tập</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/data-tools.html">Bộ lọc dữ liệu</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/templates/email-expiry-reminder.html">Mẫu email nhắc hạn</a></nav>
-    </div>
-
-    <!-- Bottom Account Profile -->
-    <div class="p-space-sm border-t border-white/10 flex flex-col gap-space-xs">
-      <a class="flex items-center px-space-sm py-2 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" href="#">
-        <span class="material-symbols-outlined mr-space-sm text-[20px] text-slate-400">settings</span>
-        <span class="text-sm">Cài đặt &amp; Hồ sơ</span>
-      </a>
-      <div class="p-space-sm rounded-xl bg-white/5 flex items-center justify-between mt-1">
-        <div class="flex items-center gap-space-sm min-w-0">
-          <div class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs shrink-0">
-            AT
-          </div>
-          <div class="flex flex-col min-w-0">
-            <span class="text-xs text-white truncate font-medium leading-tight">Admin Thana</span>
-            <span class="text-[11px] text-slate-400 truncate leading-tight">Quản lý Chi nhánh</span>
-          </div>
-        </div>
-        <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-white/10 text-cyan-300 border border-cyan-400/30 shrink-0">ADMIN</span>
-      </div>
-    </div>
-  </aside>
+  <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between text-white select-none shadow-[0_1px_8px_rgba(0,0,0,0.04)]" data-fitmanage-sidebar aria-label="Sidebar FitManage"><a href="/dashboard.html">FitManage · Bảng điều khiển</a></aside>
 
   <!-- ==================== 2. MAIN CONTENT WRAPPER ==================== -->
-  <div class="pl-[260px]">
+  <div class="pl-64">
     
     <!-- Top Header Bar -->
-    <header class="fixed top-0 left-[260px] right-0 h-16 bg-surface-container-lowest border-b border-outline-variant/40 z-20 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest border-b border-outline-variant/40 z-20 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
       <div class="flex items-center gap-space-md">
         <!-- Breadcrumb -->
         <div class="flex items-center gap-space-xs text-on-surface-variant text-sm">
