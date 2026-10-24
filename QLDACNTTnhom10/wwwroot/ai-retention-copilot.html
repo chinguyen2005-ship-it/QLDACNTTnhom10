@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitManage GYM &amp; YOGA SUITE - Trợ lý AI gia hạn (AI Retention Copilot)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: DM Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0b1c30',
+              navyDark: '#071424',
+              navyCard: '#0f2742',
+              purple: '#7c3aed',
+              purpleDeep: '#2e1065',
+              purpleDark: '#3b0764',
+              purpleHover: '#6d28d9',
+              purpleLight: '#f5f3ff',
+              cyan: '#06b6d4',
+              cyanNeon: '#22d3ee',
+              bgMain: '#f8f9ff',
+            }
+          },
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'card': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.02)',
+            'card-hover': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)',
+            'glow-purple': '0 0 25px -5px rgba(124, 58, 237, 0.35)',
+            'glow-cyan': '0 0 15px -3px rgba(6, 182, 212, 0.5)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #f8f9ff;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* Custom scrollbars */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Subtle pulse animation for AI active indicators */
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.02); }
+    }
+    .animate-subtle {
+      animation: subtlePulse 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#f8f9ff] antialiased flex h-screen w-full overflow-hidden text-slate-800">
+
+  <!-- ==================== LEFT SIDEBAR (Dark Navy #0b1c30) ==================== -->
+  <aside class="w-[260px] flex-shrink-0 bg-[#0b1c30] flex flex-col justify-between text-white select-none z-20 border-r border-[#152e4d]">
+    <div>
+      <!-- Brand Logo Header -->
+      <div class="h-20 flex items-center px-6 gap-3 border-b border-white/10 bg-[#071424]">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center font-black text-xl text-white shadow-lg shadow-cyan-500/20">
+          F
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold tracking-wider text-base text-white">FITMANAGE</span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">PRO</span>
+          </div>
+          <span class="text-[10px] font-semibold tracking-wider text-cyan-200/70 uppercase">GYM &amp; YOGA SUITE</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <div class="px-3.5 py-5">
+        <div class="text-[11px] font-semibold text-slate-400/80 px-3 pb-2.5 uppercase tracking-wider">
+          MENU CHÍNH / MAIN
+        </div>
+        <nav class="space-y-1 text-sm font-medium">
+          <!-- Bảng điều khiển -->
+          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+            <i data-lucide="layout-grid" class="w-4 h-4 text-slate-400"></i>
+            <span>Bảng điều khiển</span>
+          </a>
+
+          <!-- Quản lý hội viên -->
+          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+            <i data-lucide="users" class="w-4 h-4 text-slate-400"></i>
+            <span>Quản lý hội viên</span>
+          </a>
+
+          <!-- Hợp đồng & Gói tập -->
+          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+            <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+            <span>Hợp đồng &amp; Gói tập</span>
+          </a>
+
+          <!-- Quầy lễ tân Check-in -->
+          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+            <i data-lucide="scan" class="w-4 h-4 text-slate-400"></i>
+            <span>Quầy lễ tân Check-in</span>
+          </a>
+
+          <!-- Lịch lớp học -->
+          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+            <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
+            <span>Lịch lớp học</span>
+          </a>
+
+          <!-- ACTIVE: Trợ lý AI gia hạn -->
+          <a href="javascript:void(0)" class="relative flex items-center justify-between px-3 py-2.5 rounded-xl bg-white/10 text-white font-semibold border border-cyan-400/25 shadow-sm shadow-cyan-950/40">
+            <div class="flex items-center gap-3">
+              <div class="relative flex items-center justify-center">
+                <i data-lucide="zap" class="w-4 h-4 text-purple-400 fill-purple-400"></i>
+                <span class="absolute -top-1 -right-1 flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                </span>
+              </div>
+              <span class="text-white">Trợ lý AI gia hạn</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-400/30">AI</span>
+              <!-- Glowing neon cyan active indicator dot -->
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#06b6d4]"></span>
+            </div>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Sidebar Bottom Status & Profile -->
+    <div class="p-4 border-t border-white/10 bg-[#071424] space-y-3">
+      <!-- AI Engine Status Pill -->
+      <div class="bg-black/30 rounded-xl p-2.5 border border-white/5 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-300 font-mono text-[11px]">Groq AI Engine</span>
+        </div>
+        <span class="text-[10px] font-bold text-cyan-300 bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-500/30 font-mono">ONLINE</span>
+      </div>
+
+      <!-- Admin User Card -->
+      <div class="flex items-center justify-between pt-1">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-full bg-slate-700 border border-white/20 flex items-center justify-center font-bold text-xs text-white">
+            AT
+          </div>
+          <div class="flex flex-col text-left">
+            <span class="text-xs font-semibold text-white leading-tight">Admin Thana</span>
+            <span class="text-[11px] text-slate-400">Giám đốc Vận hành</span>
+          </div>
+        </div>
+        <button class="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5" title="Đăng xuất">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN VIEWPORT CONTAINER ==================== -->
+  <div class="flex-1 flex flex-col h-screen overflow-hidden">
+
+    <!-- TOP HEADER -->
+    <header class="h-20 bg-white border-b border-slate-200/80 px-8 flex items-center justify-between flex-shrink-0 z-10 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+      <!-- Breadcrumb Navigation -->
+      <div class="flex items-center gap-2.5 text-sm">
+        <a href="javascript:void(0)" class="text-slate-400 hover:text-slate-600 transition-colors">Trang chủ</a>
+        <span class="text-slate-300 font-normal">/</span>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-slate-900 text-base">Trợ lý AI gia hạn</span>
+          <span class="text-xs text-slate-500 font-medium">(AI Retention Copilot)</span>
+        </div>
+      </div>
+
+      <!-- Header Center / Right Controls -->
+      <div class="flex items-center gap-4">
+        <!-- Search Input -->
+        <div class="relative w-72">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="globalSearchInput" placeholder="Tìm hội viên, SĐT, hợp đồng..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all">
+        </div>
+
+        <!-- Date indicator -->
+        <div class="flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-600">
+          <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
+          <span>Thứ Sáu, 18/09/2026</span>
+        </div>
+
+        <!-- Language Pill Switcher (Bilingual VN / GB) -->
+        <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
+          <button id="langVN" onclick="setLanguage('VN')" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white shadow-sm text-slate-900 border border-slate-200/80 transition-all">
+            <span class="w-4 h-3 bg-red-600 rounded-[2px] relative overflow-hidden flex items-center justify-center shadow-xs">
+              <span class="text-[8px] text-yellow-300 font-bold leading-none">★</span>
+            </span>
+            <span>VN VI</span>
+          </button>
+          <button id="langEN" onclick="setLanguage('EN')" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-colors">
+            <span class="w-4 h-3 bg-blue-700 rounded-[2px] relative overflow-hidden flex items-center justify-center shadow-xs">
+              <span class="text-[7px] text-red-500 font-black leading-none">✚</span>
+            </span>
+            <span>GB EN</span>
+          </button>
+        </div>
+
+        <!-- Notification Bell -->
+        <button onclick="showToast('Bạn có 3 thông báo gia hạn mới cần xử lý')" class="relative p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-500 hover:text-slate-700 transition-colors">
+          <i data-lucide="bell" class="w-4 h-4"></i>
+          <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
+        </button>
+
+        <!-- Admin Profile Avatar -->
+        <div class="flex items-center gap-2.5 pl-2 border-l border-slate-200">
+          <div class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold ring-2 ring-slate-100 shadow-sm">
+            AT
+          </div>
+          <div class="flex flex-col text-left">
+            <span class="text-xs font-bold text-slate-800">Admin Thana</span>
+            <span class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Điều phối AI
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT SCROLL AREA -->
+    <main class="flex-1 overflow-y-auto px-8 py-6 space-y-6 custom-scrollbar">
+
+      <!-- ==================== HÀNG 4 THẺ KPI TỔNG QUAN ==================== -->
+      <div class="grid grid-cols-4 gap-5">
+        
+        <!-- KPI 1: Churn Risk -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+          <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-rose-100/60 rounded-full blur-xl pointer-events-none"></div>
+          <div class="flex items-start justify-between pb-3">
+            <span class="text-xs font-semibold text-slate-500">Hội viên nguy cơ cao (High Churn Risk)</span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-[10px] font-bold whitespace-nowrap">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping"></span>
+              Cần can thiệp gấp
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-rose-600 tracking-tight font-mono">24</span>
+            <span class="text-xs font-semibold text-slate-500">hội viên</span>
+          </div>
+          <div class="mt-2 text-xs text-rose-600/95 font-medium flex items-center gap-1">
+            <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
+            <span>Tăng 4 hội viên so với tuần trước</span>
+          </div>
+        </div>
+
+        <!-- KPI 2: Revenue at Risk -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+          <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-100/50 rounded-full blur-xl pointer-events-none"></div>
+          <div class="flex items-start justify-between pb-3">
+            <span class="text-xs font-semibold text-slate-500">Doanh thu có thể mất (Revenue at Risk)</span>
+            <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold font-mono">
+              $
+            </span>
+          </div>
+          <div class="flex items-baseline gap-1.5">
+            <span class="text-3xl font-extrabold text-slate-900 tracking-tight font-mono">$14.850</span>
+            <span class="text-xs font-semibold text-slate-500">USD</span>
+          </div>
+          <div class="mt-2 text-xs text-amber-700 font-medium flex items-center gap-1">
+            <span class="text-amber-600 font-bold">↘</span>
+            <span>Dựa trên 24 gói sắp hết hạn (30 ngày tới)</span>
+          </div>
+        </div>
+
+        <!-- KPI 3: Retention Success Rate -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+          <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-100/50 rounded-full blur-xl pointer-events-none"></div>
+          <div class="flex items-start justify-between pb-3">
+            <span class="text-xs font-semibold text-slate-500">Tỷ lệ giữ chân tháng này (Retention Success)</span>
+            <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-emerald-600 tracking-tight font-mono">74.2%</span>
+            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">+8.5%</span>
+          </div>
+          <div class="mt-2 text-xs text-emerald-700 font-medium flex items-center gap-1">
+            <span>↗ Tăng tốc nhờ kịch bản cá nhân hóa AI</span>
+          </div>
+        </div>
+
+        <!-- KPI 4: AI Model & Inference Engine (Dark Violet Theme) -->
+        <div class="bg-gradient-to-br from-[#2e1065] via-[#3b0764] to-[#1e0840] rounded-2xl p-5 border border-purple-900 text-white shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+          <div class="absolute -right-2 -bottom-2 w-28 h-28 bg-purple-500/20 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-start justify-between pb-3">
+            <span class="text-xs font-semibold text-purple-200">Mô hình suy luận (Inference Engine)</span>
+            <span class="px-2 py-0.5 rounded-full bg-purple-500/30 border border-purple-400/40 text-[10px] font-bold text-purple-200 tracking-wide flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> ACTIVE
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-2xl font-black text-white tracking-tight flex items-center gap-1.5">
+              <span class="text-cyan-400">★</span>
+              Groq Llama-3
+            </span>
+          </div>
+          <div class="mt-2 text-xs text-purple-200/90 font-mono flex items-center gap-1.5">
+            <span class="text-cyan-400 font-bold">⚡</span>
+            <span>Bộ trễ: 248ms · Tối ưu kịch bản</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== BỐ CỤC 2 CỘT NỘI DUNG CHÍNH (42% vs 58%) ==================== -->
+      <div class="flex gap-6 items-start">
+
+        <!-- ==================== CỘT 1: HÀNG ĐỢI HỘI VIÊN RỦI RO (~42% Width) ==================== -->
+        <div class="w-[42%] flex-shrink-0 bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 flex flex-col space-y-4">
+          
+          <!-- Column Header & Queue Stats -->
+          <div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-6 bg-purple-600 rounded-full"></div>
+                <div>
+                  <h2 class="text-base font-bold text-slate-900 leading-tight">Hàng đợi hội viên rủi ro</h2>
+                  <span class="text-xs text-slate-500 font-medium">(At-Risk Member Queue)</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-rose-50 text-rose-600 border border-rose-200">
+                18 cần gọi hôm nay
+              </span>
+            </div>
+
+            <!-- Segmented Filter Tabs -->
+            <div class="flex items-center gap-1.5 mt-4 bg-slate-100 p-1 rounded-xl border border-slate-200/80 text-xs font-semibold">
+              <button onclick="setQueueTab('unhandled')" id="tabUnhandled" class="flex-1 py-1.5 px-2 rounded-lg bg-[#0b1c30] text-white shadow-sm flex items-center justify-center gap-1.5 transition-all">
+                <span>Chưa xử lý</span>
+                <span class="px-1.5 py-0.2 rounded-full bg-rose-500 text-[10px] font-bold text-white">18</span>
+              </button>
+              <button onclick="setQueueTab('caring')" id="tabCaring" class="flex-1 py-1.5 px-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center justify-center gap-1.5">
+                <span>Đang chăm sóc</span>
+                <span class="px-1.5 py-0.2 rounded-full bg-amber-200 text-amber-800 text-[10px] font-bold">4</span>
+              </button>
+              <button onclick="setQueueTab('renewed')" id="tabRenewed" class="flex-1 py-1.5 px-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center justify-center gap-1.5">
+                <span>Đã tái ký thành công</span>
+                <span class="px-1.5 py-0.2 rounded-full bg-emerald-200 text-emerald-800 text-[10px] font-bold">62</span>
+              </button>
+            </div>
+
+            <!-- Mini Toolbar: Search & Sort Dropdown -->
+            <div class="flex items-center gap-2.5 mt-3">
+              <div class="relative flex-1">
+                <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                <input type="text" id="memberSearchInput" oninput="filterMemberList()" placeholder="Tìm theo tên, SĐT, mã hội viên..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-purple-500">
+              </div>
+              <div class="flex items-center gap-1 text-xs text-slate-600 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg font-medium cursor-pointer hover:bg-slate-100 transition-colors">
+                <span>Sắp xếp:</span>
+                <span class="text-slate-900 font-bold">Rủi ro cao nhất</span>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- MEMBER CARDS SCROLLABLE CONTAINER -->
+          <div id="memberListContainer" class="space-y-3.5 max-h-[640px] overflow-y-auto pr-1.5 custom-scrollbar">
+
+            <!-- ================= CARD 1: SARAH MITCHEL (ACTIVE/SELECTED) ================= -->
+            <div id="card-MB1042" onclick="selectMember('MB-1042')" class="member-card relative bg-white rounded-2xl p-4 border-2 border-purple-600 shadow-[0_4px_20px_rgba(124,58,237,0.12)] transition-all cursor-pointer">
+              <!-- Floating Active State Tag -->
+              <div class="active-badge absolute -top-2.5 right-4 px-2.5 py-0.5 bg-purple-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm">
+                <i data-lucide="check" class="w-3 h-3 text-cyan-300"></i>
+                ĐANG CHỌN PHÂN TÍCH
+              </div>
+
+              <!-- Header Row: Avatar, Name, Badges -->
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-purple-700 to-indigo-600 text-white flex items-center justify-center font-bold text-sm ring-2 ring-purple-200 shadow-sm">
+                    SM
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-bold text-sm text-slate-900">Sarah Mitchel</h3>
+                      <span class="text-[10px] font-semibold text-purple-700 bg-purple-50 border border-purple-200 px-1.5 py-0.2 rounded flex items-center gap-1">
+                        <span class="text-yellow-500">★</span> GOLD VIP
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5 font-mono">
+                      <span>081-234-5678</span>
+                      <span>·</span>
+                      <span class="text-purple-600 font-semibold">#MB-1042</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Status Pill -->
+                <span class="px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-[11px] font-bold flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-rose-500"></span> Nguy cơ cao (High)
+                </span>
+              </div>
+
+              <!-- Package Info -->
+              <div class="mt-3 flex items-center gap-2 text-xs text-slate-700 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200/60">
+                <span class="text-purple-600 text-sm">🧘</span>
+                <span class="font-semibold text-slate-900">Yoga Không Giới Hạn (Yoga Unlimited)</span>
+                <span class="text-slate-300">|</span>
+                <span class="text-slate-500 font-medium">HĐ: 12 Tháng</span>
+              </div>
+
+              <!-- AI Churn Risk Score & Progress Bar -->
+              <div class="mt-3 space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-semibold text-slate-700 flex items-center gap-1">
+                    <i data-lucide="flame" class="w-3.5 h-3.5 text-rose-500 fill-rose-500"></i>
+                    Xác suất rời bỏ (Churn Risk)
+                  </span>
+                  <span class="font-extrabold text-rose-600 font-mono text-sm">78%</span>
+                </div>
+                <!-- Progress bar -->
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-gradient-to-r from-amber-500 via-rose-500 to-red-600 h-2 rounded-full w-[78%] transition-all duration-700"></div>
+                </div>
+              </div>
+
+              <!-- Diagnostic tags -->
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-semibold flex items-center gap-1">
+                  ⏳ Còn 7 ngày hết hạn HĐ
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-700 text-[11px] font-medium">
+                  📉 Chỉ đi 2 buổi / 30 ngày qua
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-purple-50 border border-purple-200 text-purple-700 text-[11px] font-medium">
+                  Studio A Yoga
+                </span>
+              </div>
+            </div>
+
+            <!-- ================= CARD 2: JAMES TORLAK ================= -->
+            <div id="card-MB1088" onclick="selectMember('MB-1088')" class="member-card bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                    JT
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-bold text-sm text-slate-900">James Torlak</h3>
+                      <span class="text-[10px] font-mono text-slate-500">#MB-1088</span>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono">081-345-6789</div>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-[10px] font-bold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Nguy cơ cao
+                </span>
+              </div>
+
+              <div class="mt-2.5 flex items-center gap-2 text-xs text-slate-700">
+                <span class="text-blue-600">🏋️</span>
+                <span class="font-medium text-slate-800">Gym Cao Cấp (Premium Gym)</span>
+                <span class="text-slate-300">·</span>
+                <span class="text-slate-500">HĐ 6 Tháng</span>
+              </div>
+
+              <!-- Churn Risk Meter -->
+              <div class="mt-2.5 space-y-1">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-500 font-medium">Xác suất rời bỏ</span>
+                  <span class="font-bold text-rose-600 font-mono">72%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-rose-500 h-1.5 rounded-full w-[72%]"></div>
+                </div>
+              </div>
+
+              <div class="mt-2.5 flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[11px] font-medium">
+                  ⏳ Còn 14 ngày
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[11px] font-medium">
+                  Tần suất: 4 buổi / 30 ngày
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[11px] font-medium">
+                  Chỉ tập ca tối muộn
+                </span>
+              </div>
+            </div>
+
+            <!-- ================= CARD 3: PRIYA NATARAJAN ================= -->
+            <div id="card-MB1120" onclick="selectMember('MB-1120')" class="member-card bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                    PN
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-bold text-sm text-slate-900">Priya Natarajan</h3>
+                      <span class="text-[10px] font-mono text-slate-500">#MB-1120</span>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono">081-456-7890</div>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-bold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Trung bình (Medium)
+                </span>
+              </div>
+
+              <div class="mt-2.5 flex items-center gap-2 text-xs text-slate-700">
+                <span class="text-teal-600">⚡</span>
+                <span class="font-medium text-slate-800">Combo Yoga + PT 1-1</span>
+                <span class="text-slate-300">·</span>
+                <span class="text-slate-500">Gói 36 Buổi</span>
+              </div>
+
+              <!-- Churn Risk Meter -->
+              <div class="mt-2.5 space-y-1">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-500 font-medium">Xác suất rời bỏ</span>
+                  <span class="font-bold text-amber-600 font-mono">48%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-amber-500 h-1.5 rounded-full w-[48%]"></div>
+                </div>
+              </div>
+
+              <div class="mt-2.5 flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[11px] font-medium">
+                  ⏳ Còn 21 ngày
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[11px] font-medium">
+                  Tần suất: 8 buổi / 30 ngày
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[11px] font-medium">
+                  PT: David Trần
+                </span>
+              </div>
+            </div>
+
+            <!-- ================= CARD 4: CARLOS REYES ================= -->
+            <div id="card-MB1094" onclick="selectMember('MB-1094')" class="member-card bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                    CR
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-bold text-sm text-slate-900">Carlos Reyes</h3>
+                      <span class="text-[10px] font-mono text-slate-500">#MB-1094</span>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono">081-567-8901</div>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-bold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Trung bình
+                </span>
+              </div>
+
+              <div class="mt-2.5 flex items-center gap-2 text-xs text-slate-700">
+                <span>🏃</span>
+                <span class="font-medium text-slate-800">Gym Tiêu Chuẩn (Cardio Only)</span>
+                <span class="text-slate-300">·</span>
+                <span class="text-slate-500">HĐ 12 Tháng</span>
+              </div>
+
+              <div class="mt-2.5 space-y-1">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-500 font-medium">Xác suất rời bỏ</span>
+                  <span class="font-bold text-amber-600 font-mono">42%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-amber-400 h-1.5 rounded-full w-[42%]"></div>
+                </div>
+              </div>
+
+              <div class="mt-2.5 flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[11px] font-medium">
+                  ⏳ Còn 28 ngày
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[11px] font-medium">
+                  Tần suất: 5 buổi / 30 ngày
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[11px] font-medium">
+                  Studio B Fitness
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- ==================== CỘT 2: PHÂN TÍCH & KỊCH BẢN TƯ VẤN AI (~58% Width) ==================== -->
+        <div class="flex-1 bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 flex flex-col space-y-5">
+
+          <!-- Studio Header & Subheader -->
+          <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-6 bg-gradient-to-b from-purple-500 to-indigo-600 rounded-full"></div>
+                <h2 class="text-base font-bold text-slate-900">Phân tích &amp; Kịch bản tư vấn AI</h2>
+              </div>
+              <div class="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
+                <span>Đang phân tích:</span>
+                <span id="detailMemberName" class="font-bold text-purple-700">Sarah Mitchel (#MB-1042)</span>
+                <span class="text-slate-300">·</span>
+                <span id="detailMemberType" class="text-emerald-600 font-medium">Khách hàng thân thiết 18 tháng</span>
+              </div>
+            </div>
+
+            <!-- Groq Cloud Badge Button -->
+            <button onclick="showToast('Hệ thống suy luận Groq Cloud Llama-3 đang hoạt động với độ trễ 248ms')" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold shadow-sm shadow-purple-500/20 hover:shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center gap-1.5">
+              <span class="text-cyan-300">✦</span>
+              <span>Powered by Groq Cloud</span>
+            </button>
+          </div>
+
+          <!-- KHỐI 1: CHẨN ĐOÁN NGUYÊN NHÂN RỜI BỎ (AI DIAGNOSIS) -->
+          <div class="bg-[#faf5ff] rounded-2xl p-4 border border-purple-100 space-y-2.5 relative">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2 text-xs font-bold text-slate-800 uppercase tracking-wide">
+                <span class="text-base">🧠</span>
+                <span>CHẨN ĐOÁN NGUYÊN NHÂN RỜI BỎ (AI DIAGNOSIS):</span>
+              </div>
+              <span id="detailConfidence" class="text-[10px] font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded-md border border-purple-200">
+                Độ tin cậy: 94.0%
+              </span>
+            </div>
+
+            <ul id="diagnosisList" class="space-y-2 text-xs text-slate-700 pt-1">
+              <li class="flex items-start gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-rose-100 text-rose-600 font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">!</span>
+                <div>
+                  <strong class="text-slate-900">Tần suất tập giảm đột biến:</strong> Giảm từ 4 buổi/tuần xuống còn 2 buổi/tháng trong suốt 45 ngày qua (mất thói quen vận động).
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-amber-100 text-amber-700 font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">!</span>
+                <div>
+                  <strong class="text-slate-900">Thay đổi giảng viên yêu thích:</strong> Thường xuyên bỏ ca Yoga cuối tuần tại Studio A do HLV Aisha Kumara đi công tác vào tháng 8.
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-purple-100 text-purple-700 font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">!</span>
+                <div>
+                  <strong class="text-slate-900">Áp lực kỳ hạn:</strong> Hợp đồng 12 tháng hiện tại sắp hết hạn vào ngày <strong>25/09/2026 (còn đúng 7 ngày)</strong>.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- KHỐI 2: ĐỀ XUẤT GÓI GIỮ CHÂN TỐI ƯU (RECOMMENDED OFFER) -->
+          <div class="bg-gradient-to-r from-purple-50 via-indigo-50/60 to-cyan-50/50 rounded-2xl p-4 border border-purple-200/90 shadow-xs">
+            <div class="flex items-center justify-between pb-2 border-b border-purple-200/50">
+              <div class="flex items-center gap-2">
+                <span class="text-purple-600 text-base">🎁</span>
+                <span class="text-xs font-bold text-purple-950 uppercase tracking-wide">ĐỀ XUẤT GÓI GIỮ CHÂN TỐI ƯU (RECOMMENDED OFFER):</span>
+              </div>
+              <span id="detailOfferProb" class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200">
+                Khả năng chốt: 82%
+              </span>
+            </div>
+            <div class="mt-2.5 flex items-start justify-between">
+              <div>
+                <h4 id="detailOfferTitle" class="text-sm font-bold text-slate-900">Gói gia hạn 6 Tháng Yoga Không Giới Hạn</h4>
+                <div id="detailOfferBenefits" class="text-xs text-purple-900 font-medium mt-1 leading-relaxed space-y-0.5">
+                  <p>+ Tặng kèm <strong class="text-slate-900">02 buổi kèm PT nắn chỉnh cột sống 1-1</strong> trị giá 1.200.000 đ.</p>
+                  <p>+ Voucher chiết khấu <strong class="text-purple-700">12% phí thường niên</strong> khi tái ký trước 25/09.</p>
+                </div>
+              </div>
+              <div class="text-right flex-shrink-0 pl-3">
+                <div id="detailOldPrice" class="text-xs text-slate-400 line-through">8.900.000 đ</div>
+                <div id="detailNewPrice" class="text-base font-extrabold text-purple-700 font-mono">7.830.000 đ</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KHỐI 3: KỊCH BẢN TƯ VẤN TƯƠNG TÁC (INTERACTIVE SCRIPTS) -->
+          <div class="space-y-3">
+            <!-- Tabs & Tone Row -->
+            <div class="flex items-center justify-between">
+              <!-- Script Format Tabs -->
+              <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
+                <button onclick="setScriptTab('call')" id="btnScriptCall" class="px-3 py-1.5 rounded-lg bg-white text-purple-700 shadow-sm border border-slate-200/80 flex items-center gap-1.5 transition-all">
+                  <span>📞 Kịch bản gọi điện (Call Script)</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
+                </button>
+                <button onclick="setScriptTab('sms')" id="btnScriptSms" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center gap-1.5">
+                  <span>💬 Tin nhắn Zalo / SMS</span>
+                </button>
+              </div>
+
+              <!-- AI Tone Pill -->
+              <span class="text-[11px] font-medium text-slate-500 flex items-center gap-1">
+                Giọng điệu: <strong class="text-slate-700">Ấm áp &amp; Chuyên gia</strong>
+              </span>
+            </div>
+
+            <!-- Dialogue Script Box -->
+            <div class="relative bg-white rounded-xl p-4 border border-dashed border-purple-400 bg-purple-50/20 shadow-inner">
+              <div id="scriptContentBox" class="text-xs text-slate-700 leading-relaxed italic space-y-2">
+                <p>
+                  "Dạ em chào chị Sarah, em là <strong>Thana quản lý CSKH bên FitManage Thảo Điền</strong>. Em thấy tuần này chị chưa ghé lớp Yoga sáng tại Studio A nên gọi hỏi thăm chị ạ!"
+                </p>
+                <p>
+                  "Bên em vừa nâng cấp thảm tập Manduka cao cấp mới và <strong>giảng viên Aisha Kumara đã chính thức trở lại lịch dạy cố định sáng Thứ Bảy này</strong> rồi ạ. Nhân dịp hợp đồng hội viên của chị sắp đến hạn gia hạn vào ngày 25/09, FitManage muốn gửi tặng riêng chị món quà đặc biệt:"
+                </p>
+                <p class="font-medium text-purple-900 not-italic bg-purple-100/60 p-2.5 rounded-lg border border-purple-200 leading-normal">
+                  🎁 Tặng 02 buổi tập trải nghiệm nắn chỉnh tư thế riêng cùng Master Trainer + Ưu đãi đặc quyền giảm 12% khi chị tái ký gói Yoga 6 tháng trong hôm nay.
+                </p>
+                <p>
+                  "Em xin phép giữ chỗ buổi tập sáng Thứ 7 này cho chị trước nhé ạ?"
+                </p>
+              </div>
+
+              <!-- Script Toolbar Action Buttons -->
+              <div class="mt-3.5 pt-3 border-t border-purple-100 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <button onclick="copyCurrentScript()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-slate-900 shadow-sm transition-all">
+                    <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-500"></i>
+                    <span>Sao chép kịch bản (Copy)</span>
+                  </button>
+                  <button onclick="regenerateScript()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-purple-700 hover:bg-purple-50 shadow-sm transition-all">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-purple-600"></i>
+                    <span>Tạo lại kịch bản khác (Regenerate)</span>
+                  </button>
+                </div>
+                <button onclick="openZaloZns()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 hover:bg-blue-100 shadow-sm transition-all">
+                  <span>📲 Mở Zalo ZNS</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTTOM ACTION BAR: FINAL RESOLUTION -->
+          <div class="pt-2 border-t border-slate-100 space-y-2.5">
+            <div class="flex items-center justify-between text-xs text-slate-500">
+              <span>Sau khi liên hệ hội viên, chọn kết quả xử lý để đồng bộ hệ thống:</span>
+              <span class="text-slate-400 font-mono text-[11px]">Ghi vào SQL: AI_PREDICTIONS</span>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <!-- Lost Button -->
+              <button onclick="handleResolution('lost')" class="px-3.5 py-2.5 rounded-xl border border-rose-300 text-rose-600 hover:bg-rose-50 text-xs font-bold transition-all flex items-center gap-1.5">
+                <i data-lucide="x" class="w-4 h-4"></i>
+                <span>Đã từ chối (Lost)</span>
+              </button>
+
+              <!-- Call Later Button -->
+              <button onclick="handleResolution('callLater')" class="px-3.5 py-2.5 rounded-xl border border-amber-300 text-amber-700 hover:bg-amber-50 text-xs font-bold transition-all flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+                <span>Hẹn gọi lại sau</span>
+              </button>
+
+              <!-- Agree & Renew (Primary Call to Action) -->
+              <button onclick="handleResolution('renewSuccess')" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-bold text-xs shadow-md shadow-purple-500/25 hover:shadow-lg hover:shadow-purple-500/35 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-cyan-300 stroke-[3]"></i>
+                <span>✓ ĐỒNG Ý GIA HẠN - TẠO HỢP ĐỒNG (SUCCESS &amp; RENEW)</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ==================== SYSTEM SYNC FOOTER ==================== -->
+      <footer class="pt-2 pb-6 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Dữ liệu dự báo được cập nhật tự động bằng thuật toán phân tích hành vi hội viên mỗi 06:00 sáng.</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400">
+          <span>Trạng thái xử lý được ghi nhận trực tiếp vào bảng <code class="font-mono text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded text-[11px]">AI_PREDICTIONS</code> &amp; <code class="font-mono text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded text-[11px]">CONTRACTS</code></span>
+          <span>·</span>
+          <span>Mã hóa bảo mật chuẩn SSL 256-bit</span>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastNotification" class="fixed bottom-6 right-8 z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900 text-white shadow-xl text-xs font-semibold">
+    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+    <span id="toastMessage">Thông báo</span>
+  </div>
+
+  <!-- CONTRACT SUCCESS MODAL (Optional interactive pop-up) -->
+  <div id="contractModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4 animate-subtle">
+      <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+        <i data-lucide="check-circle" class="w-7 h-7"></i>
+      </div>
+      <div class="text-center space-y-1">
+        <h3 class="text-base font-bold text-slate-900">Xác nhận gia hạn thành công!</h3>
+        <p id="modalMemberText" class="text-xs text-slate-500">Hợp đồng gia hạn 6 Tháng Yoga đã được khởi tạo cho hội viên Sarah Mitchel (#MB-1042).</p>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs space-y-1 font-mono text-slate-600">
+        <div class="flex justify-between"><span>Gói dịch vụ:</span><span class="font-bold text-slate-800">Yoga Unlimited (6T)</span></div>
+        <div class="flex justify-between"><span>Tổng thanh toán:</span><span class="font-bold text-purple-700">7.830.000 đ</span></div>
+        <div class="flex justify-between"><span>Đồng bộ:</span><span class="text-emerald-600 font-bold">SQL CONTRACTS #CTR-2026-904</span></div>
+      </div>
+      <div class="flex gap-2.5 pt-2">
+        <button onclick="closeModal()" class="flex-1 py-2 px-3 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50">Đóng</button>
+        <button onclick="closeModal(); showToast('Đã in phụ lục hợp đồng điện tử');" class="flex-1 py-2 px-3 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700">In hợp đồng điện tử</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Data Store for members
+    const membersData = {
+      'MB-1042': {
+        name: 'Sarah Mitchel',
+        code: '#MB-1042',
+        phone: '081-234-5678',
+        type: 'Khách hàng thân thiết 18 tháng',
+        membership: 'GOLD VIP',
+        churnRisk: 78,
+        riskLevel: 'Nguy cơ cao (High)',
+        package: 'Yoga Không Giới Hạn (Yoga Unlimited) | HĐ: 12 Tháng',
+        confidence: '94.0%',
+        closeProb: '82%',
+        offerTitle: 'Gói gia hạn 6 Tháng Yoga Không Giới Hạn',
+        oldPrice: '8.900.000 đ',
+        newPrice: '7.830.000 đ',
+        diagnosis: [
+          { type: 'danger', title: 'Tần suất tập giảm đột biến:', desc: 'Giảm từ 4 buổi/tuần xuống còn 2 buổi/tháng trong suốt 45 ngày qua (mất thói quen vận động).' },
+          { type: 'warning', title: 'Thay đổi giảng viên yêu thích:', desc: 'Thường xuyên bỏ ca Yoga cuối tuần tại Studio A do HLV Aisha Kumara đi công tác vào tháng 8.' },
+          { type: 'primary', title: 'Áp lực kỳ hạn:', desc: 'Hợp đồng 12 tháng hiện tại sắp hết hạn vào ngày <strong>25/09/2026 (còn đúng 7 ngày)</strong>.' }
+        ],
+        benefits: [
+          '+ Tặng kèm <strong class="text-slate-900">02 buổi kèm PT nắn chỉnh cột sống 1-1</strong> trị giá 1.200.000 đ.',
+          '+ Voucher chiết khấu <strong class="text-purple-700">12% phí thường niên</strong> khi tái ký trước 25/09.'
+        ],
+        callScript: [
+          `"Dạ em chào chị Sarah, em là <strong>Thana quản lý CSKH bên FitManage Thảo Điền</strong>. Em thấy tuần này chị chưa ghé lớp Yoga sáng tại Studio A nên gọi hỏi thăm chị ạ!"`,
+          `"Bên em vừa nâng cấp thảm tập Manduka cao cấp mới và <strong>giảng viên Aisha Kumara đã chính thức trở lại lịch dạy cố định sáng Thứ Bảy này</strong> rồi ạ. Nhân dịp hợp đồng hội viên của chị sắp đến hạn gia hạn vào ngày 25/09, FitManage muốn gửi tặng riêng chị món quà đặc biệt:"`,
+          `<div class="font-medium text-purple-900 not-italic bg-purple-100/60 p-2.5 rounded-lg border border-purple-200">🎁 Tặng 02 buổi tập trải nghiệm nắn chỉnh tư thế riêng cùng Master Trainer + Ưu đãi đặc quyền giảm 12% khi chị tái ký gói Yoga 6 tháng trong hôm nay.</div>`,
+          `"Em xin phép giữ chỗ buổi tập sáng Thứ 7 này cho chị trước nhé ạ?"`
+        ],
+        smsScript: [
+          `[FitManage Thảo Điền] Dạ chào chị Sarah, HLV Aisha Kumara đã trở lại lịch dạy sáng T7 tuần này tại Studio A!`,
+          `Nhân dịp HĐ 12T của chị sắp đến hạn (25/09), FitManage tặng chị 02 buổi PT nắn chỉnh cột sống + Voucher giảm 12% khi tái ký gói 6 Tháng trong tuần này.`,
+          `Chị bấm link sau để xác nhận giữ chỗ lớp và nhận quà ưu đãi riêng: fitmanage.vn/renew/MB1042`
+        ]
+      },
+      'MB-1088': {
+        name: 'James Torlak',
+        code: '#MB-1088',
+        phone: '081-345-6789',
+        type: 'Hội viên 1 năm',
+        membership: 'SILVER',
+        churnRisk: 72,
+        riskLevel: 'Nguy cơ cao (High)',
+        package: 'Gym Cao Cấp (Premium Gym) · HĐ 6 Tháng',
+        confidence: '91.5%',
+        closeProb: '76%',
+        offerTitle: 'Gói gia hạn 12 Tháng Premium Gym + Free Locker',
+        oldPrice: '12.000.000 đ',
+        newPrice: '9.600.000 đ',
+        diagnosis: [
+          { type: 'danger', title: 'Tần suất tập giảm mạnh:', desc: 'Giảm xuống chỉ còn 4 buổi / 30 ngày qua, chủ yếu tập muộn sau 21h.' },
+          { type: 'warning', title: 'Không sử dụng khu vực Sauna:', desc: 'Chưa từng kích hoạt quyền lợi phục hồi cơ sau tập.' },
+          { type: 'primary', title: 'Hạn hợp đồng còn 14 ngày:', desc: 'Sắp hết hạn vào ngày 02/10/2026.' }
+        ],
+        benefits: [
+          '+ Tặng kèm <strong class="text-slate-900">Tủ đồ cá nhân VIP 6 tháng</strong> miễn phí.',
+          '+ Voucher chiết khấu <strong class="text-purple-700">20% phí thường niên</strong> khi gia hạn hợp đồng 12 tháng.'
+        ],
+        callScript: [
+          `"Em chào anh James, em là Thana từ FitManage. Nhận thấy gần đây anh thường tập ca tối muộn sau giờ làm, CLB vừa nâng cấp dàn tạ Hammer Strength mới và mở rộng khung giờ Sauna đêm đến 22:30."`,
+          `"Hợp đồng của anh còn 14 ngày, bên em xin tặng anh gói nâng cấp Locker VIP riêng cùng ưu đãi giảm 20% khi gia hạn năm tới ạ!"`
+        ],
+        smsScript: [
+          `[FitManage] Chào anh James, hợp đồng #MB-1088 của anh còn 14 ngày. Nhận ngay ưu đãi Locker VIP miễn phí + Giảm 20% khi gia hạn hôm nay: fitmanage.vn/renew/MB1088`
+        ]
+      },
+      'MB-1120': {
+        name: 'Priya Natarajan',
+        code: '#MB-1120',
+        phone: '081-456-7890',
+        type: 'Hội viên VIP 8 tháng',
+        membership: 'VIP PLATINUM',
+        churnRisk: 48,
+        riskLevel: 'Trung bình (Medium)',
+        package: 'Combo Yoga + PT 1-1 · Gói 36 Buổi',
+        confidence: '89.0%',
+        closeProb: '88%',
+        offerTitle: 'Gói gia hạn Combo Yoga Unlimited + 24 Buổi PT',
+        oldPrice: '18.500.000 đ',
+        newPrice: '15.900.000 đ',
+        diagnosis: [
+          { type: 'warning', title: 'Gói PT sắp hết buổi:', desc: 'Đã hoàn thành 32/36 buổi kèm cùng PT David Trần.' },
+          { type: 'primary', title: 'Tiến độ tập luyện tốt:', desc: 'Tần suất ổn định 8 buổi/tháng nhưng cần lộ trình mục tiêu mới.' }
+        ],
+        benefits: [
+          '+ Tiếp tục ghép lớp với <strong class="text-slate-900">PT David Trần</strong>.',
+          '+ Giảm ngay <strong class="text-purple-700">2.600.000 đ</strong> khi gia hạn gói combo.'
+        ],
+        callScript: [
+          `"Dạ chào chị Priya, PT David Trần có chia sẻ về tiến độ tập rất ấn tượng của chị sau 32 buổi vừa qua. David đã chuẩn bị sẵn giáo án tăng cơ giai đoạn 2 cho chị kèm ưu đãi đặc biệt khi gia hạn gói combo ạ!"`
+        ],
+        smsScript: [
+          `[FitManage] Chúc mừng chị Priya hoàn thành xuất sắc 32 buổi PT! Xem giáo án giai đoạn 2 cùng PT David & ưu đãi gia hạn riêng: fitmanage.vn/renew/MB1120`
+        ]
+      },
+      'MB-1094': {
+        name: 'Carlos Reyes',
+        code: '#MB-1094',
+        phone: '081-567-8901',
+        type: 'Hội viên 6 tháng',
+        membership: 'REGULAR',
+        churnRisk: 42,
+        riskLevel: 'Trung bình',
+        package: 'Gym Tiêu Chuẩn (Cardio Only) · HĐ 12 Tháng',
+        confidence: '88.5%',
+        closeProb: '80%',
+        offerTitle: 'Nâng cấp Gói Toàn Diện All-Access 12 Tháng',
+        oldPrice: '9.000.000 đ',
+        newPrice: '7.200.000 đ',
+        diagnosis: [
+          { type: 'warning', title: 'Tần suất duy trì đều:', desc: '5 buổi/tháng khu vực Cardio nhưng chưa trải nghiệm lớp nhóm Studio B.' },
+          { type: 'primary', title: 'Còn 28 ngày hết hạn:', desc: 'Có nhu cầu đổi mới bài tập tránh nhàm chán.' }
+        ],
+        benefits: [
+          '+ Tặng thẻ trải nghiệm các lớp Spinning & HIIT Studio B.',
+          '+ Giảm <strong class="text-purple-700">1.800.000 đ</strong> khi nâng cấp lên All-Access.'
+        ],
+        callScript: [
+          `"Chào anh Carlos, FitManage Thảo Điền ra mắt dàn xe đạp RPM thế hệ mới tại Studio B. Mời anh tham gia miễn phí tuần trải nghiệm và nhận ưu đãi nâng cấp gói tập năm tới nhé ạ!"`
+        ],
+        smsScript: [
+          `[FitManage] Chào anh Carlos, nhận vé mời miễn phí trải nghiệm Studio B & giảm giá nâng cấp gói hội viên: fitmanage.vn/renew/MB1094`
+        ]
+      }
+    };
+
+    let activeMemberId = 'MB-1042';
+    let currentScriptTab = 'call';
+
+    // Member Selection Handler
+    function selectMember(memberId) {
+      if (!membersData[memberId]) return;
+      activeMemberId = memberId;
+      const data = membersData[memberId];
+
+      // Update card UI selection states
+      document.querySelectorAll('.member-card').forEach(card => {
+        card.classList.remove('border-2', 'border-purple-600', 'shadow-[0_4px_20px_rgba(124,58,237,0.12)]');
+        card.classList.add('border', 'border-slate-200');
+        const badge = card.querySelector('.active-badge');
+        if (badge) badge.remove();
+      });
+
+      const selectedCard = document.getElementById(`card-${memberId.replace('#', '').replace('-', '')}`);
+      if (selectedCard) {
+        selectedCard.classList.remove('border', 'border-slate-200');
+        selectedCard.classList.add('border-2', 'border-purple-600', 'shadow-[0_4px_20px_rgba(124,58,237,0.12)]');
+
+        // Append floating active badge
+        const badgeDiv = document.createElement('div');
+        badgeDiv.className = 'active-badge absolute -top-2.5 right-4 px-2.5 py-0.5 bg-purple-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm';
+        badgeDiv.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-cyan-300"></i> ĐANG CHỌN PHÂN TÍCH`;
+        selectedCard.appendChild(badgeDiv);
+      }
+
+      // Populate Column 2 Details
+      document.getElementById('detailMemberName').innerText = `${data.name} (${data.code})`;
+      document.getElementById('detailMemberType').innerText = data.type;
+      document.getElementById('detailConfidence').innerText = `Độ tin cậy: ${data.confidence}`;
+      document.getElementById('detailOfferProb').innerText = `Khả năng chốt: ${data.closeProb}`;
+      document.getElementById('detailOfferTitle').innerText = data.offerTitle;
+      document.getElementById('detailOldPrice').innerText = data.oldPrice;
+      document.getElementById('detailNewPrice').innerText = data.newPrice;
+
+      // Populate diagnosis
+      const diagContainer = document.getElementById('diagnosisList');
+      diagContainer.innerHTML = data.diagnosis.map(item => {
+        let iconBg = 'bg-rose-100 text-rose-600';
+        if (item.type === 'warning') iconBg = 'bg-amber-100 text-amber-700';
+        if (item.type === 'primary') iconBg = 'bg-purple-100 text-purple-700';
+        return `
+          <li class="flex items-start gap-2.5">
+            <span class="w-4 h-4 rounded-full ${iconBg} font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">!</span>
+            <div>
+              <strong class="text-slate-900">${item.title}</strong> ${item.desc}
+            </div>
+          </li>
+        `;
+      }).join('');
+
+      // Populate benefits
+      const benefitsContainer = document.getElementById('detailOfferBenefits');
+      benefitsContainer.innerHTML = data.benefits.map(b => `<p>${b}</p>`).join('');
+
+      // Update script
+      renderScriptContent();
+      lucide.createIcons();
+
+      showToast(`Đã chuyển sang phân tích: ${data.name}`);
+    }
+
+    // Script tab toggling (Call vs SMS)
+    function setScriptTab(tab) {
+      currentScriptTab = tab;
+      const btnCall = document.getElementById('btnScriptCall');
+      const btnSms = document.getElementById('btnScriptSms');
+
+      if (tab === 'call') {
+        btnCall.className = 'px-3 py-1.5 rounded-lg bg-white text-purple-700 shadow-sm border border-slate-200/80 flex items-center gap-1.5 transition-all';
+        btnCall.innerHTML = `<span>📞 Kịch bản gọi điện (Call Script)</span><span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span>`;
+        btnSms.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center gap-1.5';
+        btnSms.innerHTML = `<span>💬 Tin nhắn Zalo / SMS</span>`;
+      } else {
+        btnSms.className = 'px-3 py-1.5 rounded-lg bg-white text-purple-700 shadow-sm border border-slate-200/80 flex items-center gap-1.5 transition-all';
+        btnSms.innerHTML = `<span>💬 Tin nhắn Zalo / SMS</span><span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span>`;
+        btnCall.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center gap-1.5';
+        btnCall.innerHTML = `<span>📞 Kịch bản gọi điện (Call Script)</span>`;
+      }
+
+      renderScriptContent();
+    }
+
+    function renderScriptContent() {
+      const data = membersData[activeMemberId];
+      const box = document.getElementById('scriptContentBox');
+      const lines = currentScriptTab === 'call' ? data.callScript : data.smsScript;
+      box.innerHTML = lines.map(line => line.startsWith('<div') ? line : `<p>${line}</p>`).join('');
+    }
+
+    // Queue tab toggling
+    function setQueueTab(tabName) {
+      const tabs = ['tabUnhandled', 'tabCaring', 'tabRenewed'];
+      tabs.forEach(t => {
+        const el = document.getElementById(t);
+        el.className = 'flex-1 py-1.5 px-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center justify-center gap-1.5';
+      });
+
+      let targetId = 'tabUnhandled';
+      if (tabName === 'caring') targetId = 'tabCaring';
+      if (tabName === 'renewed') targetId = 'tabRenewed';
+
+      const activeEl = document.getElementById(targetId);
+      activeEl.className = 'flex-1 py-1.5 px-2 rounded-lg bg-[#0b1c30] text-white shadow-sm flex items-center justify-center gap-1.5 transition-all';
+
+      showToast(`Đang lọc danh sách: ${activeEl.innerText.replace(/\n/g, ' ')}`);
+    }
+
+    // Search filtering
+    function filterMemberList() {
+      const q = document.getElementById('memberSearchInput').value.toLowerCase();
+      document.querySelectorAll('.member-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    // Copy script
+    function copyCurrentScript() {
+      const text = document.getElementById('scriptContentBox').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('✓ Đã sao chép kịch bản vào bộ nhớ tạm!');
+      }).catch(() => {
+        showToast('✓ Đã sao chép nội dung kịch bản!');
+      });
+    }
+
+    // Regenerate script with subtle simulation
+    function regenerateScript() {
+      showToast('Đang kết nối Groq Cloud Llama-3 để tối ưu lại kịch bản...');
+      const box = document.getElementById('scriptContentBox');
+      box.style.opacity = '0.4';
+      setTimeout(() => {
+        box.style.opacity = '1';
+        showToast('✓ Đã cập nhật phiên bản kịch bản mới tối ưu hơn!');
+      }, 400);
+    }
+
+    // Open Zalo ZNS
+    function openZaloZns() {
+      const m = membersData[activeMemberId];
+      showToast(`Đã mở giao diện gửi tin ZNS tới số ${m.phone} (${m.name})`);
+    }
+
+    // Resolution actions
+    function handleResolution(type) {
+      const m = membersData[activeMemberId];
+      if (type === 'renewSuccess') {
+        document.getElementById('modalMemberText').innerText = `Hợp đồng gia hạn đã được khởi tạo thành công cho hội viên ${m.name} (${m.code}).`;
+        document.getElementById('contractModal').classList.remove('hidden');
+      } else if (type === 'lost') {
+        showToast(`Đã ghi nhận kết quả: Hội viên ${m.name} TỪ CHỐI gia hạn.`);
+      } else if (type === 'callLater') {
+        showToast(`Đã lên lịch hẹn gọi lại cho ${m.name} vào 15:00 chiều mai.`);
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('contractModal').classList.add('hidden');
+    }
+
+    // Language switch
+    function setLanguage(lang) {
+      const btnVN = document.getElementById('langVN');
+      const btnEN = document.getElementById('langEN');
+      if (lang === 'VN') {
+        btnVN.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white shadow-sm text-slate-900 border border-slate-200/80 transition-all';
+        btnEN.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-colors';
+        showToast('Giao diện hiển thị: Tiếng Việt');
+      } else {
+        btnEN.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white shadow-sm text-slate-900 border border-slate-200/80 transition-all';
+        btnVN.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-colors';
+        showToast('Switched to English interface');
+      }
+    }
+
+    // Toast helper
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      text.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!-- =========================================================================
+  FITMANAGE GYM & YOGA SUITE - COMPONENT BỘ LỌC DỮ LIỆU LINH HOẠT
+  Task: TASK-376 (Story cha: TASK-332 Import / Export Dữ liệu)
+  Thiết kế: Chuẩn Material Design 3 (Dark Navy #0B1C30, Surface #F8F9FF)
+  Tương thích: Mobile, Tablet, Desktop (100% Responsive, Modular)
+========================================================================= -->
+
+<div id="fitmanageDataFilter" class="w-full bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 lg:p-5 flex flex-col gap-4 font-sans text-[#0B1C30]">
+
+  <!-- ── HÀNG 1: SEARCH BAR + CORE DROPDOWNS + ACTIONS ────────────────── -->
+  <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+    
+    <!-- Ô tìm kiếm tức thời (Search Input) đa trường -->
+    <div class="relative flex-1 min-w-[280px]">
+      <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[19px] text-slate-400 pointer-events-none transition-colors">
+        search
+      </span>
+      <input
+        type="text"
+        id="filterSearchInput"
+        placeholder="Tìm kiếm theo Mã, Họ tên, SĐT, Email... (Ctrl+K)"
+        class="w-full h-10 pl-10 pr-20 rounded-xl bg-[#F8F9FF] border border-slate-200 text-xs sm:text-sm text-[#0B1C30] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#0B1C30] focus:ring-2 focus:ring-[#0B1C30]/15 transition-all"
+        autocomplete="off"
+      />
+      <!-- Phím tắt & Nút Clear nhanh -->
+      <div class="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1">
+        <button
+          type="button"
+          id="filterClearSearchBtn"
+          class="hidden w-5 h-5 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 flex items-center justify-center transition-colors"
+          title="Xóa tìm kiếm"
+        >
+          <span class="material-symbols-outlined text-[13px]">close</span>
+        </button>
+        <kbd class="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-white border border-slate-200 text-[10px] font-semibold text-slate-400 shadow-xs pointer-events-none">
+          Ctrl K
+        </kbd>
+      </div>
+    </div>
+
+    <!-- Nhóm Dropdown lọc cốt lõi -->
+    <div class="flex flex-wrap sm:flex-nowrap items-center gap-2.5">
+      
+      <!-- Dropdown: Chi nhánh -->
+      <div class="relative flex-1 sm:flex-initial min-w-[140px]">
+        <select
+          id="filterBranch"
+          class="w-full appearance-none h-10 pl-3 pr-8 bg-[#F8F9FF] hover:bg-slate-100/80 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium text-[#0B1C30] focus:outline-none focus:bg-white focus:border-[#0B1C30] focus:ring-2 focus:ring-[#0B1C30]/15 cursor-pointer transition-colors"
+        >
+          <option value="all">Tất cả chi nhánh</option>
+          <option value="q1">Flagship Quận 1 (Lê Lai)</option>
+          <option value="td">Thảo Điền Wellness Hub</option>
+          <option value="ts">Trung Sơn Studio</option>
+        </select>
+        <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px] text-slate-400 pointer-events-none">
+          expand_more
+        </span>
+      </div>
+
+      <!-- Dropdown: Phân loại Gói tập -->
+      <div class="relative flex-1 sm:flex-initial min-w-[140px]">
+        <select
+          id="filterPackage"
+          class="w-full appearance-none h-10 pl-3 pr-8 bg-[#F8F9FF] hover:bg-slate-100/80 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium text-[#0B1C30] focus:outline-none focus:bg-white focus:border-[#0B1C30] focus:ring-2 focus:ring-[#0B1C30]/15 cursor-pointer transition-colors"
+        >
+          <option value="all">Tất cả gói tập</option>
+          <option value="vip_diamond">VIP Diamond (12 Tháng)</option>
+          <option value="yoga_pure">Yoga Pure Studio (6T)</option>
+          <option value="classic_gym">Classic Gym (1-3T)</option>
+          <option value="pilates">Pilates &amp; Therapy</option>
+        </select>
+        <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px] text-slate-400 pointer-events-none">
+          expand_more
+        </span>
+      </div>
+
+      <!-- Dropdown: Kỳ hạn / Thời gian -->
+      <div class="relative flex-1 sm:flex-initial min-w-[140px]">
+        <select
+          id="filterTimeRange"
+          class="w-full appearance-none h-10 pl-3 pr-8 bg-[#F8F9FF] hover:bg-slate-100/80 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium text-[#0B1C30] focus:outline-none focus:bg-white focus:border-[#0B1C30] focus:ring-2 focus:ring-[#0B1C30]/15 cursor-pointer transition-colors"
+        >
+          <option value="this_month">Tháng này (10/2026)</option>
+          <option value="last_month">Tháng trước (09/2026)</option>
+          <option value="this_quarter">Quý 3/2026 (T7–T9)</option>
+          <option value="this_year">Cả năm 2026</option>
+          <option value="custom">Tùy chỉnh khoảng ngày...</option>
+        </select>
+        <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px] text-slate-400 pointer-events-none">
+          calendar_today
+        </span>
+      </div>
+
+      <!-- Nút: Bộ lọc nâng cao (Toggle Advanced Filters) -->
+      <button
+        type="button"
+        id="filterAdvancedToggleBtn"
+        class="inline-flex items-center gap-1.5 h-10 px-3.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-semibold text-[#0B1C30] shadow-2xs hover:border-slate-300 active:scale-[0.98] transition-all shrink-0"
+        title="Mở bộ lọc nâng cao"
+      >
+        <span class="material-symbols-outlined text-[18px] text-slate-600">tune</span>
+        <span class="hidden md:inline">Bộ lọc khác</span>
+        <span id="filterAdvancedCountBadge" class="hidden px-1.5 py-0.2 rounded-full bg-[#0B1C30] text-white text-[10px] font-bold">
+          0
+        </span>
+      </button>
+
+      <!-- Nút: Đặt lại (Reset Filter) -->
+      <button
+        type="button"
+        id="filterResetBtn"
+        class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-200 text-slate-500 hover:text-rose-600 transition-colors shadow-2xs shrink-0"
+        title="Đặt lại tất cả bộ lọc về mặc định"
+      >
+        <span class="material-symbols-outlined text-[19px]">restart_alt</span>
+      </button>
+
+      <!-- Nút: Xuất Excel (Story cha TASK-332) -->
+      <div class="relative shrink-0" id="exportExcelDropdownContainer">
+        <button
+          type="button"
+          id="filterExportExcelBtn"
+          class="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl bg-[#0B1C30] hover:bg-[#1a334f] text-white text-xs sm:text-sm font-semibold shadow-sm hover:shadow active:scale-[0.98] transition-all"
+        >
+          <span class="material-symbols-outlined text-[18px] text-emerald-400">download</span>
+          <span>Xuất Excel</span>
+          <span class="material-symbols-outlined text-[16px] text-slate-400">arrow_drop_down</span>
+        </button>
+
+        <!-- Dropdown Menu Options Export -->
+        <div
+          id="exportExcelMenu"
+          class="hidden absolute right-0 top-full mt-1.5 w-60 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-30 text-xs text-[#0B1C30]"
+        >
+          <div class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+            Tùy chọn xuất file (.xlsx)
+          </div>
+          <button
+            type="button"
+            data-export-type="filtered"
+            class="w-full text-left px-3.5 py-2 hover:bg-[#F8F9FF] flex items-center justify-between transition-colors"
+          >
+            <span class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">filter_alt</span>
+              <span>Xuất dữ liệu đang lọc</span>
+            </span>
+            <span id="exportFilteredCount" class="font-bold text-slate-500">126 dòng</span>
+          </button>
+          <button
+            type="button"
+            data-export-type="all"
+            class="w-full text-left px-3.5 py-2 hover:bg-[#F8F9FF] flex items-center justify-between transition-colors"
+          >
+            <span class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-blue-600">dataset</span>
+              <span>Xuất toàn bộ hệ thống</span>
+            </span>
+            <span class="font-bold text-slate-500">248 dòng</span>
+          </button>
+          <div class="my-1 border-t border-slate-100"></div>
+          <button
+            type="button"
+            data-export-type="custom"
+            class="w-full text-left px-3.5 py-2 hover:bg-[#F8F9FF] flex items-center gap-2 text-slate-600 transition-colors"
+          >
+            <span class="material-symbols-outlined text-[16px]">view_column</span>
+            <span>Tùy chỉnh chọn cột dữ liệu...</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── HÀNG 2: BỘ LỌC NÂNG CAO (COLLAPSIBLE ACCORDION) ───────────────── -->
+  <div
+    id="filterAdvancedPanel"
+    class="hidden bg-[#F8F9FF] rounded-xl p-4 border border-slate-200/80 transition-all duration-300"
+  >
+    <div class="flex items-center justify-between pb-3 border-b border-slate-200/70 mb-3">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[18px] text-[#006172]">tune</span>
+        <span class="text-xs font-bold text-[#0B1C30] uppercase tracking-wider">Tiêu chí lọc nâng cao</span>
+      </div>
+      <button
+        type="button"
+        id="filterCloseAdvancedBtn"
+        class="text-xs text-slate-400 hover:text-slate-600 flex items-center gap-0.5"
+      >
+        <span class="material-symbols-outlined text-[16px]">close</span>
+        <span>Thu gọn</span>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+      
+      <!-- Lọc: Huấn luyện viên (PT) -->
+      <div>
+        <label class="block font-semibold text-slate-600 mb-1">HLV phụ trách (PT)</label>
+        <select
+          id="advFilterTrainer"
+          class="w-full h-9 px-3 rounded-lg bg-white border border-slate-200 text-xs text-[#0B1C30] focus:ring-1 focus:ring-[#0B1C30] focus:outline-none"
+        >
+          <option value="all">Tất cả huấn luyện viên</option>
+          <option value="tuananh">Master Trainer Tuấn Anh</option>
+          <option value="celine">Coach Celine Vũ (Yoga)</option>
+          <option value="minhtri">PT Minh Trí (Bodybuilding)</option>
+          <option value="no_pt">Không đăng ký kèm PT</option>
+        </select>
+      </div>
+
+      <!-- Lọc: Mức độ chuyên cần (Check-in) -->
+      <div>
+        <label class="block font-semibold text-slate-600 mb-1">Tần suất check-in tập</label>
+        <select
+          id="advFilterAttendance"
+          class="w-full h-9 px-3 rounded-lg bg-white border border-slate-200 text-xs text-[#0B1C30] focus:ring-1 focus:ring-[#0B1C30] focus:outline-none"
+        >
+          <option value="all">Mọi tần suất</option>
+          <option value="active">Rất tích cực (>= 4 buổi/tuần)</option>
+          <option value="regular">Đều đặn (2 - 3 buổi/tuần)</option>
+          <option value="low">Thưa thớt (&lt; 1 buổi/tuần)</option>
+          <option value="inactive">Vắng tập &gt; 3 tuần (Báo động)</option>
+        </select>
+      </div>
+
+      <!-- Lọc: Giá trị hợp đồng (Doanh thu) -->
+      <div>
+        <label class="block font-semibold text-slate-600 mb-1">Hạn mức giá trị (VNĐ)</label>
+        <div class="flex items-center gap-1.5">
+          <input
+            type="number"
+            id="advFilterMinPrice"
+            placeholder="Từ"
+            class="w-1/2 h-9 px-2.5 rounded-lg bg-white border border-slate-200 text-xs text-[#0B1C30] focus:ring-1 focus:ring-[#0B1C30] focus:outline-none"
+          />
+          <span class="text-slate-400">-</span>
+          <input
+            type="number"
+            id="advFilterMaxPrice"
+            placeholder="Đến"
+            class="w-1/2 h-9 px-2.5 rounded-lg bg-white border border-slate-200 text-xs text-[#0B1C30] focus:ring-1 focus:ring-[#0B1C30] focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <!-- Lọc: Nguồn khách hàng & Giới tính -->
+      <div>
+        <label class="block font-semibold text-slate-600 mb-1">Nguồn đăng ký</label>
+        <select
+          id="advFilterSource"
+          class="w-full h-9 px-3 rounded-lg bg-white border border-slate-200 text-xs text-[#0B1C30] focus:ring-1 focus:ring-[#0B1C30] focus:outline-none"
+        >
+          <option value="all">Tất cả các nguồn</option>
+          <option value="reception">Tại quầy Lễ tân</option>
+          <option value="online">Website &amp; Mobile App</option>
+          <option value="referral">Người quen giới thiệu</option>
+          <option value="campaign">Chiến dịch tiếp thị số</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- Nút thực thi lọc nâng cao -->
+    <div class="flex items-center justify-end gap-2 mt-3 pt-2.5 border-t border-slate-200/60">
+      <button
+        type="button"
+        id="advFilterResetBtn"
+        class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 transition-colors"
+      >
+        Xóa tiêu chí nâng cao
+      </button>
+      <button
+        type="button"
+        id="advFilterApplyBtn"
+        class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-[#0B1C30] hover:bg-[#1a334f] text-white shadow-2xs transition-colors"
+      >
+        Áp dụng lọc nâng cao
+      </button>
+    </div>
+  </div>
+
+  <!-- ── HÀNG 3: FILTER CHIPS TRẠNG THÁI (STATUS TABS) + ACTIVE TAGS ──── -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-1 border-t border-slate-100">
+    
+    <!-- Filter Chips trạng thái hội viên/hợp đồng -->
+    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0" id="statusChipsContainer">
+      
+      <!-- Chip 1: Tất cả -->
+      <button
+        type="button"
+        data-status="all"
+        class="status-chip active inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border border-[#0B1C30] bg-[#0B1C30] text-white shadow-2xs"
+      >
+        <span>Tất cả</span>
+        <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-white/20 text-white" id="countAll">
+          248
+        </span>
+      </button>
+
+      <!-- Chip 2: Đang hoạt động -->
+      <button
+        type="button"
+        data-status="active"
+        class="status-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        <span>Đang hoạt động</span>
+        <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700" id="countActive">
+          182
+        </span>
+      </button>
+
+      <!-- Chip 3: Sắp hết hạn (<= 7 ngày) -->
+      <button
+        type="button"
+        data-status="expiring"
+        class="status-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+        <span>Sắp hết hạn (&le; 7 ngày)</span>
+        <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800" id="countExpiring">
+          34
+        </span>
+      </button>
+
+      <!-- Chip 4: Cần chăm sóc (Lead nóng) -->
+      <button
+        type="button"
+        data-status="hotlead"
+        class="status-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+        <span>Cần CS / Hot Lead</span>
+        <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-orange-50 text-orange-800" id="countHotlead">
+          18
+        </span>
+      </button>
+
+      <!-- Chip 5: Đã dừng / Rời đi (Churn) -->
+      <button
+        type="button"
+        data-status="churn"
+        class="status-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+        <span>Đã rời đi (Churn)</span>
+        <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700" id="countChurn">
+          14
+        </span>
+      </button>
+
+    </div>
+
+    <!-- Active Filter Tags Display (Hiện các điều kiện đang áp dụng kèm nút x) -->
+    <div class="flex items-center gap-1.5 flex-wrap" id="activeFilterTagsContainer">
+      <!-- Sinh động qua JS khi có bộ lọc hoạt động -->
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Controller logic -->
+<script src="components/data-filter.js"></script>

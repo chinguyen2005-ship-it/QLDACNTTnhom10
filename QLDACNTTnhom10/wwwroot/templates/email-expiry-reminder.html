@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitManage Gym &amp; Yoga Suite - Email Nhắc Hết Hạn Hợp Đồng</title>
+  <!-- Tailwind CSS CDN phục vụ xem trước trực tiếp trên Trình duyệt -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #E2E8F0;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 28px auto;
+      background: #FFFFFF;
+      box-shadow: 0 12px 30px -5px rgba(15, 23, 42, 0.12), 0 8px 12px -6px rgba(15, 23, 42, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #CBD5E1;
+    }
+    .coupon-border {
+      border: 2px dashed #F59E0B !important;
+    }
+    .code-badge {
+      letter-spacing: 3px;
+    }
+    /* Tương thích Dark Mode trên các ứng dụng Mail hiện đại */
+    @media (prefers-color-scheme: dark) {
+      .dark-email-bg { background-color: #0F172A !important; }
+      .dark-card-bg { background-color: #1E293B !important; color: #F1F5F9 !important; border-color: #334155 !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-200 py-6 px-4 text-slate-800 antialiased min-h-screen flex flex-col justify-center items-center">
+
+  <!-- ============================================================
+       PREHEADER — Đoạn trích dẫn xem trước trên danh sách Gmail Inbox
+       ============================================================ -->
+  <div style="display: none; font-size: 1px; color: #ffffff; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
+    Gói tập của bạn sẽ hết hạn sau {{DaysRemaining}} ngày. Nhận ngay ưu đãi đặc quyền giảm 10% và tặng 01 tháng khi gia hạn hôm nay!
+    &#847; &zwnj; &nbsp; &#8199; &#65279; &#847; &zwnj; &nbsp; &#8199; &#65279;
+  </div>
+
+  <!-- Email Client Wrapper Simulation (Thanh mô phỏng hiển thị trên Browser) -->
+  <div class="w-full max-w-[600px] mb-2.5 flex items-center justify-between text-xs text-slate-500 px-1">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="font-medium text-slate-700">Preview HTML Responsive Email Template</span>
+      <span class="bg-slate-300 text-slate-700 px-2 py-0.5 rounded font-mono text-[11px]">max-width: 600px</span>
+    </div>
+    <div class="text-right text-[11px] text-slate-500 hidden sm:block">
+      Tương thích: Outlook, Gmail, Apple Mail, Webmail
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN EMAIL CONTAINER (Chuẩn 600px Max-Width)
+       ============================================================ -->
+  <div class="email-container w-full bg-white text-slate-800" style="max-width: 600px; width: 100%; background-color: #FFFFFF; border-radius: 16px; border: 1px solid #CBD5E1; overflow: hidden;">
+
+    <!-- 1. HEADER & BRAND IDENTITY (Xanh Navy Hoàng Gia + Điểm nhấn Vàng Hổ Phách) -->
+    <header class="px-8 pt-8 pb-7 text-white text-center relative" style="background-color: #1A237E; border-bottom: 4px solid #F59E0B;">
+      <!-- Logo & Brand Header -->
+      <div class="flex items-center justify-center gap-3 mb-2">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center font-black text-xl shadow-md" style="background-color: #22D3EE; color: #1A237E;">
+          F
+        </div>
+        <div class="text-left">
+          <h1 class="text-lg md:text-xl font-extrabold tracking-wider text-white uppercase leading-tight" style="letter-spacing: 1.5px; margin: 0;">
+            FITMANAGE <span style="color: #67E8F9; font-weight: 600; font-size: 13px;">GYM &amp; YOGA</span>
+          </h1>
+          <p class="text-xs font-medium tracking-wide" style="color: #BAE6FD; margin: 2px 0 0 0;">
+            Hành trình khỏe mạnh &amp; Phong độ đỉnh cao
+          </p>
+        </div>
+      </div>
+
+      <!-- Urgent Expiry Badge (Vàng Cam Hổ Phách Nổi Bật) -->
+      <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md transform hover:scale-105 transition-transform duration-200" style="background-color: #FFA000; color: #FFFFFF; box-shadow: 0 4px 12px rgba(255, 160, 0, 0.45);">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <span>HỢP ĐỒNG SẮP HẾT HẠN - CÒN {{DaysRemaining}} NGÀY</span>
+      </div>
+    </header>
+
+    <!-- EMAIL BODY -->
+    <main class="px-6 md:px-8 py-7 bg-white" style="background-color: #FFFFFF;">
+
+      <!-- 2. GREETINGS & HERO SECTION -->
+      <section class="mb-7">
+        <h2 class="text-xl md:text-2xl font-bold tracking-tight mb-2.5" style="color: #0F172A;">
+          Chào bạn, <span class="font-extrabold" style="color: #1A237E;">{{MemberName}}</span>! 👋
+        </h2>
+        <p class="text-sm md:text-base leading-relaxed" style="color: #475569;">
+          Đội ngũ huấn luyện viên và ban quản lý <strong style="color: #1A237E;">FitManage</strong> xin gửi lời tri ân sâu sắc vì bạn đã tin tưởng đồng hành cùng chúng tôi trong suốt hành trình rèn luyện thể chất và cân bằng tâm trí vừa qua. Từng giờ tập đẫm mồ hôi là minh chứng cho sự kiên trì tuyệt vời của bạn!
+        </p>
+
+        <!-- Mini Stat Bar: 3 KPI Highlights -->
+        <div class="grid grid-cols-3 gap-2 mt-5 rounded-xl p-3.5 text-center shadow-xs" style="background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #F8FAFC 100%); border: 1px solid #E2E8F0;">
+          <div class="border-r border-slate-200 pr-1" style="border-right: 1px solid #E2E8F0;">
+            <div class="text-[11px] font-bold uppercase tracking-wider" style="color: #64748B;">Đã Check-in</div>
+            <div class="text-base md:text-lg font-extrabold mt-0.5" style="color: #1A237E;">{{CheckinCount}} buổi</div>
+            <div class="text-[10px] font-semibold" style="color: #059669;">✓ Đều đặn 3.2b/tuần</div>
+          </div>
+          <div class="border-r border-slate-200 px-1" style="border-right: 1px solid #E2E8F0;">
+            <div class="text-[11px] font-bold uppercase tracking-wider" style="color: #64748B;">Thời gian gắn bó</div>
+            <div class="text-base md:text-lg font-extrabold mt-0.5" style="color: #1A237E;">{{MonthsActive}} tháng</div>
+            <div class="text-[10px] font-semibold" style="color: #0891B2;">365 ngày kỷ luật</div>
+          </div>
+          <div class="pl-1">
+            <div class="text-[11px] font-bold uppercase tracking-wider" style="color: #64748B;">Hạng hội viên</div>
+            <div class="text-base md:text-lg font-extrabold mt-0.5" style="color: #D97706;">{{MemberTier}}</div>
+            <div class="text-[10px] font-semibold" style="color: #B45309;">★ Top 10% năng động</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. CURRENT CONTRACT SUMMARY CARD (Tóm Tắt Hợp Đồng Hiện Tại) -->
+      <section class="mb-7 rounded-xl p-5 relative" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
+        <div class="flex items-center justify-between pb-3 mb-3" style="border-bottom: 1px solid #E2E8F0;">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-md text-xs font-bold" style="background-color: #DBEAFE; color: #1A237E;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+              </svg>
+            </span>
+            <span class="text-xs font-extrabold uppercase tracking-wider" style="color: #374151;">Tóm tắt hợp đồng hiện tại</span>
+          </div>
+          <span class="text-xs font-mono font-bold px-2 py-0.5 rounded" style="background-color: #FFFFFF; color: #64748B; border: 1px solid #E2E8F0;">#{{ContractCode}}</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs">
+          <div class="space-y-1">
+            <span style="color: #64748B;">Gói dịch vụ kích hoạt:</span>
+            <p class="font-bold text-sm flex items-center gap-1.5" style="color: #1E293B;">
+              <span class="w-2 h-2 rounded-full" style="background-color: #06B6D4;"></span>
+              {{PackageName}}
+            </p>
+          </div>
+          <div class="space-y-1">
+            <span style="color: #64748B;">Chi nhánh câu lạc bộ:</span>
+            <p class="font-semibold text-sm" style="color: #1E293B;">Cơ sở Quận 1 (Toàn hệ thống)</p>
+          </div>
+          <div class="space-y-1">
+            <span style="color: #64748B;">Quyền lợi hiện hành:</span>
+            <p class="font-medium" style="color: #475569;">Tự do Gym, Yoga, Xông hơi &amp; Tủ đồ VIP</p>
+          </div>
+          <!-- Highlight Box Ngày Hết Hạn -->
+          <div class="space-y-1 p-2.5 rounded-lg" style="background-color: #FFFBEB; border: 1px solid #FDE68A;">
+            <span class="font-bold flex items-center gap-1 text-[11px]" style="color: #92400E;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" style="color: #D97706;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Ngày hết hạn chính thức:
+            </span>
+            <p class="font-black text-sm tracking-wide" style="color: #D97706;">
+              {{ExpiryDate}}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. RETENTION OFFER BOX (Hộp Quà Ưu Đãi Đặc Quyền - Viền Hổ Phách Rực Rỡ) -->
+      <section class="mb-7 rounded-xl p-5 md:p-6 text-center relative overflow-hidden coupon-border" style="background: linear-gradient(135deg, #FFFDF5 0%, #FFFBEB 50%, #FFF7ED 100%); border: 2px dashed #F59E0B; border-radius: 12px;">
+        <div class="inline-flex items-center gap-1.5 text-white text-[11px] font-extrabold px-3.5 py-1 rounded-full uppercase tracking-wider mb-2 shadow-xs" style="background-color: #F59E0B; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);">
+          <span>🎁 Ưu Đãi Đặc Quyền Gia Hạn</span>
+        </div>
+        
+        <h3 class="text-base md:text-lg font-extrabold mb-2" style="color: #0F172A;">
+          Đặc quyền dành riêng cho bạn khi gia hạn trước <span class="underline underline-offset-2" style="color: #B45309;">{{ExpiryDate}}</span>
+        </h3>
+        
+        <p class="text-xs md:text-sm mb-4 max-w-[480px] mx-auto leading-relaxed" style="color: #475569;">
+          Đừng để quãng thời gian tập luyện bị ngắt quãng! Khi kích hoạt gia hạn ngay hôm nay, FitManage dành tặng bạn gói phúc lợi đặc biệt:
+        </p>
+
+        <!-- Perk List (2 Quyền Lợi Hấp Dẫn) -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4 text-xs font-bold text-slate-800">
+          <div class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg shadow-xs" style="background-color: #FFFFFF; border: 1px solid #FDE68A;">
+            <span class="font-black text-sm" style="color: #10B981;">✓</span>
+            <span>Giảm ngay <strong style="color: #1A237E;">10%</strong> giá trị gói mới</span>
+          </div>
+          <div class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg shadow-xs" style="background-color: #FFFFFF; border: 1px solid #FDE68A;">
+            <span class="font-black text-sm" style="color: #10B981;">✓</span>
+            <span>Tặng thêm <strong style="color: #1A237E;">01 tháng</strong> tập luyện miễn phí</span>
+          </div>
+        </div>
+
+        <!-- Coupon Code Container (Mã Voucher Tri Ân) -->
+        <div class="p-3 rounded-xl max-w-[320px] mx-auto shadow-sm" style="background-color: #FFFFFF; border: 2px dashed #FBBF24;">
+          <div class="text-[11px] font-bold uppercase" style="color: #64748B;">Mã ưu đãi độc quyền</div>
+          <div class="code-badge font-mono text-2xl font-black my-1" style="color: #1A237E; letter-spacing: 3px;">
+            RENEW2026
+          </div>
+          <div class="text-[10px] italic font-medium" style="color: #B45309;">Áp dụng trực tiếp tại bước thanh toán trực tuyến</div>
+        </div>
+      </section>
+
+      <!-- 5. CALL TO ACTION (CTA Nút Bấm Xanh Navy Đậm Cực Kỳ Nổi Bật) -->
+      <section class="mb-7 text-center">
+        <!-- Main Primary Button -->
+        <a href="{{RenewalLink}}" class="block w-full text-white font-extrabold text-sm md:text-base py-4 px-6 rounded-xl transition-all duration-200 uppercase tracking-wider text-center no-underline" style="background-color: #1A237E; border: 1px solid #151C6B; box-shadow: 0 10px 25px -5px rgba(26, 35, 126, 0.40); letter-spacing: 0.8px; display: block;">
+          🚀 GIA HẠN HỢP ĐỒNG TRỰC TUYẾN NGAY
+        </a>
+        
+        <p class="text-[11px] mt-2 font-medium" style="color: #94A3B8;">
+          🔒 Hỗ trợ thanh toán bảo mật VietQR, Thẻ Visa/Mastercard và Trả góp 0%
+        </p>
+
+        <!-- Secondary Sub-links -->
+        <div class="mt-4 pt-3 flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs font-bold" style="border-top: 1px solid #F1F5F9;">
+          <a href="#" class="flex items-center gap-1 hover:underline" style="color: #1A237E; text-decoration: none;">
+            <span>❄️ Tạm ngưng / Bảo lưu thẻ</span>
+          </a>
+          <span class="hidden sm:inline" style="color: #CBD5E1;">|</span>
+          <a href="#" class="flex items-center gap-1 hover:underline" style="color: #1A237E; text-decoration: none;">
+            <span>📅 Đặt hẹn tư vấn cùng HLV cá nhân (PT)</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- 6. SUPPORT & CONTACT INFO (Khối Hỗ Trợ CSKH Tinh Tế) -->
+      <section class="rounded-xl p-4 text-xs" style="background-color: #F8FAFC; border: 1px solid #E2E8F0; color: #475569;">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 text-base" style="background-color: #DBEAFE; color: #1A237E;">
+            📞
+          </div>
+          <div class="flex-1">
+            <p class="font-extrabold text-xs mb-1" style="color: #0F172A;">Cần hỗ trợ gia hạn hoặc tư vấn gói tập?</p>
+            <p class="mb-1 leading-relaxed" style="color: #475569;">
+              Tổng đài CSKH: <strong class="text-xs" style="color: #0F172A;">1900 8892</strong> (06:00 – 22:00 hàng ngày, bao gồm Lễ Tết).
+            </p>
+            <p class="text-[11px]" style="color: #94A3B8;">
+              Quầy Lễ tân Flagship: Tầng 2, Tòa nhà FitManage Center, 48 Nguyễn Thị Minh Khai, P. Bến Nghé, Quận 1, TP. HCM.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 7. EMAIL FOOTER (Xám Nhạt Thanh Lịch) -->
+    <footer class="px-6 md:px-8 py-6 text-center text-[11px] border-t" style="background-color: #ECEFF1; border-top: 1px solid #E2E8F0; color: #64748B;">
+      <div class="max-w-[480px] mx-auto space-y-2">
+        <p class="italic" style="color: #64748B; margin: 0 0 8px 0;">
+          Email này được gửi tự động từ hệ thống quản lý <strong>FitManage Gym &amp; Yoga Suite</strong>. Vui lòng không phản hồi trực tiếp thư này.
+        </p>
+        
+        <div class="pt-2 pb-1 flex items-center justify-center gap-3 font-semibold" style="color: #475569;">
+          <a href="#" class="hover:underline" style="color: #475569; text-decoration: none;">Chính sách hội viên</a>
+          <span style="color: #CBD5E1;">•</span>
+          <a href="#" class="hover:underline" style="color: #475569; text-decoration: none;">Nội quy phòng tập</a>
+          <span style="color: #CBD5E1;">•</span>
+          <a href="#" class="hover:underline" style="color: #475569; text-decoration: none;">Hủy nhận thông báo</a>
+        </div>
+        
+        <p class="text-[10px] pt-1" style="color: #94A3B8; margin: 6px 0 0 0;">
+          © {{Year}} FitManage Gym &amp; Yoga Suite. All rights reserved. Tiêu chuẩn ISO 9001:2015 &amp; Nghị định 13/2023/NĐ-CP.
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
