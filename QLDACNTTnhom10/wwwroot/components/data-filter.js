@@ -93,7 +93,13 @@
         tags.forEach(function(tag) {
           const chip = document.createElement('span');
           chip.className = 'inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#EFF4FF] border border-slate-200 text-[11px] font-medium text-[#0B1C30] shadow-2xs';
-          chip.innerHTML = tag.label + '<button type="button" class="text-slate-400 hover:text-slate-700 ml-0.5" title="Xóa điều kiện này">&times;</button>';
+          chip.textContent = tag.label;
+          const removeButton = document.createElement('button');
+          removeButton.type = 'button';
+          removeButton.className = 'text-slate-400 hover:text-slate-700 ml-0.5';
+          removeButton.title = 'Xóa điều kiện này';
+          removeButton.textContent = '×';
+          chip.appendChild(removeButton);
           chip.querySelector('button').addEventListener('click', function() {
             self.removeTag(tag.key);
           });
