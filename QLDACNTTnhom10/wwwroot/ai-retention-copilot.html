@@ -109,39 +109,39 @@
         <div class="text-[11px] font-semibold text-slate-400/80 px-3 pb-2.5 uppercase tracking-wider">
           MENU CHÍNH / MAIN
         </div>
-        <nav class="space-y-1 text-sm font-medium">
+        <nav class="space-y-1 text-sm font-medium" style="max-height:calc(100vh - 280px);overflow-y:auto">
           <!-- Bảng điều khiển -->
-          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+          <a href="/dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
             <i data-lucide="layout-grid" class="w-4 h-4 text-slate-400"></i>
             <span>Bảng điều khiển</span>
           </a>
 
           <!-- Quản lý hội viên -->
-          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+          <span class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all" aria-disabled="true" title="Chưa có giao diện trong repository">
             <i data-lucide="users" class="w-4 h-4 text-slate-400"></i>
             <span>Quản lý hội viên</span>
-          </a>
+          <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
 
           <!-- Hợp đồng & Gói tập -->
-          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+          <a href="/packages.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
             <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
             <span>Hợp đồng &amp; Gói tập</span>
           </a>
 
           <!-- Quầy lễ tân Check-in -->
-          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+          <span class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all" aria-disabled="true" title="Chưa có giao diện trong repository">
             <i data-lucide="scan" class="w-4 h-4 text-slate-400"></i>
             <span>Quầy lễ tân Check-in</span>
-          </a>
+          <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
 
           <!-- Lịch lớp học -->
-          <a href="javascript:void(0)" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+          <a href="/schedules.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
             <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
             <span>Lịch lớp học</span>
           </a>
 
           <!-- ACTIVE: Trợ lý AI gia hạn -->
-          <a href="javascript:void(0)" class="relative flex items-center justify-between px-3 py-2.5 rounded-xl bg-white/10 text-white font-semibold border border-cyan-400/25 shadow-sm shadow-cyan-950/40">
+          <a href="/ai-retention-copilot.html" class="relative flex items-center justify-between px-3 py-2.5 rounded-xl bg-white/10 text-white font-semibold border border-cyan-400/25 shadow-sm shadow-cyan-950/40">
             <div class="flex items-center gap-3">
               <div class="relative flex items-center justify-center">
                 <i data-lucide="zap" class="w-4 h-4 text-purple-400 fill-purple-400"></i>
@@ -158,7 +158,12 @@
               <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#06b6d4]"></span>
             </div>
           </a>
-        </nav>
+
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/trainers.html">Quản lý HLV</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/retention-report.html">Báo cáo tỷ lệ gia hạn</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/class-booking.html">Đăng ký lớp tập</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/data-tools.html">Bộ lọc dữ liệu</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/templates/email-expiry-reminder.html">Mẫu email nhắc hạn</a></nav>
       </div>
     </div>
 

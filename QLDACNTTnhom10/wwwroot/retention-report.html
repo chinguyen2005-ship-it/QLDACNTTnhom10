@@ -117,45 +117,48 @@
         <span class="text-[11px] uppercase tracking-wider text-[#A3CAF2]/70 font-semibold px-2">Quản trị hệ thống</span>
       </div>
 
-      <nav class="flex-1 px-3 space-y-1">
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="dashboard.html">
+      <nav class="flex-1 px-3 space-y-1" style="max-height:calc(100vh - 280px);overflow-y:auto">
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/dashboard.html">
           <span class="material-symbols-outlined text-[20px]">dashboard</span>
           <span class="text-sm">Dashboard</span>
         </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+        <span class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" aria-disabled="true" title="Chưa có giao diện trong repository">
           <span class="material-symbols-outlined text-[20px]">group</span>
           <span class="text-sm">Hội viên</span>
-        </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/packages.html">
           <span class="material-symbols-outlined text-[20px]">description</span>
           <span class="text-sm">Hợp đồng &amp; Gói tập</span>
         </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/trainers.html">
           <span class="material-symbols-outlined text-[20px]">sports</span>
           <span class="text-sm">Quản lý HLV</span>
         </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/schedules.html">
           <span class="material-symbols-outlined text-[20px]">calendar_month</span>
           <span class="text-sm">Lịch lớp học</span>
         </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+        <span class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" aria-disabled="true" title="Chưa có giao diện trong repository">
           <span class="material-symbols-outlined text-[20px]">badge</span>
           <span class="text-sm">Quầy lễ tân Check-in</span>
-        </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
+        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="/ai-retention-copilot.html">
           <span class="material-symbols-outlined text-[20px]">auto_awesome</span>
           <span class="text-sm">Trợ lý AI gia hạn</span>
         </a>
         <!-- Active: Báo cáo & Thống kê -->
-        <a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#006172] text-[#57DFFF] font-medium shadow-sm transition-all" href="retention-report.html">
+        <a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#006172] text-[#57DFFF] font-medium shadow-sm transition-all" href="/retention-report.html">
           <span class="material-symbols-outlined text-[20px]">monitoring</span>
           <span class="text-sm font-medium">Báo cáo &amp; Thống kê</span>
         </a>
-        <a class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" href="#">
+        <span class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-[#CEE5FF] hover:bg-[#3A6285]/40 hover:text-white transition-all" aria-disabled="true" title="Chưa có giao diện trong repository">
           <span class="material-symbols-outlined text-[20px]">settings</span>
           <span class="text-sm">Cài đặt</span>
-        </a>
-      </nav>
+        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
+
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/class-booking.html">Đăng ký lớp tập</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/data-tools.html">Bộ lọc dữ liệu</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/templates/email-expiry-reminder.html">Mẫu email nhắc hạn</a></nav>
     </div>
 
     <!-- Bottom: Branch + Admin Profile -->

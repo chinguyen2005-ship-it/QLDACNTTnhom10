@@ -181,15 +181,15 @@
       </div>
 
       <!-- Navigation Links (8 Chức năng chuẩn theo thiết kế) -->
-      <nav class="px-space-sm mt-space-sm flex flex-col gap-1">
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bang-dieu-khien" href="/index.html">
+      <nav class="px-space-sm mt-space-sm flex flex-col gap-1" style="max-height:calc(100vh - 280px);overflow-y:auto">
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bang-dieu-khien" href="/dashboard.html">
           <span class="material-symbols-outlined text-[20px] shrink-0">grid_view</span>
           <span class="font-title-md text-title-md truncate">Bảng điều khiển</span>
         </a>
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quan-ly-hoi-vien" href="javascript:void(0)" onclick="handleNavFeature('Quản lý hội viên')">
+        <span class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quan-ly-hoi-vien" aria-disabled="true" title="Chưa có giao diện trong repository">
           <span class="material-symbols-outlined text-[20px] shrink-0">group</span>
           <span class="font-title-md text-title-md truncate">Quản lý hội viên</span>
-        </a>
+        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
         <!-- ACTIVE TAB: Hợp đồng & Gói tập -->
         <a aria-current="page" class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg bg-tertiary-container text-white font-bold shadow-xs transition-colors" data-path="hop-dong-va-goi-tap" href="/packages.html">
           <span class="material-symbols-outlined text-[20px] shrink-0 text-white">loyalty</span>
@@ -203,19 +203,22 @@
           <span class="material-symbols-outlined text-[20px] shrink-0">calendar_month</span>
           <span class="font-title-md text-title-md truncate">Lịch lớp học</span>
         </a>
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quay-le-tan-check-in" href="javascript:void(0)" onclick="handleNavFeature('Quầy lễ tân Check-in')">
+        <span class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="quay-le-tan-check-in" aria-disabled="true" title="Chưa có giao diện trong repository">
           <span class="material-symbols-outlined text-[20px] shrink-0">how_to_reg</span>
           <span class="font-title-md text-title-md truncate">Quầy lễ tân Check-in</span>
-        </a>
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="tro-ly-ai-gia-han" href="javascript:void(0)" onclick="handleNavFeature('Trợ lý AI gia hạn')">
+        <small class="text-[10px] opacity-60">Chưa có giao diện</small></span>
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="tro-ly-ai-gia-han" href="/ai-retention-copilot.html">
           <span class="material-symbols-outlined text-[20px] shrink-0">auto_awesome</span>
           <span class="font-title-md text-title-md truncate">Trợ lý AI gia hạn</span>
         </a>
-        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bao-cao-doanh-thu" href="javascript:void(0)" onclick="handleNavFeature('Báo cáo doanh thu')">
+        <a class="flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-path="bao-cao-doanh-thu" href="/retention-report.html">
           <span class="material-symbols-outlined text-[20px] shrink-0">bar_chart</span>
-          <span class="font-title-md text-title-md truncate">Báo cáo doanh thu</span>
+          <span class="font-title-md text-title-md truncate">Báo cáo tỷ lệ gia hạn</span>
         </a>
-      </nav>
+
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/class-booking.html">Đăng ký lớp tập</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/data-tools.html">Bộ lọc dữ liệu</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white" href="/templates/email-expiry-reminder.html">Mẫu email nhắc hạn</a></nav>
     </div>
 
     <!-- Bottom Sidebar IOT & Settings -->
