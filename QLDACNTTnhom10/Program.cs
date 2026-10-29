@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using QLDACNTTNhom10.Services;
 using System.Text;
@@ -94,8 +94,10 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors("AllowAll");
+app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAuthentication(); // Bắt buộc đứng trước UseAuthorization
 app.UseAuthorization();
 app.MapControllers();
+app.MapGet("/", () => Results.Redirect("/dashboard.html"));
 app.Run();
