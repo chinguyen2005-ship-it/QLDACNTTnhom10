@@ -145,10 +145,13 @@
   </script>
   <link rel="stylesheet" href="/css/sidebar.css">
   <script src="/js/sidebar.js" defer></script>
+<link href="/css/permissions.css" rel="stylesheet">
+<script src="/js/auth-session.js"></script>
+<script src="/js/permissions.js"></script>
 </head>
 
 <body class="bg-surface font-body-md text-on-surface antialiased">
-  
+
   <!-- Sidebar Navigation -->
   <aside class="fixed left-0 top-0 h-screen w-64 bg-[#0B1C30] z-50 flex flex-col justify-between text-white select-none shadow-[0_1px_8px_rgba(0,0,0,0.04)]" data-fitmanage-sidebar aria-label="Sidebar FitManage"><a href="/dashboard.html">FitManage · Bảng điều khiển</a></aside>
 
@@ -219,10 +222,10 @@
 
         <!-- Modal Overlay / Backdrop Scrim (Active Displayed) -->
         <div class="fixed inset-0 z-50 bg-inverse-surface/50 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" id="contract-modal-backdrop">
-          
+
           <!-- Modal Card (680px Width Centered) -->
           <div class="relative w-full max-w-[680px] bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden my-6 transition-all duration-300 transform scale-100 flex flex-col border border-outline-variant/30">
-            
+
             <!-- Modal Header -->
             <div class="p-6 bg-surface-container-low/60 flex flex-col gap-3 relative border-b border-surface-container-high">
               <!-- Close Button -->
@@ -363,7 +366,7 @@
               <!-- Khối 3: Bảng chốt phí & Thanh toán -->
               <div class="flex flex-col gap-4">
                 <span class="font-title-lg text-title-lg text-on-surface tracking-tight font-bold">Chi tiết thanh toán</span>
-                
+
                 <!-- Pricing Summary Box -->
                 <div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3 border border-outline-variant/20">
                   <div class="flex items-center justify-between font-body-md text-body-md text-on-surface-variant">
@@ -381,7 +384,7 @@
                   <!-- Voucher Input Box -->
                   <div class="flex items-center gap-2 p-1.5 bg-surface-container-low rounded-lg border border-outline-variant/30">
                     <span class="material-symbols-outlined text-[18px] text-outline pl-1.5">confirmation_number</span>
-                    <input id="inputVoucherCode" oninput="onVoucherCodeInput(this.value)" class="bg-transparent text-on-surface font-title-md text-title-md outline-none w-full font-mono uppercase font-bold" placeholder="Nhập mã Voucher..." type="text" value="LOYALTY10"/>
+                    <input data-permission="administration" id="inputVoucherCode" oninput="onVoucherCodeInput(this.value)" class="bg-transparent text-on-surface font-title-md text-title-md outline-none w-full font-mono uppercase font-bold" placeholder="Nhập mã Voucher..." type="text" value="LOYALTY10"/>
                     <span id="badgeVoucherStatus" class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold shrink-0">Áp dụng thành công</span>
                   </div>
 
@@ -476,7 +479,7 @@
     let currentMonths = 6;
     let currentPrice = 4500000;
     let currentDays = 180;
-    let discountRate = 0.10;
+    let discountRate = window.FitManagePermissions?.can('administration') ? 0.10 : 0;
     let selectedPayment = 'vietqr';
 
     function selectDuration(months, price, days) {
@@ -537,6 +540,7 @@
     }
 
     function onVoucherCodeInput(val) {
+      if (!window.FitManagePermissions?.can('administration')) return;
       const code = (val || '').trim().toUpperCase();
       const badge = document.getElementById('badgeVoucherStatus');
       if (code === 'LOYALTY10') {

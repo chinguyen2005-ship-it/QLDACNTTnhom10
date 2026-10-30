@@ -572,7 +572,7 @@ async function confirmRenewContract() {
   const methodText = renewState.paymentMethod === 'vietqr' ? 'VietQR Pro' : (renewState.paymentMethod === 'cash' ? 'Tiền mặt' : 'Quẹt thẻ POS');
   const now = new Date();
   const timeStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-  
+
   c.auditTrail.events.unshift({
     time: timeStr,
     title: `Gia hạn hợp đồng (+${renewState.months} Tháng)`,

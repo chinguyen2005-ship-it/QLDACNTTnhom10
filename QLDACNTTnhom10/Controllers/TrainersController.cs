@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using QLDACNTTnhom10.Security;
 
 namespace QLDACNTTNhom10.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = AccessPolicies.Operations)]
     public class TrainersController : ControllerBase
     {
         private readonly string _connectionString;
@@ -14,7 +16,6 @@ namespace QLDACNTTNhom10.Controllers
 
         // GET /api/trainers
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> GetAllTrainers()
         {
             using var connection = new SqlConnection(_connectionString);

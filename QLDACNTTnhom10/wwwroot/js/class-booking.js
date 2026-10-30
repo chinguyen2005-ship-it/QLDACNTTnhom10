@@ -315,10 +315,10 @@ function renderCategoryChips() {
 
   container.innerHTML = mockCategories.map(cat => {
     const isActive = cat.name === currentSelectedCategory;
-    const activeClass = isActive 
-      ? "active-chip bg-[#0B2238] text-white shadow-sm" 
+    const activeClass = isActive
+      ? "active-chip bg-[#0B2238] text-white shadow-sm"
       : "bg-surface-container-lowest text-secondary hover:bg-slate-200";
-    
+
     return `
       <button type="button" onclick="selectCategory('${cat.name}')"
         class="filter-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shadow-xs transition-colors ${activeClass}">
@@ -522,7 +522,7 @@ function updateStickySummaryPanel(classId) {
   if (!targetClass) return;
 
   const isFull = targetClass.booked >= targetClass.capacity;
-  
+
   // 1. Tên lớp & Thời gian
   const summaryTitleEl = document.getElementById("summaryClassTitle");
   const summaryStudioEl = document.getElementById("summaryStudioTag");
@@ -641,7 +641,7 @@ function showSuccessModal(targetClass, isWaitlist) {
           ${isWaitlist ? 'Đã ghi danh vào Hàng chờ!' : 'Đặt chỗ thành công!'}
         </h3>
         <p class="text-xs text-secondary mt-1.5 leading-relaxed">
-          ${isWaitlist 
+          ${isWaitlist
             ? `Hội viên <strong>${currentSelectedMember.name}</strong> đã được thêm vào hàng chờ lớp <strong>${targetClass.title}</strong>. Hệ thống sẽ tự động gửi thông báo khi có người hủy lịch.`
             : `Đã xác nhận đặt chỗ cho hội viên <strong>${currentSelectedMember.name}</strong> tại lớp <strong>${targetClass.title}</strong>.`}
         </p>
@@ -708,9 +708,9 @@ function initMemberSearchAutocomplete() {
       return;
     }
 
-    const matches = mockMembers.filter(m => 
-      m.name.toLowerCase().includes(keyword) || 
-      m.phone.includes(keyword) || 
+    const matches = mockMembers.filter(m =>
+      m.name.toLowerCase().includes(keyword) ||
+      m.phone.includes(keyword) ||
       m.id.toLowerCase().includes(keyword)
     );
 

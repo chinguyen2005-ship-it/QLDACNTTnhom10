@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using QLDACNTTnhom10.DTOs;
+using QLDACNTTnhom10.Security;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -23,12 +24,12 @@ public class MembersController : ControllerBase
     {
         using var connection = new SqlConnection(_connectionString);
         var sql = @"
-        SELECT m.MemberID, m.UserID, u.Username, u.Email, 
+        SELECT m.MemberID, m.UserID, u.Username, u.Email,
                m.FullName, m.Phone, m.DateOfBirth, m.Gender, m.AvatarUrl, u.IsActive
         FROM MEMBERS m
         JOIN USERS u ON m.UserID = u.UserID
-        WHERE m.FullName LIKE @Search 
-           OR m.Phone LIKE @Search 
+        WHERE m.FullName LIKE @Search
+           OR m.Phone LIKE @Search
            OR CAST(m.MemberID AS NVARCHAR) = @ExactSearch -- Tìm chính xác theo Mã HV
         ORDER BY m.MemberID DESC";
 
@@ -54,7 +55,7 @@ public class MembersController : ControllerBase
             // 2.1 Insert vào bảng USERS trước (RoleID = 4 là Member)
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(req.Password);
             var sqlUser = @"
-                INSERT INTO USERS (Username, PasswordHash, Email, RoleID, IsActive) 
+                INSERT INTO USERS (Username, PasswordHash, Email, RoleID, IsActive)
                 OUTPUT INSERTED.UserID
                 VALUES (@Username, @PasswordHash, @Email, 4, 1)";
 
@@ -63,7 +64,7 @@ public class MembersController : ControllerBase
 
             // 2.2 Insert vào bảng MEMBERS với UserID vừa tạo
             var sqlMember = @"
-                INSERT INTO MEMBERS (UserID, FullName, Phone, DateOfBirth, Gender) 
+                INSERT INTO MEMBERS (UserID, FullName, Phone, DateOfBirth, Gender)
                 VALUES (@UserID, @FullName, @Phone, @DateOfBirth, @Gender)";
 
             await connection.ExecuteAsync(sqlMember,
@@ -85,8 +86,8 @@ public class MembersController : ControllerBase
     {
         using var connection = new SqlConnection(_connectionString);
         var sql = @"
-            UPDATE MEMBERS 
-            SET FullName = @FullName, Phone = @Phone, DateOfBirth = @DateOfBirth, Gender = @Gender 
+            UPDATE MEMBERS
+            SET FullName = @FullName, Phone = @Phone, DateOfBirth = @DateOfBirth, Gender = @Gender
             WHERE MemberID = @Id";
 
         var affected = await connection.ExecuteAsync(sql,
@@ -98,12 +99,13 @@ public class MembersController : ControllerBase
 
     // --- 4. DELETE: Xóa mềm hội viên (Khóa tài khoản) ---
     [HttpDelete("{id}")]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public async Task<IActionResult> DeleteMember(int id)
     {
         using var connection = new SqlConnection(_connectionString);
         // Cập nhật IsActive = 0 ở bảng USERS thay vì xóa hẳn Data
         var sql = @"
-            UPDATE u SET u.IsActive = 0 
+            UPDATE u SET u.IsActive = 0
             FROM USERS u
             JOIN MEMBERS m ON u.UserID = m.UserID
             WHERE m.MemberID = @Id";
@@ -169,15 +171,15 @@ public class MembersController : ControllerBase
 
         // Sử dụng kỹ thuật (@Param IS NULL OR Column = @Param) để xử lý lọc động
         var sql = @"
-        SELECT DISTINCT 
-            m.MemberID, m.UserID, u.Username, u.Email, 
+        SELECT DISTINCT
+            m.MemberID, m.UserID, u.Username, u.Email,
             m.FullName, m.Phone, m.DateOfBirth, m.Gender, m.AvatarUrl, u.IsActive
         FROM MEMBERS m
         JOIN USERS u ON m.UserID = u.UserID
         LEFT JOIN CONTRACTS c ON m.MemberID = c.MemberID
-        WHERE (@Keyword IS NULL 
-               OR m.FullName LIKE @SearchPattern 
-               OR m.Phone LIKE @SearchPattern 
+        WHERE (@Keyword IS NULL
+               OR m.FullName LIKE @SearchPattern
+               OR m.Phone LIKE @SearchPattern
                OR CAST(m.MemberID AS NVARCHAR) = @Keyword)
           AND (@Gender IS NULL OR m.Gender = @Gender)
           AND (@IsActive IS NULL OR u.IsActive = @IsActive)

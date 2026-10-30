@@ -1,0 +1,2 @@
+[data-permission]:not([data-authorized="true"]), [hidden] { display: none !important; }
+html.fm-access-redirect body { visibility: hidden; }

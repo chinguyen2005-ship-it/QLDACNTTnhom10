@@ -470,12 +470,12 @@ function renderGridView(trainers, container) {
       ? `<button class="flex-1 h-9 rounded-lg bg-surface-container text-secondary font-title-md text-title-md cursor-not-allowed" disabled>Đang nghỉ ca</button>`
       : `<button onclick="openBookTrainerModal(${trainer.id})" class="flex-1 h-9 rounded-lg bg-[#0B2238] text-white font-title-md text-title-md hover:bg-[#123352] transition-all active:scale-95 shadow-xs">Đặt lịch 1:1</button>`;
 
-    const tagsHtml = trainer.tags.map(tag => 
+    const tagsHtml = trainer.tags.map(tag =>
       `<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-secondary">${tag}</span>`
     ).join("");
 
     return `
-      <div class="trainer-card bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md border border-outline-variant/30 ${isOff ? 'opacity-90' : ''}">
+      <div class="trainer-card flex flex-col justify-between gap-4 ${isOff ? 'opacity-90' : ''}">
         <div class="flex flex-col gap-4">
           <!-- Top Row: Avatar & Basic Info & Rank Badge -->
           <div class="flex items-start justify-between gap-3">
@@ -858,6 +858,7 @@ function confirmBookTrainer() {
 // 6. MODAL: THÊM MỚI HUẤN LUYỆN VIÊN (+ Thêm HLV mới)
 // =============================================================================
 function openAddTrainerModal() {
+  if (!window.FitManagePermissions?.can('administration')) return;
   const modal = document.getElementById("addTrainerModal");
   const box = document.getElementById("addTrainerModalBox");
   if (!modal || !box) return;
@@ -930,6 +931,7 @@ function handleSaveNewTrainer(event) {
 // 7. XUẤT EXCEL / CSV
 // =============================================================================
 function exportTrainersCsv() {
+  if (!window.FitManagePermissions?.can('administration')) return;
   const filtered = getFilteredTrainers();
   const headers = ["Mã HLV", "Họ và Tên", "Chuyên Môn", "Cấp Bậc", "Số Năm KN", "Rating", "Số Đánh Giá", "Số HV Active", "Chi Nhánh", "Ca Dạy", "SĐT", "Trạng Thái"];
   const rows = filtered.map(t => [
@@ -1063,7 +1065,61 @@ document.addEventListener("DOMContentLoaded", () => {
       renderTrainers();
     });
   }
+
+  // Tải dữ liệu Huấn luyện viên thật từ Database qua GET /api/Trainers
+  loadRealTrainersFromApi();
 });
+
+async function loadRealTrainersFromApi() {
+  try {
+    const res = await fetch('/api/Trainers', { headers: { Authorization: 'Bearer ' + (localStorage.getItem('token') || '') } });
+    if (res.ok) {
+      const dbTrainers = await res.json();
+      if (Array.isArray(dbTrainers) && dbTrainers.length > 0) {
+        dbTrainers.forEach(dbT => {
+          const id = dbT.TrainerID;
+          const found = mockTrainers.find(m => m.id === id || m.name.toLowerCase() === (dbT.Username || '').toLowerCase() || m.email === dbT.Email);
+          if (found) {
+            found.phone = dbT.Phone || found.phone;
+            found.email = dbT.Email || found.email;
+            found.specialization = dbT.Specialization || found.specialization;
+          } else {
+            mockTrainers.push({
+              id: 1000 + id,
+              code: '#HLV-' + (1000 + id),
+              name: dbT.Username || ('HLV ' + id),
+              specialization: dbT.Specialization || 'Fitness',
+              rank: 'Senior',
+              rankTitle: dbT.Specialization || 'Senior Trainer',
+              rankBadgeClass: 'bg-primary-fixed text-on-primary-fixed-variant',
+              avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+              status: dbT.IsActive ? 'available' : 'off',
+              statusText: dbT.IsActive ? 'Sẵn sàng' : 'Nghỉ ca',
+              statusDotColor: dbT.IsActive ? 'bg-emerald-500' : 'bg-slate-400',
+              rating: 4.9,
+              reviewCount: 50,
+              experience: '3 năm',
+              activeClients: 12,
+              tags: [dbT.Specialization || 'Fitness', 'Cá nhân hóa'],
+              shift: 'Ca sáng (07:00 - 15:00)',
+              branch: 'Flagship Q.1',
+              branchDisplay: 'Chi nhánh Q.1 Flagship',
+              phone: dbT.Phone || '0901 111 222',
+              email: dbT.Email || 'trainer@fitmanage.vn',
+              bio: 'HLV ' + dbT.Username + ' chuyên môn ' + dbT.Specialization,
+              certifications: ['Chứng chỉ Huấn luyện viên Quốc gia'],
+              reviews: []
+            });
+          }
+        });
+        updateKpiCounters();
+        renderTrainers();
+      }
+    }
+  } catch (err) {
+    console.warn('[Trainers] Lỗi tải /api/Trainers:', err);
+  }
+}
 
 function handleNavFeature(name) {
   showToast(name, `Tính năng "${name}" đang được kết nối với module hệ thống trong phiên bản kế tiếp.`, "info");

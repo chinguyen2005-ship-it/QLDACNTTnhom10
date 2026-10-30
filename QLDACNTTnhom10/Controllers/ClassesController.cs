@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using QLDACNTTnhom10.DTOs;
+using QLDACNTTnhom10.Security;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles = "Admin,Staff")]
+[Authorize]
 public class ClassesController : ControllerBase
 {
     private readonly string _connectionString;
@@ -19,12 +20,13 @@ public class ClassesController : ControllerBase
 
     // TASK-360: API Tạo lớp học và phân công PT
     [HttpPost]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public async Task<IActionResult> CreateClass([FromBody] CreateClassRequest req)
     {
         using var connection = new SqlConnection(_connectionString);
         var sql = @"
-            INSERT INTO CLASSES (ClassName, TrainerID, Capacity) 
-            OUTPUT INSERTED.ClassID 
+            INSERT INTO CLASSES (ClassName, TrainerID, Capacity)
+            OUTPUT INSERTED.ClassID
             VALUES (@ClassName, @TrainerID, @Capacity)";
 
         int newClassId = (int)(await connection.ExecuteScalarAsync(sql, req));
@@ -33,6 +35,7 @@ public class ClassesController : ControllerBase
 
     // TASK-389: API Tạo ca học và gán phòng tập
     [HttpPost("schedules")]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public async Task<IActionResult> CreateSchedule([FromBody] CreateScheduleRequest req)
     {
         // 1. Kiểm tra giờ hoạt động (7h - 23h)
@@ -51,8 +54,8 @@ public class ClassesController : ControllerBase
         // 2. Thuật toán kiểm tra trùng lịch (Overlap Checking)
         // Lịch bị trùng khi: (Giờ BĐ mới < Giờ KT cũ) VÀ (Giờ KT mới > Giờ BĐ cũ)
         var checkOverlapSql = @"
-            SELECT COUNT(1) FROM CLASS_SCHEDULES 
-            WHERE Room = @Room 
+            SELECT COUNT(1) FROM CLASS_SCHEDULES
+            WHERE Room = @Room
               AND (CAST(StartTime AS DATE) = CAST(@StartTime AS DATE))
               AND (@StartTime < EndTime AND @EndTime > StartTime)";
 
@@ -82,11 +85,12 @@ public class ClassesController : ControllerBase
     // ==========================================
 
     [HttpPut("{id}")]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public async Task<IActionResult> UpdateClass(int id, [FromBody] CreateClassRequest req)
     {
         using var connection = new SqlConnection(_connectionString);
         var sql = @"
-            UPDATE CLASSES 
+            UPDATE CLASSES
             SET ClassName = @ClassName, TrainerID = @TrainerID, Capacity = @Capacity
             WHERE ClassID = @Id";
 
@@ -103,6 +107,7 @@ public class ClassesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public async Task<IActionResult> DeleteClass(int id)
     {
         using var connection = new SqlConnection(_connectionString);
@@ -120,6 +125,7 @@ public class ClassesController : ControllerBase
     // ==========================================
 
     [HttpPut("schedules/{id}")]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public async Task<IActionResult> UpdateSchedule(int id, [FromBody] CreateScheduleRequest req)
     {
         if (req.StartTime.TimeOfDay < TimeSpan.FromHours(7) || req.EndTime.TimeOfDay > TimeSpan.FromHours(23))
@@ -129,9 +135,9 @@ public class ClassesController : ControllerBase
 
         // ĐIỂM QUAN TRỌNG: Check trùng lịch nhưng phải LOẠI TRỪ chính cái ScheduleID đang sửa
         var checkOverlapSql = @"
-            SELECT COUNT(1) FROM CLASS_SCHEDULES 
-            WHERE Room = @Room 
-              AND ScheduleID != @Id 
+            SELECT COUNT(1) FROM CLASS_SCHEDULES
+            WHERE Room = @Room
+              AND ScheduleID != @Id
               AND (CAST(StartTime AS DATE) = CAST(@StartTime AS DATE))
               AND (@StartTime < EndTime AND @EndTime > StartTime)";
 
@@ -147,8 +153,8 @@ public class ClassesController : ControllerBase
             return BadRequest($"Phòng {req.Room} đã bị trùng lịch trong khung giờ này.");
 
         var sql = @"
-            UPDATE CLASS_SCHEDULES 
-            SET Room = @Room, StartTime = @StartTime, EndTime = @EndTime 
+            UPDATE CLASS_SCHEDULES
+            SET Room = @Room, StartTime = @StartTime, EndTime = @EndTime
             WHERE ScheduleID = @Id";
 
         var affected = await connection.ExecuteAsync(sql, new
@@ -163,6 +169,7 @@ public class ClassesController : ControllerBase
     }
 
     [HttpDelete("schedules/{id}")]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public async Task<IActionResult> DeleteSchedule(int id)
     {
         using var connection = new SqlConnection(_connectionString);
@@ -182,7 +189,7 @@ public class ClassesController : ControllerBase
     }
     // 1. GET /api/classes : Lấy danh sách lớp để đưa vào dropdown
     [HttpGet]
-    [AllowAnonymous]
+    [Authorize(Policy = AccessPolicies.ScheduleRead)]
     public async Task<IActionResult> GetAllClasses()
     {
         using var connection = new SqlConnection(_connectionString);
@@ -198,13 +205,13 @@ public class ClassesController : ControllerBase
 
     // 2. GET /api/classes/schedules : Lấy danh sách ca học hiển thị lên thời khóa biểu
     [HttpGet("schedules")]
-    [AllowAnonymous]
+    [Authorize(Policy = AccessPolicies.ScheduleRead)]
     public async Task<IActionResult> GetAllSchedules([FromQuery] DateTime? fromDate = null, [FromQuery] DateTime? toDate = null)
     {
         using var connection = new SqlConnection(_connectionString);
         var sql = @"
-                SELECT 
-                    s.ScheduleID, s.ClassID, c.ClassName, c.TrainerID, 
+                SELECT
+                    s.ScheduleID, s.ClassID, c.ClassName, c.TrainerID,
                     s.Room, s.StartTime, s.EndTime, c.Capacity,
                     (SELECT COUNT(1) FROM CHECK_INS chk WHERE chk.ScheduleID = s.ScheduleID) AS CurrentBooked
                 FROM CLASS_SCHEDULES s
@@ -219,7 +226,7 @@ public class ClassesController : ControllerBase
 
     // 3. POST /api/classes/schedules/{id}/book : Hội viên đăng ký giữ chỗ vào lớp (kiểm tra Capacity)
     [HttpPost("schedules/{id}/book")]
-    [Authorize] // Cho phép cả Member, Staff, Admin gọi
+    [Authorize(Policy = AccessPolicies.Operations)] // Đặt hộ tại quầy; đặt cho bản thân cần luồng kiểm tra ownership riêng.
     public async Task<IActionResult> BookSchedule(int id, [FromBody] BookScheduleRequest req)
     {
         using var connection = new SqlConnection(_connectionString);

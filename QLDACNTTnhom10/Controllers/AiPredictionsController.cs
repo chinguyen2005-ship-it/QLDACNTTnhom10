@@ -1,4 +1,6 @@
-﻿using Dapper;
+using Dapper;
+using Microsoft.AspNetCore.Authorization;
+using QLDACNTTnhom10.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using QLDACNTTnhom10.DTOs;
@@ -10,14 +12,12 @@ namespace QLDACNTTnhom10.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = AccessPolicies.Operations)]
     public class AiPredictionsController : ControllerBase
     {
         private readonly IConfiguration _config;
         private readonly string _connectionString;
         private static readonly HttpClient _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(20) };
-
-        // Dán trực tiếp Groq API Key vào đây nếu không muốn sửa file appsettings.json
-        private const string DEFAULT_GROQ_API_KEY = "";
 
         public AiPredictionsController(IConfiguration config)
         {
@@ -33,7 +33,7 @@ namespace QLDACNTTnhom10.Controllers
             using var connection = new SqlConnection(_connectionString);
 
             var sql = @"
-                SELECT 
+                SELECT
                     ap.PredictionID,
                     ap.MemberID,
                     m.FullName,
@@ -48,15 +48,15 @@ namespace QLDACNTTnhom10.Controllers
                     c.EndDate,
                     DATEDIFF(DAY, GETDATE(), c.EndDate) AS DaysRemaining,
                     c.RemainingSessions,
-                    (SELECT COUNT(1) FROM CHECK_INS ci 
-                     WHERE ci.ContractID = c.ContractID 
+                    (SELECT COUNT(1) FROM CHECK_INS ci
+                     WHERE ci.ContractID = c.ContractID
                      AND ci.CheckInTime >= DATEADD(DAY, -30, GETDATE())) AS TotalCheckInsLast30Days,
-                    (SELECT ISNULL(DATEDIFF(DAY, MAX(ci.CheckInTime), GETDATE()), 30) 
+                    (SELECT ISNULL(DATEDIFF(DAY, MAX(ci.CheckInTime), GETDATE()), 30)
                      FROM CHECK_INS ci WHERE ci.ContractID = c.ContractID) AS DaysSinceLastCheckIn,
                     ap.RenewalProbability,
                     ap.RiskLevel,
                     ISNULL(ap.RetentionStrategy, N'') AS RetentionStrategy,
-                    ISNULL(c.PromoCode, 
+                    ISNULL(c.PromoCode,
                         CASE WHEN ap.RiskLevel = N'High' THEN 'AI_COMEBACK_20' ELSE 'AI_GIA_HAN_10' END
                     ) AS SuggestedPromoCode,
                     ap.IsHandled,
@@ -80,12 +80,13 @@ namespace QLDACNTTnhom10.Controllers
 
         // 2. POST: api/AiPredictions/analyze/{contractId} - Phân tích AI cho 1 hợp đồng và lưu DB
         [HttpPost("analyze/{contractId}")]
+        [Authorize(Policy = AccessPolicies.Administration)]
         public async Task<IActionResult> AnalyzeContract(int contractId, [FromBody] AnalyzeRequestDto? req = null)
         {
             using var connection = new SqlConnection(_connectionString);
 
             var featureSql = @"
-                SELECT 
+                SELECT
                     c.ContractID,
                     c.MemberID,
                     m.FullName,
@@ -100,10 +101,10 @@ namespace QLDACNTTnhom10.Controllers
                     c.EndDate,
                     DATEDIFF(DAY, GETDATE(), c.EndDate) AS DaysRemaining,
                     c.RemainingSessions,
-                    (SELECT COUNT(1) FROM CHECK_INS ci 
-                     WHERE ci.ContractID = c.ContractID 
+                    (SELECT COUNT(1) FROM CHECK_INS ci
+                     WHERE ci.ContractID = c.ContractID
                      AND ci.CheckInTime >= DATEADD(DAY, -30, GETDATE())) AS CheckIns30Days,
-                    (SELECT ISNULL(DATEDIFF(DAY, MAX(ci.CheckInTime), GETDATE()), 30) 
+                    (SELECT ISNULL(DATEDIFF(DAY, MAX(ci.CheckInTime), GETDATE()), 30)
                      FROM CHECK_INS ci WHERE ci.ContractID = c.ContractID) AS DaysSinceLastCheckIn
                 FROM CONTRACTS c
                 INNER JOIN MEMBERS m ON c.MemberID = m.MemberID
@@ -115,7 +116,7 @@ namespace QLDACNTTnhom10.Controllers
                 return NotFound(new { Message = $"Không tìm thấy hợp đồng mã #{contractId}." });
 
             string? apiKey = !string.IsNullOrWhiteSpace(req?.GroqApiKey) ? req.GroqApiKey
-                           : !string.IsNullOrWhiteSpace(DEFAULT_GROQ_API_KEY) ? DEFAULT_GROQ_API_KEY
+                           : !string.IsNullOrWhiteSpace(string.Empty) ? string.Empty
                            : _config["Groq:ApiKey"] ?? Environment.GetEnvironmentVariable("GROQ_API_KEY");
 
             var aiResult = await CallGroqOrFallbackAsync(apiKey, feature);
@@ -179,6 +180,7 @@ namespace QLDACNTTnhom10.Controllers
 
         // 3. POST: api/AiPredictions/analyze-all - Quét toàn bộ hợp đồng Active và chạy dự báo AI
         [HttpPost("analyze-all")]
+        [Authorize(Policy = AccessPolicies.Administration)]
         public async Task<IActionResult> AnalyzeAllActiveContracts([FromBody] AnalyzeRequestDto? req = null)
         {
             using var connection = new SqlConnection(_connectionString);
@@ -210,11 +212,11 @@ namespace QLDACNTTnhom10.Controllers
             using var connection = new SqlConnection(_connectionString);
 
             var sql = @"
-                UPDATE AI_PREDICTIONS 
-                SET IsHandled = 1 
+                UPDATE AI_PREDICTIONS
+                SET IsHandled = 1
                 WHERE PredictionID = @PredictionID;
 
-                UPDATE CONTRACTS 
+                UPDATE CONTRACTS
                 SET LastRemindedDate = GETDATE(), UpdatedAt = GETDATE()
                 WHERE ContractID = (SELECT ContractID FROM AI_PREDICTIONS WHERE PredictionID = @PredictionID);";
 
@@ -251,7 +253,8 @@ Hãy trả về DUY NHẤT 1 JSON hợp lệ (không bọc markdown ```json) the
 
                     var payload = new
                     {
-                        model = "llama-3.3-70b-versatile",
+                        model = _config["Groq:Model"] ?? "openai/gpt-oss-20b",
+                        response_format = new { type = "json_object" },
                         messages = new[]
                         {
                             new { role = "system", content = "You are a JSON-only response assistant for a Gym CRM." },
@@ -277,7 +280,11 @@ Hãy trả về DUY NHẤT 1 JSON hợp lệ (không bọc markdown ```json) the
 
                         if (!string.IsNullOrWhiteSpace(content))
                         {
-                            content = content.Trim().Trim('`');
+                            content = content.Trim();
+                            if (content.StartsWith("```json", StringComparison.OrdinalIgnoreCase)) content = content.Substring(7);
+                            if (content.StartsWith("```")) content = content.Substring(3);
+                            if (content.EndsWith("```")) content = content.Substring(0, content.Length - 3);
+                            content = content.Trim();
                             if (content.StartsWith("json", StringComparison.OrdinalIgnoreCase))
                                 content = content.Substring(4).Trim();
 

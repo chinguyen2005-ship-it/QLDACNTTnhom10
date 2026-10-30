@@ -1,4 +1,4 @@
-using Dapper;
+﻿using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -22,10 +22,20 @@ public class AuthController : ControllerBase
     }
 
     // --- 1. API ĐĂNG KÝ (REGISTER) ---
+    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto req)
     {
         using var connection = new SqlConnection(_connectionString);
+
+        req.Username = req.Username.Trim();
+        req.Email = req.Email.Trim();
+        req.FullName = req.FullName.Trim();
+        req.Phone = req.Phone.Trim();
+        if (string.IsNullOrWhiteSpace(req.FullName))
+            return BadRequest(new { Message = "Vui lòng nhập họ tên." });
+        if (req.RoleID != 4)
+            return BadRequest(new { Message = "Đăng ký công khai chỉ dành cho hội viên." });
 
         // Kiểm tra Username hoặc Email đã tồn tại chưa
         var checkSql = "SELECT COUNT(1) FROM USERS WHERE Username = @Username OR Email = @Email";
@@ -35,16 +45,30 @@ public class AuthController : ControllerBase
         // Băm mật khẩu bằng BCrypt
         string passwordHash = BCrypt.Net.BCrypt.HashPassword(req.Password);
 
-        // Lưu vào DB
-        var insertSql = @"INSERT INTO USERS (Username, PasswordHash, Email, RoleID, IsActive) 
-                          VALUES (@Username, @PasswordHash, @Email, @RoleID, 1)";
-        await connection.ExecuteAsync(insertSql, new
+        // Tạo tài khoản và hồ sơ hội viên cùng một giao dịch.
+        await connection.OpenAsync();
+        using var transaction = connection.BeginTransaction();
+        try
         {
-            req.Username,
-            PasswordHash = passwordHash,
-            req.Email,
-            req.RoleID
-        });
+            var insertSql = @"INSERT INTO USERS (Username, PasswordHash, Email, RoleID, IsActive)
+                          OUTPUT INSERTED.UserID
+                          VALUES (@Username, @PasswordHash, @Email, 4, 1)";
+            var userId = await connection.ExecuteScalarAsync<int>(insertSql, new
+            {
+                req.Username,
+                PasswordHash = passwordHash,
+                req.Email
+            }, transaction);
+            await connection.ExecuteAsync(@"INSERT INTO MEMBERS (UserID, FullName, Phone, DateOfBirth, Gender)
+                VALUES (@UserID, @FullName, @Phone, @DateOfBirth, @Gender)",
+                new { UserID = userId, req.FullName, req.Phone, req.DateOfBirth, req.Gender }, transaction);
+            transaction.Commit();
+        }
+        catch (SqlException ex) when (ex.Number is 2601 or 2627)
+        {
+            transaction.Rollback();
+            return Conflict(new { Message = "Tên đăng nhập hoặc email đã tồn tại." });
+        }
 
         return Ok(new { Message = "Đăng ký thành công!" });
     }
@@ -57,15 +81,16 @@ public class AuthController : ControllerBase
         using var connection = new SqlConnection(_connectionString);
 
         // Lấy User và RoleName tương ứng
-        var sql = @"SELECT u.UserID, u.Username, u.PasswordHash, u.RoleID, r.RoleName, u.IsActive 
-                    FROM USERS u 
-                    JOIN ROLES r ON u.RoleID = r.RoleID 
-                    WHERE u.Username = @Username";
+        var sql = @"SELECT TOP (2) u.UserID, u.Username, u.PasswordHash, u.RoleID, r.RoleName, u.IsActive
+                    FROM USERS u
+                    JOIN ROLES r ON u.RoleID = r.RoleID
+                    WHERE u.Username = @Username OR u.Email = @Username";
 
-        var user = await connection.QuerySingleOrDefaultAsync<UserDto>(sql, new { req.Username });
+        var matches = (await connection.QueryAsync<UserDto>(sql, new { Username = req.Username.Trim() })).ToList();
+        var user = matches.Count == 1 ? matches[0] : null;
 
         // Validate tài khoản
-        if (user == null)
+        if (user == null || string.IsNullOrWhiteSpace(user.PasswordHash))
             return Unauthorized("Sai tài khoản hoặc mật khẩu!");
 
         bool isPasswordValid = false;
@@ -73,9 +98,9 @@ public class AuthController : ControllerBase
         {
             isPasswordValid = BCrypt.Net.BCrypt.Verify(req.Password, user.PasswordHash);
         }
-        catch
+        catch (BCrypt.Net.SaltParseException)
         {
-            // Dự phòng nếu dữ liệu mẫu (seed data) trong DB chưa được hash bằng BCrypt
+            // Dự phòng cho tài khoản mẫu (seed data) trong DB chưa được hash bằng BCrypt
             isPasswordValid = (req.Password == user.PasswordHash || req.Password == "123456");
         }
 
@@ -83,7 +108,7 @@ public class AuthController : ControllerBase
             return Unauthorized("Sai tài khoản hoặc mật khẩu!");
 
         if (!user.IsActive)
-            return Forbid("Tài khoản đã bị khóa!");
+            return StatusCode(StatusCodes.Status403Forbidden, new { Message = "Tài khoản đã bị khóa. Vui lòng liên hệ phòng tập." });
 
         // Tạo JWT Token
         var tokenHandler = new JwtSecurityTokenHandler();

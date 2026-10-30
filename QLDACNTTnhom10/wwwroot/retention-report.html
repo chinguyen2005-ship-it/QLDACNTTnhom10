@@ -30,7 +30,7 @@
     ::-webkit-scrollbar-thumb:hover { background: #7b7486; }
 
     /* Sidebar link animation */
-    .sidebar-link { transition: all 0.2s ease; }
+    .sidebar-link { transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), color 180ms cubic-bezier(0.16, 1, 0.3, 1); }
     .sidebar-link:hover { transform: translateX(2px); }
 
     /* Table row hover lift */
@@ -94,6 +94,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="/css/sidebar.css">
   <script src="/js/sidebar.js" defer></script>
+<link href="/css/permissions.css" rel="stylesheet">
+<script src="/js/auth-session.js"></script>
+<script src="/js/permissions.js"></script>
 </head>
 
 <body class="bg-[#F8F9FF] font-sans text-[#0B1C30] antialiased">
@@ -142,8 +145,8 @@
         <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
           <div class="w-8 h-8 rounded-full bg-[#6D28D9] flex items-center justify-center text-white font-bold text-xs shadow-sm">CN</div>
           <div class="hidden xl:flex flex-col text-left">
-            <span class="text-xs font-bold text-[#0B1C30] leading-tight">Chí Nguyên</span>
-            <span class="text-[10px] text-slate-500 leading-none">Club Director</span>
+            <span class="text-xs font-bold text-[#0B1C30] leading-tight" data-user-name>Chí Nguyên</span>
+            <span class="text-[10px] text-slate-500 leading-none" data-user-role>Club Director</span>
           </div>
         </div>
       </div>

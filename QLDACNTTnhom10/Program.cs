@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using QLDACNTTNhom10.Services;
 using System.Text;
+using QLDACNTTnhom10.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,18 +87,22 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddSingleton<EmailService>();
 builder.Services.AddSingleton<ContractStatusJob>();
-builder.Services.AddHostedService(provider => provider.GetRequiredService<ContractStatusJob>());
+if (builder.Configuration.GetValue("BackgroundJobs:ContractStatusEnabled", true))
+{
+    builder.Services.AddHostedService(provider => provider.GetRequiredService<ContractStatusJob>());
+}
 builder.Services.AddControllers();
+builder.Services.AddFitManageAuthorization();
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors("AllowAll");
+// UI and API share the same origin; no permissive CORS policy is needed.
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAuthentication(); // Bắt buộc đứng trước UseAuthorization
 app.UseAuthorization();
 app.MapControllers();
-app.MapGet("/", () => Results.Redirect("/dashboard.html"));
+app.MapGet("/", () => Results.Redirect("/index.html"));
 app.Run();

@@ -24,8 +24,8 @@ const state = {
   basePrice: 18500000,
   lockerPrice: 3600000,
   freezePrice: 200000,
-  voucherPercent: 0.10, // 10%
-  voucherCode: 'FITVIP2026',
+  voucherPercent: window.FitManagePermissions?.can('administration') ? 0.10 : 0, // 10%
+  voucherCode: window.FitManagePermissions?.can('administration') ? 'FITVIP2026' : '',
   paymentMode: 'full', // 'full' | 'deposit'
   paymentMethod: 'vietqr', // 'vietqr' | 'pos' | 'cash' | 'installment'
   hasSigned: false
@@ -219,6 +219,7 @@ function calculateTotal() {
 
 // Áp dụng mã Voucher
 function applyVoucher() {
+  if (!window.FitManagePermissions?.can('administration')) return;
   const inputEl = document.getElementById('inputPromoCode');
   const input = inputEl ? inputEl.value.trim().toUpperCase() : '';
   const checkIcon = document.getElementById('promoCheckIcon');
@@ -506,8 +507,8 @@ function showToast(message, type = 'success') {
 
   const toast = document.createElement('div');
   toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border text-xs font-semibold transform transition-all duration-300 translate-y-2 opacity-0 ${
-    type === 'success' 
-      ? 'bg-emerald-900/95 text-white border-emerald-500/40 backdrop-blur-md' 
+    type === 'success'
+      ? 'bg-emerald-900/95 text-white border-emerald-500/40 backdrop-blur-md'
       : 'bg-[#0B304A]/95 text-white border-cyan-400/40 backdrop-blur-md'
   }`;
   toast.innerHTML = `

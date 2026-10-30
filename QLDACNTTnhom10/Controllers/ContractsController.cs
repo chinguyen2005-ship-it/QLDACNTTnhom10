@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using QLDACNTTnhom10.DTOs;
+using QLDACNTTnhom10.Security;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -23,6 +24,9 @@ public class ContractsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateContract([FromBody] CreateContractRequest req)
     {
+        if ((req.DiscountAmount ?? 0) < 0) return BadRequest("Chiết khấu không được âm.");
+        if (!User.IsInRole("Admin") && ((req.DiscountAmount ?? 0) != 0 || !string.IsNullOrWhiteSpace(req.PromoCode)))
+            return StatusCode(403, new { Message = "Ưu đãi và chiết khấu cần được quản trị viên phê duyệt." });
         using var connection = new SqlConnection(_connectionString);
         await connection.OpenAsync();
         using var transaction = connection.BeginTransaction();
@@ -41,6 +45,7 @@ public class ContractsController : ControllerBase
             DateTime endDate = startDate.AddDays(package.DurationDays);
 
             decimal discount = req.DiscountAmount ?? 0;
+            if (discount > (decimal)package.Price) return BadRequest("Chiết khấu vượt giá gói tập.");
             decimal totalAmount = package.Price - discount;
             if (totalAmount < 0) totalAmount = 0;
 
@@ -93,6 +98,9 @@ public class ContractsController : ControllerBase
     [HttpPost("{id}/renew")]
     public async Task<IActionResult> RenewContract(int id, [FromBody] RenewContractRequest req)
     {
+        if ((req.DiscountAmount ?? 0) < 0) return BadRequest("Chiết khấu không được âm.");
+        if (!User.IsInRole("Admin") && ((req.DiscountAmount ?? 0) != 0 || !string.IsNullOrWhiteSpace(req.PromoCode)))
+            return StatusCode(403, new { Message = "Ưu đãi và chiết khấu cần được quản trị viên phê duyệt." });
         using var connection = new SqlConnection(_connectionString);
         await connection.OpenAsync();
         using var transaction = connection.BeginTransaction();
@@ -109,6 +117,7 @@ public class ContractsController : ControllerBase
             // 2. Lấy thông tin Gói tập hiện tại
             var packageSql = "SELECT DurationDays, TotalSessions, Price FROM PACKAGES WHERE PackageID = @PackageID";
             var package = await connection.QuerySingleOrDefaultAsync(packageSql, new { PackageID = oldContract.PackageID }, transaction);
+            if (package == null) return BadRequest("Không tìm thấy gói tập của hợp đồng.");
 
             // 3. Logic tính StartDate mới:
             // - Nếu hợp đồng cũ vẫn còn hạn -> Nối đuôi (StartDate = EndDate cũ)
@@ -117,6 +126,7 @@ public class ContractsController : ControllerBase
             DateTime newEndDate = newStartDate.AddDays(package.DurationDays);
 
             decimal discount = req.DiscountAmount ?? 0;
+            if (discount > (decimal)package.Price) return BadRequest("Chiết khấu vượt giá gói tập.");
             decimal totalAmount = package.Price - discount;
 
             // 4. Đổi trạng thái hợp đồng cũ thành 'Renewed' để dễ thống kê
@@ -169,7 +179,7 @@ public class ContractsController : ControllerBase
     {
         using var connection = new SqlConnection(_connectionString);
         var sql = @"
-                SELECT 
+                SELECT
                     c.ContractID, c.MemberID, m.FullName AS MemberName, m.Phone AS MemberPhone,
                     c.PackageID, p.PackageName, p.PackageType,
                     c.TrainerID, c.ClassID,
@@ -191,7 +201,7 @@ public class ContractsController : ControllerBase
     {
         using var connection = new SqlConnection(_connectionString);
         var sql = @"
-                SELECT 
+                SELECT
                     c.ContractID, c.MemberID, m.FullName AS MemberName, m.Phone AS MemberPhone,
                     c.PackageID, p.PackageName, p.PackageType, p.DurationDays, p.Price AS OriginalPrice,
                     c.TrainerID, t.Specialization AS TrainerSpecialization,
@@ -212,6 +222,7 @@ public class ContractsController : ControllerBase
     }
     // API kích hoạt chạy thử Cronjob gửi Email ngay lập tức trên Swagger (Test TASK-346, 356, 377)
     [HttpPost("trigger-email-cronjob")]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public async Task<IActionResult> TriggerEmailCronjob([FromServices] QLDACNTTNhom10.Services.ContractStatusJob job)
     {
         var result = await job.ProcessDailyContractTasksAsync();

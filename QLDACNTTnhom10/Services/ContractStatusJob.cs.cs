@@ -44,15 +44,15 @@ namespace QLDACNTTNhom10.Services
 
             // 1. Quét và cập nhật các hợp đồng đã hết hạn
             var expireSql = @"
-                UPDATE CONTRACTS 
+                UPDATE CONTRACTS
                 SET Status = N'Expired', UpdatedAt = GETDATE()
                 WHERE Status = N'Active' AND EndDate < CAST(GETDATE() AS DATE)";
             int expiredCount = await connection.ExecuteAsync(expireSql);
 
             // 2. TASK-356: Tìm hội viên còn đúng 7 ngày hoặc 3 ngày hết hạn (chưa nhắc trong hôm nay)
             var memberRemindSql = @"
-                SELECT 
-                    c.ContractID, c.EndDate, 
+                SELECT
+                    c.ContractID, c.EndDate,
                     DATEDIFF(DAY, CAST(GETDATE() AS DATE), c.EndDate) AS DaysLeft,
                     m.FullName, m.Phone, u.Email, p.PackageName
                 FROM CONTRACTS c
@@ -86,7 +86,7 @@ namespace QLDACNTTNhom10.Services
 
             // 3. TASK-377: Tổng hợp danh sách hội viên sắp hết hạn (0 - 7 ngày tới) gửi cho Lễ tân / Sale
             var expiringListSql = @"
-                SELECT 
+                SELECT
                     c.ContractID, m.FullName, m.Phone, p.PackageName, c.EndDate,
                     DATEDIFF(DAY, CAST(GETDATE() AS DATE), c.EndDate) AS DaysLeft
                 FROM CONTRACTS c

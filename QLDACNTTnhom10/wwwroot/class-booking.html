@@ -94,6 +94,9 @@
   <link rel="stylesheet" href="/css/class-booking.css"/>
   <link rel="stylesheet" href="/css/sidebar.css">
   <script src="/js/sidebar.js" defer></script>
+<link href="/css/permissions.css" rel="stylesheet">
+<script src="/js/auth-session.js"></script>
+<script src="/js/permissions.js"></script>
 </head>
 
 <body class="bg-[#F4F7FB] font-sans text-on-surface antialiased">
@@ -142,7 +145,7 @@
         </button>
         <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
           <div class="flex flex-col text-right">
-            <span class="text-xs text-on-surface font-bold leading-tight">Thana Admin</span>
+            <span class="text-xs text-on-surface font-bold leading-tight" data-user-name>Thana Admin</span>
             <span class="text-[11px] text-slate-400 leading-tight">Quản trị viên</span>
           </div>
           <div class="w-8 h-8 rounded-full bg-[#0B2238] text-white flex items-center justify-center font-bold text-xs shadow-xs">
@@ -317,7 +320,7 @@
           <!-- RIGHT COLUMN (35% width / col-span-4) - Sticky Booking Confirmation Panel -->
           <aside class="lg:col-span-4 sticky-summary-box flex flex-col gap-space-md">
             <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-md border border-slate-200 flex flex-col gap-space-md">
-              
+
               <!-- Sticky Header -->
               <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div class="flex items-center gap-2">

@@ -9,7 +9,7 @@
 
   <!-- ── HÀNG 1: SEARCH BAR + CORE DROPDOWNS + ACTIONS ────────────────── -->
   <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
-    
+
     <!-- Ô tìm kiếm tức thời (Search Input) đa trường -->
     <div class="relative flex-1 min-w-[280px]">
       <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[19px] text-slate-400 pointer-events-none transition-colors">
@@ -40,7 +40,7 @@
 
     <!-- Nhóm Dropdown lọc cốt lõi -->
     <div class="flex flex-wrap sm:flex-nowrap items-center gap-2.5">
-      
+
       <!-- Dropdown: Chi nhánh -->
       <div class="relative flex-1 sm:flex-initial min-w-[140px]">
         <select
@@ -116,7 +116,7 @@
       </button>
 
       <!-- Nút: Xuất Excel (Story cha TASK-332) -->
-      <div class="relative shrink-0" id="exportExcelDropdownContainer">
+      <div class="relative shrink-0" id="exportExcelDropdownContainer" data-permission="administration">
         <button
           type="button"
           id="filterExportExcelBtn"
@@ -193,7 +193,7 @@
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-      
+
       <!-- Lọc: Huấn luyện viên (PT) -->
       <div>
         <label class="block font-semibold text-slate-600 mb-1">HLV phụ trách (PT)</label>
@@ -282,10 +282,10 @@
 
   <!-- ── HÀNG 3: FILTER CHIPS TRẠNG THÁI (STATUS TABS) + ACTIVE TAGS ──── -->
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-1 border-t border-slate-100">
-    
+
     <!-- Filter Chips trạng thái hội viên/hợp đồng -->
     <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0" id="statusChipsContainer">
-      
+
       <!-- Chip 1: Tất cả -->
       <button
         type="button"

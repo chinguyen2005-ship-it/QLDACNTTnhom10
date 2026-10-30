@@ -1,0 +1,33 @@
+/* The split-screen composition and artwork come from the original Stitch screens. */
+body[data-auth-page] { background: #f8f9ff; font-family: 'DM Sans', sans-serif; height: auto; min-height: 100dvh; overflow-y: auto; }
+body[data-auth-page] > div:first-child { max-height: none; height: auto; min-height: max(900px, 100dvh); }
+body[data-auth-page] > div:first-child > div { height: auto; }
+body[data-auth-page] > div:first-child > div:last-child { background: #f8f9ff; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: wait; opacity: .65; }
+button:focus-visible, a:focus-visible { outline: 3px solid #0284c7; outline-offset: 3px; }
+input:focus-visible, select:focus-visible { outline: 2px solid #0284c7; outline-offset: 2px; }
+.auth-message { padding: 12px 14px; border-radius: 10px; background: #fef2f2; color: #991b1b; font-size: 13px; line-height: 1.6; }
+.auth-message[data-state='success'] { color: #065f46; background: #ecfdf5; }
+.auth-message[hidden] { display: none; }
+dialog { max-width: min(440px, calc(100vw - 32px)); padding: 28px; border: 1px solid #e2e8f0; border-radius: 20px; color: #0b1c30; box-shadow: 0 24px 80px #0b1c3033; }
+dialog::backdrop { background: #0b1c3080; }
+dialog h2 { font-size: 21px; font-weight: 800; margin-bottom: 12px; }
+dialog p { line-height: 1.7; color: #475569; margin-bottom: 20px; }
+dialog button { background: #0b1c30; color: white; padding: 10px 20px; border-radius: 10px; }
+label:has(input[name='gender']:checked) { background: white; color: #1a5276; box-shadow: 0 1px 3px #0b1c3020; }
+label:has(input[name='gender']:not(:checked)) { background: transparent; color: #475569; box-shadow: none; }
+label:has(input[name='gender']:focus-visible) { outline: 2px solid #0284c7; }
+@media (max-width: 1023px) {
+  body[data-auth-page] { height: auto; overflow-y: auto; }
+  body[data-auth-page] > div:first-child { height: auto; min-height: 100dvh; overflow: visible; }
+  body[data-auth-page] > div:first-child > div:first-child { min-height: 280px; height: auto; padding: 28px; }
+  body[data-auth-page] > div:first-child > div:first-child > div:nth-last-child(-n+2) { display: none; }
+  body[data-auth-page] > div:first-child > div:first-child h1 { font-size: 28px; }
+  body[data-auth-page] > div:first-child > div:first-child .space-y-3\.5 { display: none; }
+  body[data-auth-page] > div:first-child > div:last-child { height: auto; min-height: 600px; padding: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

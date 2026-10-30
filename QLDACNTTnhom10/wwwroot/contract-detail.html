@@ -153,6 +153,9 @@
   </script>
   <link rel="stylesheet" href="/css/sidebar.css">
   <script src="/js/sidebar.js" defer></script>
+<link href="/css/permissions.css" rel="stylesheet">
+<script src="/js/auth-session.js"></script>
+<script src="/js/permissions.js"></script>
 </head>
 
 <body class="bg-surface font-body-md text-on-surface antialiased">
@@ -162,7 +165,7 @@
 
   <!-- ==================== 2. MAIN CONTENT WRAPPER ==================== -->
   <div class="pl-64">
-    
+
     <!-- Top Header -->
     <header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl border-b border-outline-variant/30">
       <div class="flex items-center gap-space-lg">
@@ -201,8 +204,8 @@
         <!-- User Profile Dropdown -->
         <div class="flex items-center gap-space-sm pl-space-xs cursor-pointer">
           <div class="flex flex-col text-right">
-            <span class="font-title-md text-title-md text-on-surface leading-tight font-bold">Admin Thana</span>
-            <span class="font-body-sm text-body-sm text-on-surface-variant leading-tight text-xs">Club Director</span>
+            <span class="font-title-md text-title-md text-on-surface leading-tight font-bold" data-user-name>Admin Thana</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant leading-tight text-xs" data-user-role>Club Director</span>
           </div>
           <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">
             AT
@@ -222,7 +225,7 @@
         </div>
 
         <div class="p-space-lg xl:p-space-xl flex flex-col gap-space-lg max-w-[1600px] mx-auto w-full">
-          
+
           <!-- Top Action & Breadcrumb Control Ribbon -->
           <section class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
             <div class="flex flex-col gap-space-xs">
@@ -274,10 +277,10 @@
 
           <!-- Main 2-Column Grid (65% vs 35% on Desktop) -->
           <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
-            
+
             <!-- LEFT COLUMN (65% = 8 cols) -->
             <div class="xl:col-span-8 flex flex-col gap-space-lg min-w-0">
-              
+
               <!-- CARD 1: Member Legal & CRM Profile -->
               <article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
                 <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-low">
@@ -502,7 +505,7 @@
                     <span class="material-symbols-outlined text-tertiary text-[20px]">stars</span>
                     Quyền lợi hội viên cao cấp đi kèm
                   </span>
-                  
+
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
                     <!-- Perk 1 -->
                     <div class="p-space-md rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors flex items-start gap-space-sm border border-outline-variant/10">
@@ -572,7 +575,7 @@
 
             <!-- RIGHT COLUMN (35% = 4 cols) -->
             <div class="xl:col-span-4 flex flex-col gap-space-lg min-w-0">
-              
+
               <!-- CARD 3: Payment Breakdown & Invoice Ledger -->
               <article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
                 <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-low">
@@ -765,7 +768,7 @@
   <div class="fixed inset-0 z-50 bg-inverse-surface/50 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto" id="contract-modal-backdrop">
     <!-- Modal Card (680px Width Centered) -->
     <div class="relative w-full max-w-[680px] bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden my-6 transition-all duration-300 transform scale-100 flex flex-col border border-outline-variant/30">
-      
+
       <!-- Modal Header -->
       <div class="p-6 bg-surface-container-low/60 flex flex-col gap-3 relative border-b border-surface-container-high">
         <!-- Close Button -->
@@ -906,7 +909,7 @@
         <!-- Khối 3: Bảng chốt phí & Thanh toán -->
         <div class="flex flex-col gap-4">
           <span class="font-title-lg text-title-lg text-on-surface tracking-tight font-bold">Chi tiết thanh toán</span>
-          
+
           <!-- Pricing Summary Box -->
           <div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3 border border-outline-variant/20">
             <div class="flex items-center justify-between font-body-md text-body-md text-on-surface-variant">

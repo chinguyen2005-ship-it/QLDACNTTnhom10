@@ -1,0 +1,356 @@
+<!DOCTYPE html><html class="h-full" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FitManage Gym &amp; Yoga Suite - Authentication</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script><script src="/js/auth-tailwind.js"></script>
+<link href="/css/auth.css" rel="stylesheet">
+<style>
+    .glass-card {
+      background: rgba(14, 28, 47, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(0, 240, 255, 0.22);
+      box-shadow: 0 20px 45px -10px rgba(2, 14, 33, 0.8), 0 0 25px rgba(0, 240, 255, 0.12);
+    }
+    .neon-glow {
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    }
+    .glow-dot {
+      box-shadow: 0 0 12px #00F0FF, 0 0 24px #00F0FF;
+    }
+    /* Custom scrollbar for tab register on smaller viewports */
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body data-auth-page="login" class="h-full bg-[#0B1522] text-slate-800 font-sans antialiased overflow-hidden flex items-center justify-center p-0 m-0">
+<!-- Main Container: 1440x900 Aspect Optimized Full Window Screen -->
+<div class="w-full h-full max-w-[1600px] max-h-[960px] mx-auto flex flex-col lg:flex-row shadow-2xl bg-white overflow-hidden relative">
+<!-- ============================================================ -->
+<!-- LEFT PANEL (Brand, Cinematic Atmosphere & AI Retention Hero) -->
+<!-- ============================================================ -->
+<div class="relative w-full lg:w-[50%] h-full flex flex-col justify-between p-8 sm:p-12 lg:p-14 overflow-hidden text-white select-none">
+<!-- Background Luxury Gym Imagery & Deep Navy Overlay -->
+<div class="absolute inset-0 z-0">
+
+<!-- Multi-layer dramatic atmospheric gradient overlays -->
+<div class="absolute inset-0 bg-[#0B192C]/85 mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-[#061426]/90 via-[#0B192C]/75 to-[#040D18]/95"></div>
+<!-- Subtle cyan and electric blue ambient radial glows for luxury depth -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute top-1/2 -right-20 w-80 h-80 bg-blue-600/25 rounded-full blur-[90px] pointer-events-none"></div>
+<div class="absolute bottom-8 left-1/4 w-80 h-80 bg-[#00F0FF]/15 rounded-full blur-[85px] pointer-events-none"></div>
+<!-- Subtle geometric accents -->
+<svg class="absolute inset-0 w-full h-full opacity-15 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="60" id="grid-pattern" patternUnits="userSpaceOnUse" width="60">
+<path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00F0FF" stroke-dasharray="2 6" stroke-width="0.75"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
+<circle cx="85%" cy="20%" fill="none" opacity="0.35" r="140" stroke="#00F0FF" stroke-dasharray="4 8" stroke-width="1"></circle>
+<circle cx="85%" cy="20%" fill="none" opacity="0.2" r="220" stroke="#00D2FF" stroke-width="0.75"></circle>
+</svg>
+</div>
+<!-- Top Header: Brand Logo & Enterprise Badge -->
+<div class="relative z-10 flex items-center justify-between">
+<div class="flex items-center space-x-3.5 group cursor-pointer">
+<div class="w-11 h-11 rounded-xl bg-gradient-to-br from-[#00F0FF] via-[#1A5276] to-[#0B192C] p-[1.5px] shadow-lg shadow-cyan-500/20">
+<div class="w-full h-full bg-[#061426] rounded-[10px] flex items-center justify-center">
+<svg class="w-6 h-6 text-[#00F0FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div>
+<div class="flex items-center space-x-1.5">
+<span class="font-extrabold text-xl tracking-tight text-white font-mono">FitManage Suite</span>
+<span class="w-2 h-2 rounded-full bg-[#00F0FF] glow-dot animate-pulse"></span>
+</div>
+<p class="text-[10px] tracking-[0.2em] font-semibold text-cyan-300/80 uppercase">Gym &amp; Yoga Suite</p>
+</div>
+</div>
+<div class="hidden sm:inline-flex items-center px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-400/30 text-[11px] font-medium text-cyan-300 backdrop-blur-md">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-2 animate-ping"></span>
+v3.4 Enterprise Ready
+</div>
+</div>
+<!-- Center-Left: Headline & Borderless Clean Feature List -->
+<div class="relative z-10 my-auto py-5">
+<!-- Badge -->
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 border border-white/15 backdrop-blur-md text-xs font-semibold text-cyan-200 mb-4">
+<svg class="w-3.5 h-3.5 text-[#00F0FF]" fill="currentColor" viewBox="0 0 20 20">
+<path clip-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" fill-rule="evenodd"></path>
+</svg>
+<span data-i18n="tagline" class="">Hệ thống Điều hành Phòng Gym Thế hệ Mới</span>
+</div>
+<!-- Headline with white to platinum text gradient -->
+<h1 class="text-3xl sm:text-4xl lg:text-[40px] font-extrabold leading-[1.2] tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
+<span data-i18n="hero_title" class="">Quản lý phòng tập thông minh &amp; Tối ưu tỷ lệ gia hạn cùng AI</span>
+</h1>
+<p class="text-slate-300 text-sm sm:text-base max-w-lg mb-7 leading-relaxed font-normal">
+<span data-i18n="hero_desc" class="">Đồng bộ hội viên, điểm danh thông minh qua FaceID/QR và dự đoán sớm nguy cơ huỷ thẻ với Trợ lý AI Copilot độc quyền.</span>
+</p>
+<!-- Clean borderless feature list with sleek neon-cyan checkmarks -->
+<div class="space-y-3.5 max-w-lg">
+<div class="flex items-start space-x-3 group">
+<div class="mt-1 text-[#00F0FF] flex-shrink-0 group-hover:scale-105 transition-transform">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+<div>
+<p class="text-sm font-semibold text-white/95" data-i18n="feat_1_title">Quản lý hợp đồng Gym &amp; Yoga linh hoạt</p>
+<p class="text-xs text-slate-300/80 leading-relaxed" data-i18n="feat_1_desc">Tự động hóa chu kỳ gói tập, đóng băng thẻ &amp; tính hoa hồng PT chính xác.</p>
+</div>
+</div>
+<div class="flex items-start space-x-3 group">
+<div class="mt-1 text-[#00F0FF] flex-shrink-0 group-hover:scale-105 transition-transform">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+<div>
+<p class="text-sm font-semibold text-white/95" data-i18n="feat_2_title">Kiểm soát check-in chính xác 07:00 – 23:00</p>
+<p class="text-xs text-slate-300/80 leading-relaxed" data-i18n="feat_2_desc">Tích hợp cổng xoay turnstile, phân luồng theo giờ vàng và tủ locker RFID.</p>
+</div>
+</div>
+<div class="flex items-start space-x-3 group">
+<div class="mt-1 text-[#00F0FF] flex-shrink-0 group-hover:scale-105 transition-transform">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+<div>
+<p class="text-sm font-semibold text-white/95" data-i18n="feat_3_title">Trợ lý AI Copilot gợi ý kịch bản giữ chân hội viên</p>
+<p class="text-xs text-slate-300/80 leading-relaxed" data-i18n="feat_3_desc">Tự động phát hiện hội viên giảm tần suất tập &amp; đề xuất voucher tái ký phù hợp.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Hero Bottom: Floating Glassmorphism AI Widget with ambient cyan glow -->
+<div class="relative z-10 pt-2">
+<div class="glass-card rounded-2xl p-4 sm:p-5 border border-cyan-500/30 transition-all duration-300 hover:border-[#00F0FF]/60 relative overflow-hidden shadow-2xl">
+<!-- Ambient cyan glow in the corner -->
+<div class="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-[#00F0FF]/25 to-transparent pointer-events-none"></div>
+<!-- Top Row: Member Info, VIP Badge, Contract Status & Churn Risk Badge -->
+<div class="flex items-center justify-between mb-3 pb-2.5 border-b border-white/10">
+<div class="flex items-center space-x-3">
+<div class="relative">
+<img alt="Sarah Mitchell" class="w-10 h-10 rounded-full object-cover border-2 border-[#00F0FF]/70 shadow" src="/assets/auth/member-login.jpg">
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-amber-400 border-2 border-[#0B192C] rounded-full"></span>
+</div>
+<div>
+<div class="flex items-center space-x-2">
+<h4 class="font-bold text-sm text-white">Sarah Mitchell</h4>
+<span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-medium">VIP Diamond</span>
+</div>
+<p class="text-[11px] text-amber-300 font-medium" data-i18n="member_contract_warning">Hợp đồng còn 3 ngày</p>
+</div>
+</div>
+<!-- Churn Risk Badge with pulsing red dot -->
+<div class="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-semibold">
+<span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+<span data-i18n="risk_churn_badge" class="">Nguy cơ cao (High Churn)</span>
+</div>
+</div>
+<!-- Middle: AI Prediction Meter -->
+<div class="mb-3">
+<div class="flex justify-between items-center text-xs mb-1.5">
+<span class="text-slate-300 flex items-center gap-1.5 font-medium">
+<svg class="w-3.5 h-3.5 text-[#00F0FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span data-i18n="ai_meter_label" class="">78% nguy cơ không tái ký</span>
+</span>
+<span class="text-[#00F0FF] font-bold font-mono text-sm">78%</span>
+</div>
+<div class="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden p-0.5 border border-white/10">
+<div class="bg-gradient-to-r from-amber-400 via-rose-500 to-rose-600 h-full rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- Bottom: Groq AI Generated Action Preview -->
+<div class="bg-black/40 rounded-xl p-3 border border-white/10 flex items-start gap-3">
+<div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center flex-shrink-0 shadow-md">
+<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-0.5">
+<span class="text-[11px] font-bold text-purple-300 flex items-center gap-1">
+<span data-i18n="ai_suggestion_header" class="">Gợi ý kích hoạt tự động</span>
+</span>
+<span class="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-purple-500/25 text-purple-200 border border-purple-400/40 shadow-sm">Groq AI Powered</span>
+</div>
+<p class="text-xs text-slate-200 leading-snug" data-i18n="ai_suggestion_body">
+"Gợi ý: Tặng 1 buổi PT chỉnh dáng &amp; ưu đãi giảm 10% khi tái ký hôm nay."
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer copyright/privacy note -->
+<div class="relative z-10 text-[11px] text-slate-400 mt-4 flex items-center justify-between">
+<span class="">© 2025 FitManage Suite Inc.</span>
+<span class="text-slate-400">Gym &amp; Yoga Suite</span>
+</div>
+</div>
+<!-- ============================================================ -->
+<!-- RIGHT PANEL (Clean, High-Fidelity Interactive Auth Card)     -->
+<!-- ============================================================ -->
+<div class="w-full lg:w-[50%] h-full bg-[#F8F9FA] flex flex-col justify-between p-6 sm:p-10 lg:p-14 overflow-y-auto custom-scroll relative">
+<!-- Top Right Bar: Bilingual Switcher & Help Link -->
+<div class="flex items-center justify-between pb-6 border-b border-slate-200">
+<!-- Quick badge for roles -->
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-[#1A5276]/10 text-[#1A5276]">
+            Gym &amp; Yoga Portal
+          </span>
+</div>
+<div class="flex items-center space-x-5">
+<!-- Language Switcher Pill -->
+<div class="flex items-center bg-slate-200/80 p-1 rounded-lg border border-slate-300/70 text-xs font-bold">
+<button class="px-2.5 py-1 rounded-md transition-all shadow-sm bg-white text-[#1A5276]" id="lang-vi" type="button" data-language="vi">
+              VI
+            </button>
+<button class="px-2.5 py-1 rounded-md transition-all text-slate-500 hover:text-slate-800" id="lang-en" type="button" data-language="en">
+              EN
+            </button>
+</div>
+<!-- Help Link -->
+<button type="button"  class="text-xs font-medium text-slate-500 hover:text-[#1A5276] flex items-center gap-1 transition-colors"   data-auth-info>
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span data-i18n="help_link" class="">Trợ giúp</span>
+</button>
+</div>
+</div>
+<!-- Center Content Area -->
+<div class="max-w-[440px] w-full mx-auto my-auto py-6">
+<!-- Title & Subtitle -->
+<div class="mb-6 text-center sm:text-left">
+<h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2" id="form-heading">
+            Chào mừng quay trở lại!
+          </h2>
+<p class="text-sm text-slate-500" id="form-subheading">
+            Nhập thông tin xác thực để truy cập hệ thống quản lý FitManage.
+          </p>
+</div>
+<!-- Segmented Tab Navigation -->
+<div class="bg-slate-200/90 p-1.5 rounded-xl flex items-center mb-6 shadow-inner">
+<button class="w-1/2 py-2.5 px-3 rounded-lg text-sm font-bold transition-all text-center flex items-center justify-center gap-2 bg-white text-[#1A5276] shadow-sm" id="tab-btn-signin" type="button" data-auth-link="login">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span data-i18n="tab_signin" class="">Đăng nhập (Sign In)</span>
+</button>
+<button class="w-1/2 py-2.5 px-3 rounded-lg text-sm font-semibold transition-all text-center flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900" id="tab-btn-signup" type="button" data-auth-link="register">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span data-i18n="tab_signup" class="">Đăng ký hội viên (Sign Up)</span>
+</button>
+</div>
+<!-- ============================================================ -->
+<!-- TAB 1: SIGN IN FORM                                          -->
+<!-- ============================================================ -->
+<form class="space-y-4" id="login-form">
+<!-- Input 1: Username / Email -->
+<div>
+<label for="signin-user" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5" data-i18n="label_username_email">
+              Tên đăng nhập hoặc Email
+            </label>
+<div class="relative rounded-lg shadow-sm">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1A5276] focus:border-[#1A5276] transition-all" id="signin-user" name="Username" autocomplete="username" required maxlength="100" placeholder="admin@fitmanage.vn hoặc admin_fit" type="text">
+</div>
+</div>
+<!-- Input 2: Password with Eye Toggle -->
+<div>
+<label for="signin-pass" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5" data-i18n="label_password">
+              Mật khẩu
+            </label>
+<div class="relative rounded-lg shadow-sm">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1A5276] focus:border-[#1A5276] transition-all" id="signin-pass" name="Password" autocomplete="current-password" required maxlength="72" placeholder="••••••••••••" type="password">
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none" type="button" data-password-toggle="signin-pass" aria-label="Hiện mật khẩu" aria-pressed="false">
+<svg class="w-4 h-4 eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Row: Remember Me & Forgot Password -->
+<div class="flex items-center justify-between text-xs pt-1">
+<label class="flex items-center space-x-2 cursor-pointer select-none">
+<input class="w-4 h-4 text-[#1A5276] rounded border-slate-300 focus:ring-[#1A5276]" type="checkbox" id="remember-username">
+<span class="text-slate-700 font-medium" data-i18n="remember_me">Ghi nhớ tên đăng nhập</span>
+</label>
+<button type="button"  class="font-bold text-[#1A5276] hover:underline" data-i18n="forgot_password"   data-auth-info data-auth-forgot>
+              Quên mật khẩu?
+            </button>
+</div>
+<p id="auth-message" class="auth-message" role="status" tabindex="-1" hidden></p>
+<!-- Primary Sign In Button -->
+<button class="w-full py-3 px-4 rounded-lg bg-[#1A5276] hover:bg-[#154360] active:bg-[#0f344d] text-white font-bold text-sm tracking-wide shadow-lg shadow-[#1A5276]/25 transition-all duration-200 flex items-center justify-center space-x-2 group" type="submit" id="auth-submit">
+<span data-i18n="btn_signin" class="">Đăng nhập vào hệ thống</span>
+<svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- Bottom Role Hint Caption -->
+<div class="pt-1 text-center">
+<p class="text-[11px] text-slate-500" data-i18n="role_support_caption">
+              Hỗ trợ tài khoản: Quản trị viên, Lễ tân, Huấn luyện viên và Hội viên
+            </p>
+</div>
+</form>
+</div>
+<!-- Bottom Security and Compliance Footer -->
+<div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
+<div class="flex items-center space-x-1.5">
+<svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+<path clip-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path>
+</svg>
+<span data-i18n="secure_ssl" class="">Bảo vệ tài khoản của bạn</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-400">
+<button type="button"  class="hover:text-slate-600" data-i18n="footer_terms"   data-auth-info>Điều khoản</button>
+<span class="">•</span>
+<button type="button"  class="hover:text-slate-600" data-i18n="footer_privacy"   data-auth-info>Bảo mật</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript: Bilingual Dictionary & Tab Switching -->
+
+
+
+
+
+
+<dialog id="auth-info-dialog"><h2 id="auth-info-title"></h2><p id="auth-info-body"></p><button type="button" data-dialog-close>Đóng / Close</button></dialog><script src="/js/auth-session.js"></script><script src="/js/auth-translations.js"></script><script src="/js/auth.js"></script></body></html>

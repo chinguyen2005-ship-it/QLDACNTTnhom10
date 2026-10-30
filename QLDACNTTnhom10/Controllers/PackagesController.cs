@@ -22,10 +22,13 @@ public class PackagesController : ControllerBase
     [AllowAnonymous] // Cho phép khách vãng lai hoặc hội viên xem danh sách gói
     public async Task<IActionResult> GetAllPackages([FromQuery] bool onlyActive = true)
     {
+        if (!onlyActive && !User.IsInRole("Admin")) return Forbid();
         using var connection = new SqlConnection(_connectionString);
+        // Public pricing must not expose internal fields such as commission policies.
+        const string columns = "PackageID, PackageName, PackageType, DurationDays, TotalSessions, Price, IsFlexibleTime, IsActive";
         var sql = onlyActive
-            ? "SELECT * FROM PACKAGES WHERE IsActive = 1 ORDER BY Price ASC"
-            : "SELECT * FROM PACKAGES ORDER BY PackageID DESC";
+            ? $"SELECT {columns} FROM PACKAGES WHERE IsActive = 1 ORDER BY Price ASC"
+            : $"SELECT {columns} FROM PACKAGES ORDER BY PackageID DESC";
 
         var packages = await connection.QueryAsync(sql);
         return Ok(packages);
@@ -52,12 +55,12 @@ public class PackagesController : ControllerBase
     {
         using var connection = new SqlConnection(_connectionString);
         var sql = @"
-            UPDATE PACKAGES 
-            SET PackageName = @PackageName, 
-                PackageType = @PackageType, 
-                DurationDays = @DurationDays, 
-                TotalSessions = @TotalSessions, 
-                Price = @Price, 
+            UPDATE PACKAGES
+            SET PackageName = @PackageName,
+                PackageType = @PackageType,
+                DurationDays = @DurationDays,
+                TotalSessions = @TotalSessions,
+                Price = @Price,
                 IsFlexibleTime = @IsFlexibleTime
             WHERE PackageID = @Id";
 

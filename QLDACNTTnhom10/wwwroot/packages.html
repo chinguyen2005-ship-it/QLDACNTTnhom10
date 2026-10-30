@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>FitManage GYM &amp; YOGA SUITE - Danh mục Gói tập &amp; Biểu phí Dịch vụ</title>
-  
+
   <!-- Google Fonts: Be Vietnam Pro & Material Symbols -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
@@ -33,6 +33,18 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+    }
+    .package-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 16px !important;
+      box-shadow: 0 1px 4px rgba(11, 28, 48, 0.04) !important;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease !important;
+    }
+    .package-card:hover {
+      transform: translateY(-2px) !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 12px 28px -6px rgba(11, 34, 56, 0.09) !important;
     }
   </style>
 
@@ -114,6 +126,9 @@
   </script>
   <link rel="stylesheet" href="/css/sidebar.css">
   <script src="/js/sidebar.js" defer></script>
+<link href="/css/permissions.css" rel="stylesheet">
+<script src="/js/auth-session.js"></script>
+<script src="/js/permissions.js"></script>
 </head>
 
 <body class="bg-surface font-sans text-on-surface antialiased min-h-screen relative overflow-x-hidden">
@@ -123,7 +138,7 @@
 
   <!-- ==================== 2. MAIN CONTENT WRAPPER ==================== -->
   <div class="pl-64">
-    
+
     <!-- Top Header Bar -->
     <header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest border-b border-outline-variant/40 z-20 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
       <div class="flex items-center gap-space-md">
@@ -199,9 +214,9 @@
                 <span class="material-symbols-outlined text-[18px] text-cyan-600">description</span>
                 <span>Chi tiết Hợp đồng</span>
               </a>
-              
+
               <!-- Nút Primary nổi bật: + Tạo gói tập mới (màu xanh dương đậm/gradient theo Yêu Cầu 1) -->
-              <button class="h-10 px-4 rounded-lg bg-gradient-to-r from-[#0B304A] via-[#104b75] to-[#0284c7] hover:from-[#082235] hover:to-[#0369a1] text-white shadow-md shadow-blue-950/20 flex items-center justify-center gap-2 text-sm font-semibold transition-all transform active:scale-98 cursor-pointer border border-cyan-400/20" onclick="openConfigDrawer(null)">
+              <button data-permission="administration" class="h-10 px-4 rounded-lg bg-gradient-to-r from-[#0B304A] via-[#104b75] to-[#0284c7] hover:from-[#082235] hover:to-[#0369a1] text-white shadow-md shadow-blue-950/20 flex items-center justify-center gap-2 text-sm font-semibold transition-all transform active:scale-98 cursor-pointer border border-cyan-400/20" onclick="openConfigDrawer(null)">
                 <span class="material-symbols-outlined text-[20px]">add_circle</span>
                 <span>+ Tạo gói tập mới</span>
               </button>
@@ -210,10 +225,10 @@
 
           <!-- 4. KPI STAT METRICS (4 CARDS) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
-            
+
             <!-- Metric 1: Tổng số gói -->
             <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between border border-outline-variant/20 hover:shadow-md transition-shadow">
-              <div class="flex items-center justify-between">
+              <div class="flex items-center justify-between gap-2">
                 <span class="text-xs text-on-surface-variant uppercase tracking-wide font-semibold">Tổng số gói dịch vụ</span>
                 <div class="w-9 h-9 rounded-lg bg-secondary-container/40 flex items-center justify-center text-secondary">
                   <span class="material-symbols-outlined text-[20px]">inventory_2</span>
@@ -230,7 +245,7 @@
 
             <!-- Metric 2: Gói bán chạy -->
             <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between border border-outline-variant/20 hover:shadow-md transition-shadow">
-              <div class="flex items-center justify-between">
+              <div class="flex items-center justify-between gap-2">
                 <span class="text-xs text-on-surface-variant uppercase tracking-wide font-semibold">Gói bán chạy nhất</span>
                 <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center text-amber-700">
                   <span class="material-symbols-outlined text-[20px]">local_fire_department</span>
@@ -247,7 +262,7 @@
 
             <!-- Metric 3: ARPU -->
             <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between border border-outline-variant/20 hover:shadow-md transition-shadow">
-              <div class="flex items-center justify-between">
+              <div class="flex items-center justify-between gap-2">
                 <span class="text-xs text-on-surface-variant uppercase tracking-wide font-semibold">ARPU / Hợp đồng</span>
                 <div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-tertiary-container">
                   <span class="material-symbols-outlined text-[20px]">analytics</span>
@@ -264,12 +279,12 @@
 
             <!-- Metric 4: AI Upsell -->
             <div class="p-space-lg rounded-xl bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-purple-50 shadow-sm flex flex-col justify-between border border-purple-200/50 hover:shadow-md transition-shadow">
-              <div class="flex items-center justify-between">
+              <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-1.5">
                   <span class="material-symbols-outlined text-[18px] text-primary-container">auto_awesome</span>
                   <span class="text-xs text-primary font-semibold uppercase tracking-wide">AI Gợi ý Upsell</span>
                 </div>
-                <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-primary-container text-on-primary">64.2% FIT</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-container text-on-primary shrink-0 shadow-xs">64.2% FIT</span>
               </div>
               <div class="my-space-sm">
                 <div class="text-xl text-on-surface font-bold">Combo Yoga + PT</div>
@@ -284,7 +299,7 @@
 
           <!-- 5. TABS & FILTER BAR -->
           <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col gap-space-md">
-            
+
             <!-- Category Tabs -->
             <div class="flex items-center justify-between border-b border-surface-container-high/60 pb-3 flex-wrap gap-space-sm">
               <div class="flex items-center gap-2 overflow-x-auto py-1" id="package-tabs">
@@ -362,7 +377,7 @@
 
           <!-- 6. RICH PACKAGES CARDS GRID (YÊU CẦU 2: BỔ SUNG 2 BADGE KHUNG GIỜ/CHI NHÁNH & NÚT [LẬP HĐ NHANH]) -->
           <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-lg" id="packages-cards-grid">
-            
+
             <!-- CARD 1: Gym Diamond 12 Tháng (BEST SELLER) -->
             <div class="package-card bg-surface-container-lowest rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden group border border-outline-variant/20" data-category="gym" data-duration="12">
               <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 via-transparent to-transparent pointer-events-none"></div>
@@ -380,11 +395,11 @@
                   </div>
                   <span class="text-xs text-on-surface-variant font-mono font-medium">#PK-GYM-12D</span>
                 </div>
-                
+
                 <!-- Title & Sub -->
                 <h3 class="text-xl text-on-surface font-bold">Gym Diamond 12 Tháng</h3>
                 <p class="text-xs text-on-surface-variant mt-0.5 font-medium">Phân khúc: Cao cấp VIP · Toàn chuỗi cơ sở</p>
-                
+
                 <!-- YÊU CẦU 2: 2 BADGE KHUNG GIỜ & PHẠM VI CHI NHÁNH -->
                 <div class="flex items-center gap-1.5 my-2.5 flex-wrap">
                   <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[11px] font-medium border border-slate-200">
@@ -442,12 +457,12 @@
 
               <!-- Card Action Footer -->
               <div class="mt-space-lg pt-space-md border-t border-surface-container-high/60 flex flex-col gap-3">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between gap-2">
                   <a class="text-sm text-primary hover:underline flex items-center gap-1 font-semibold" href="/contracts.html">
                     <span class="material-symbols-outlined text-[16px]">description</span>
                     <span>Hợp đồng (432 active)</span>
                   </a>
-                  <label class="flex items-center cursor-pointer gap-2 select-none">
+                  <label data-permission="administration" class="flex items-center cursor-pointer gap-2 select-none">
                     <span class="text-xs text-on-surface font-medium">Áp dụng</span>
                     <div class="relative">
                       <input checked="" class="sr-only peer" type="checkbox">
@@ -458,7 +473,7 @@
 
                 <!-- YÊU CẦU 2: NÚT [CHỈNH SỬA GIÁ & QUYỀN LỢI] VÀ NÚT BẤM PHỤ [LẬP HĐ NHANH] -->
                 <div class="flex items-center gap-2">
-                  <button class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Gym Diamond 12 Tháng', 'gym', 12, 'thang', 22000000, 18500000, 'full', 'all')">
+                  <button data-permission="administration" class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Gym Diamond 12 Tháng', 'gym', 12, 'thang', 22000000, 18500000, 'full', 'all')">
                     <span class="material-symbols-outlined text-[18px]">edit_note</span>
                     <span>Chỉnh sửa giá &amp; Quyền lợi</span>
                   </button>
@@ -486,7 +501,7 @@
                   </div>
                   <span class="text-xs text-on-surface-variant font-mono font-medium">#PK-YG-12VIP</span>
                 </div>
-                
+
                 <!-- Title & Sub -->
                 <h3 class="text-xl text-on-surface font-bold">Yoga VIP Unlimited All-Access</h3>
                 <p class="text-xs text-on-surface-variant mt-0.5 font-medium">Phân khúc: Chuyên sâu Studio · Thảo Điền &amp; Q1</p>
@@ -547,12 +562,12 @@
 
               <!-- Card Action Footer -->
               <div class="mt-space-lg pt-space-md border-t border-surface-container-high/60 flex flex-col gap-3">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between gap-2">
                   <a class="text-sm text-tertiary-container hover:underline flex items-center gap-1 font-semibold" href="/contracts.html">
                     <span class="material-symbols-outlined text-[16px]">description</span>
                     <span>Hợp đồng (318 active)</span>
                   </a>
-                  <label class="flex items-center cursor-pointer gap-2 select-none">
+                  <label data-permission="administration" class="flex items-center cursor-pointer gap-2 select-none">
                     <span class="text-xs text-on-surface font-medium">Áp dụng</span>
                     <div class="relative">
                       <input checked="" class="sr-only peer" type="checkbox">
@@ -563,7 +578,7 @@
 
                 <!-- YÊU CẦU 2: NÚT [CHỈNH SỬA GIÁ & QUYỀN LỢI] VÀ NÚT BẤM PHỤ [LẬP HĐ NHANH] -->
                 <div class="flex items-center gap-2">
-                  <button class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Yoga VIP Unlimited All-Access', 'yoga', 12, 'thang', 16000000, 14200000, 'full', 'all')">
+                  <button data-permission="administration" class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Yoga VIP Unlimited All-Access', 'yoga', 12, 'thang', 16000000, 14200000, 'full', 'all')">
                     <span class="material-symbols-outlined text-[18px]">edit_note</span>
                     <span>Chỉnh sửa giá &amp; Quyền lợi</span>
                   </button>
@@ -591,7 +606,7 @@
                   </div>
                   <span class="text-xs text-on-surface-variant font-mono font-medium">#PK-PT-36PRO</span>
                 </div>
-                
+
                 <!-- Title & Sub -->
                 <h3 class="text-xl text-on-surface font-bold">Combo PT 1:1 Siêu cấp (36 Buổi)</h3>
                 <p class="text-xs text-on-surface-variant mt-0.5 font-medium">Phân khúc: Cá nhân hóa kèm HLV riêng</p>
@@ -651,12 +666,12 @@
 
               <!-- Card Action Footer -->
               <div class="mt-space-lg pt-space-md border-t border-surface-container-high/60 flex flex-col gap-3">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between gap-2">
                   <a class="text-sm text-secondary hover:underline flex items-center gap-1 font-semibold" href="/contracts.html">
                     <span class="material-symbols-outlined text-[16px]">description</span>
                     <span>Hợp đồng (195 active)</span>
                   </a>
-                  <label class="flex items-center cursor-pointer gap-2 select-none">
+                  <label data-permission="administration" class="flex items-center cursor-pointer gap-2 select-none">
                     <span class="text-xs text-on-surface font-medium">Áp dụng</span>
                     <div class="relative">
                       <input checked="" class="sr-only peer" type="checkbox">
@@ -667,7 +682,7 @@
 
                 <!-- YÊU CẦU 2: NÚT [CHỈNH SỬA GIÁ & QUYỀN LỢI] VÀ NÚT BẤM PHỤ [LẬP HĐ NHANH] -->
                 <div class="flex items-center gap-2">
-                  <button class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Combo PT 1:1 Siêu cấp (36 Buổi)', 'pt', 36, 'buoi', 32000000, 28800000, 'full', 'all')">
+                  <button data-permission="administration" class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Combo PT 1:1 Siêu cấp (36 Buổi)', 'pt', 36, 'buoi', 32000000, 28800000, 'full', 'all')">
                     <span class="material-symbols-outlined text-[18px]">edit_note</span>
                     <span>Chỉnh sửa giá &amp; Quyền lợi</span>
                   </button>
@@ -695,7 +710,7 @@
                   </div>
                   <span class="text-xs text-on-surface-variant font-mono font-medium">#PK-PL-24R</span>
                 </div>
-                
+
                 <!-- Title & Sub -->
                 <h3 class="text-xl text-on-surface font-bold">Pilates Reformer Core Dynamic</h3>
                 <p class="text-xs text-on-surface-variant mt-0.5 font-medium">Phân khúc: Studio Pilates Thiết Bị Máy</p>
@@ -751,12 +766,12 @@
 
               <!-- Card Action Footer -->
               <div class="mt-space-lg pt-space-md border-t border-surface-container-high/60 flex flex-col gap-3">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between gap-2">
                   <a class="text-sm text-secondary hover:underline flex items-center gap-1 font-semibold" href="/contracts.html">
                     <span class="material-symbols-outlined text-[16px]">description</span>
                     <span>Hợp đồng (86 active)</span>
                   </a>
-                  <label class="flex items-center cursor-pointer gap-2 select-none">
+                  <label data-permission="administration" class="flex items-center cursor-pointer gap-2 select-none">
                     <span class="text-xs text-on-surface font-medium">Áp dụng</span>
                     <div class="relative">
                       <input checked="" class="sr-only peer" type="checkbox">
@@ -767,7 +782,7 @@
 
                 <!-- YÊU CẦU 2: NÚT [CHỈNH SỬA GIÁ & QUYỀN LỢI] VÀ NÚT BẤM PHỤ [LẬP HĐ NHANH] -->
                 <div class="flex items-center gap-2">
-                  <button class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Pilates Reformer Core Dynamic', 'yoga', 24, 'buoi', 24000000, 22000000, 'offpeak', 'branch')">
+                  <button data-permission="administration" class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Pilates Reformer Core Dynamic', 'yoga', 24, 'buoi', 24000000, 22000000, 'offpeak', 'branch')">
                     <span class="material-symbols-outlined text-[18px]">edit_note</span>
                     <span>Chỉnh sửa giá &amp; Quyền lợi</span>
                   </button>
@@ -794,7 +809,7 @@
                   </div>
                   <span class="text-xs text-on-surface-variant font-mono font-medium">#PK-GYM-06S</span>
                 </div>
-                
+
                 <!-- Title & Sub -->
                 <h3 class="text-xl text-on-surface font-bold">Gym Standard Cơ bản</h3>
                 <p class="text-xs text-on-surface-variant mt-0.5 font-medium">Phân khúc: Tiêu chuẩn một cơ sở cố định</p>
@@ -850,12 +865,12 @@
 
               <!-- Card Action Footer -->
               <div class="mt-space-lg pt-space-md border-t border-surface-container-high/60 flex flex-col gap-3">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between gap-2">
                   <a class="text-sm text-secondary hover:underline flex items-center gap-1 font-semibold" href="/contracts.html">
                     <span class="material-symbols-outlined text-[16px]">description</span>
                     <span>Hợp đồng (210 active)</span>
                   </a>
-                  <label class="flex items-center cursor-pointer gap-2 select-none">
+                  <label data-permission="administration" class="flex items-center cursor-pointer gap-2 select-none">
                     <span class="text-xs text-on-surface font-medium">Áp dụng</span>
                     <div class="relative">
                       <input checked="" class="sr-only peer" type="checkbox">
@@ -866,7 +881,7 @@
 
                 <!-- YÊU CẦU 2: NÚT [CHỈNH SỬA GIÁ & QUYỀN LỢI] VÀ NÚT BẤM PHỤ [LẬP HĐ NHANH] -->
                 <div class="flex items-center gap-2">
-                  <button class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Gym Standard Cơ bản', 'gym', 6, 'thang', 9000000, 7800000, 'offpeak', 'branch')">
+                  <button data-permission="administration" class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Gym Standard Cơ bản', 'gym', 6, 'thang', 9000000, 7800000, 'offpeak', 'branch')">
                     <span class="material-symbols-outlined text-[18px]">edit_note</span>
                     <span>Chỉnh sửa giá &amp; Quyền lợi</span>
                   </button>
@@ -893,7 +908,7 @@
                   </div>
                   <span class="text-xs text-on-surface-variant font-mono font-medium">#PK-TR-14D</span>
                 </div>
-                
+
                 <!-- Title & Sub -->
                 <h3 class="text-xl text-on-surface font-bold">Trải nghiệm 14 Ngày All-In</h3>
                 <p class="text-xs text-on-surface-variant mt-0.5 font-medium">Phân khúc: Khách mới dùng thử trước khi đăng ký năm</p>
@@ -946,12 +961,12 @@
 
               <!-- Card Action Footer -->
               <div class="mt-space-lg pt-space-md border-t border-surface-container-high/60 flex flex-col gap-3">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between gap-2">
                   <a class="text-sm text-secondary hover:underline flex items-center gap-1 font-semibold" href="/contracts.html">
                     <span class="material-symbols-outlined text-[16px]">description</span>
                     <span>Hợp đồng (45 active)</span>
                   </a>
-                  <label class="flex items-center cursor-pointer gap-2 select-none">
+                  <label data-permission="administration" class="flex items-center cursor-pointer gap-2 select-none">
                     <span class="text-xs text-on-surface font-medium">Áp dụng</span>
                     <div class="relative">
                       <input checked="" class="sr-only peer" type="checkbox">
@@ -962,7 +977,7 @@
 
                 <!-- YÊU CẦU 2: NÚT [CHỈNH SỬA GIÁ & QUYỀN LỢI] VÀ NÚT BẤM PHỤ [LẬP HĐ NHANH] -->
                 <div class="flex items-center gap-2">
-                  <button class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Trải nghiệm 14 Ngày All-In', 'trial', 14, 'ngay', 1800000, 990000, 'full', 'all')">
+                  <button data-permission="administration" class="flex-1 py-2.5 px-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer" onclick="openDrawerWithData('Trải nghiệm 14 Ngày All-In', 'trial', 14, 'ngay', 1800000, 990000, 'full', 'all')">
                     <span class="material-symbols-outlined text-[18px]">edit_note</span>
                     <span>Chỉnh sửa giá &amp; Quyền lợi</span>
                   </button>
@@ -983,7 +998,7 @@
                 <h2 class="text-lg text-on-surface font-bold">Biểu phí Phụ phí &amp; Dịch vụ Giá trị Gia tăng (Add-on Services)</h2>
                 <p class="text-xs text-on-surface-variant mt-0.5">Cấu hình phí phát sinh, thuê tủ thông minh dài hạn và chính sách linh hoạt thẻ hội viên</p>
               </div>
-              <button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-sm font-semibold flex items-center gap-2 transition-colors self-start md:self-auto border border-outline-variant/30 cursor-pointer" onclick="alert('Mở form thêm phụ phí mới.')">
+              <button data-permission="administration" class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-sm font-semibold flex items-center gap-2 transition-colors self-start md:self-auto border border-outline-variant/30 cursor-pointer" onclick="alert('Mở form thêm phụ phí mới.')">
                 <span class="material-symbols-outlined text-[18px]">add</span>
                 <span>Thêm mục phụ phí</span>
               </button>
@@ -1004,7 +1019,7 @@
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-surface-container-high/40 text-sm text-on-surface">
-                  
+
                   <!-- Row 1 -->
                   <tr class="hover:bg-surface-container-low/50 transition-colors">
                     <td class="py-3.5 px-space-md font-semibold flex items-center gap-2">
@@ -1115,11 +1130,11 @@
 
   <!-- ==================== 8. YÊU CẦU 3: SLIDE-OVER DRAWER "CẤU HÌNH GÓI TẬP & QUYỀN LỢI" ==================== -->
   <!-- Backdrop -->
-  <div id="drawerBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeConfigDrawer()"></div>
+  <div id="drawerBackdrop" data-permission="administration" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeConfigDrawer()"></div>
 
   <!-- Right Slide-Over Panel -->
-  <aside id="configDrawer" class="fixed top-0 right-0 h-full w-full max-w-[560px] bg-surface-container-lowest z-50 shadow-2xl border-l border-outline-variant/30 transform translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between overflow-hidden">
-    
+  <aside id="configDrawer" data-permission="administration" class="fixed top-0 right-0 h-full w-full max-w-[560px] bg-surface-container-lowest z-50 shadow-2xl border-l border-outline-variant/30 transform translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between overflow-hidden">
+
     <!-- Drawer Header -->
     <div class="px-6 py-4 border-b border-surface-container-high/70 flex items-center justify-between bg-surface-container-lowest shrink-0">
       <div class="flex items-center gap-2.5">
@@ -1138,7 +1153,7 @@
 
     <!-- Drawer Body (Scrollable) -->
     <div class="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
-      
+
       <!-- PHẦN 1: Thông tin cơ bản & Phân loại -->
       <div class="space-y-3.5">
         <div class="flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider">
@@ -1238,7 +1253,7 @@
 
         <div class="space-y-2.5">
           <!-- Item 1: Tủ locker -->
-          <label class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer">
+          <label data-permission="administration" class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer">
             <div class="flex items-center gap-2.5">
               <input type="checkbox" id="chkLocker" checked class="w-4 h-4 rounded text-primary-container focus:ring-primary-container">
               <span class="font-medium text-on-surface">Tủ locker (Smart Locker VIP)</span>
@@ -1247,7 +1262,7 @@
           </label>
 
           <!-- Item 2: Khăn tập -->
-          <label class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer">
+          <label data-permission="administration" class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer">
             <div class="flex items-center gap-2.5">
               <input type="checkbox" id="chkTowel" checked class="w-4 h-4 rounded text-primary-container focus:ring-primary-container">
               <span class="font-medium text-on-surface">Khăn tập &amp; Nước detox miễn phí</span>
@@ -1256,7 +1271,7 @@
           </label>
 
           <!-- Item 3: Xông hơi -->
-          <label class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer">
+          <label data-permission="administration" class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer">
             <div class="flex items-center gap-2.5">
               <input type="checkbox" id="chkSauna" checked class="w-4 h-4 rounded text-primary-container focus:ring-primary-container">
               <span class="font-medium text-on-surface">Xông hơi đá muối &amp; Bể sục Jacuzzi</span>
@@ -1266,7 +1281,7 @@
 
           <!-- Item 4: Số buổi InBody miễn phí -->
           <div class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors">
-            <label class="flex items-center gap-2.5 cursor-pointer">
+            <label data-permission="administration" class="flex items-center gap-2.5 cursor-pointer">
               <input type="checkbox" id="chkInBody" checked class="w-4 h-4 rounded text-primary-container focus:ring-primary-container">
               <span class="font-medium text-on-surface">Số buổi InBody miễn phí</span>
             </label>
@@ -1278,7 +1293,7 @@
 
           <!-- Item 5: Số buổi PT kèm -->
           <div class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors">
-            <label class="flex items-center gap-2.5 cursor-pointer">
+            <label data-permission="administration" class="flex items-center gap-2.5 cursor-pointer">
               <input type="checkbox" id="chkPT" checked class="w-4 h-4 rounded text-primary-container focus:ring-primary-container">
               <span class="font-medium text-on-surface">Số buổi PT kèm</span>
             </label>
@@ -1290,7 +1305,7 @@
 
           <!-- Item 6: Vé mời bạn bè -->
           <div class="flex items-center justify-between p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low transition-colors">
-            <label class="flex items-center gap-2.5 cursor-pointer">
+            <label data-permission="administration" class="flex items-center gap-2.5 cursor-pointer">
               <input type="checkbox" id="chkGuestPass" checked class="w-4 h-4 rounded text-primary-container focus:ring-primary-container">
               <span class="font-medium text-on-surface">Vé mời bạn bè (Guest Pass)</span>
             </label>
@@ -1308,7 +1323,7 @@
           <div class="font-bold text-on-surface">Kích hoạt bán gói</div>
           <div class="text-[11px] text-on-surface-variant">Cho phép lễ tân bán tại quầy và hội viên tự mua qua Member App</div>
         </div>
-        <label class="relative inline-flex items-center cursor-pointer">
+        <label data-permission="administration" class="relative inline-flex items-center cursor-pointer">
           <input type="checkbox" id="drawerIsActive" checked class="sr-only peer">
           <div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
         </label>
@@ -1321,7 +1336,7 @@
       <button type="button" class="px-5 py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-semibold text-xs transition-colors cursor-pointer" onclick="closeConfigDrawer()">
         Hủy
       </button>
-      <button type="button" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0B304A] to-[#0284c7] hover:from-[#082235] hover:to-[#0369a1] text-white font-bold text-xs shadow-md flex items-center gap-2 transition-all transform active:scale-98 cursor-pointer" onclick="saveDrawerConfig()">
+      <button data-permission="administration" type="button" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0B304A] to-[#0284c7] hover:from-[#082235] hover:to-[#0369a1] text-white font-bold text-xs shadow-md flex items-center gap-2 transition-all transform active:scale-98 cursor-pointer" onclick="saveDrawerConfig()">
         <span class="material-symbols-outlined text-[18px]">verified</span>
         <span>Lưu cấu hình</span>
       </button>
@@ -1501,8 +1516,8 @@
 
       const toast = document.createElement('div');
       toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border text-xs font-semibold transform transition-all duration-300 translate-y-2 opacity-0 ${
-        type === 'success' 
-          ? 'bg-emerald-900/90 text-white border-emerald-500/40 backdrop-blur-md' 
+        type === 'success'
+          ? 'bg-emerald-900/90 text-white border-emerald-500/40 backdrop-blur-md'
           : 'bg-[#0B304A]/90 text-white border-cyan-400/40 backdrop-blur-md'
       }`;
       toast.innerHTML = `
@@ -1697,6 +1712,56 @@
       closeContractModal();
     }
 
+    // ==========================================
+    // 7. TẢI DỮ LIỆU GÓI TẬP THẬT TỪ SQL SERVER (GET /api/Packages)
+    // ==========================================
+    async function loadRealPackages() {
+      try {
+        const res = await fetch('/api/Packages');
+        if (res.ok) {
+          const dbPackages = await res.json();
+          if (Array.isArray(dbPackages) && dbPackages.length > 0) {
+            // Cập nhật số lượng trên các Tab
+            const allBtn = document.querySelector('[data-category="all"] span:last-child');
+            if (allBtn) allBtn.innerText = dbPackages.length;
+
+            const gymCount = dbPackages.filter(p => (p.PackageType || '').toLowerCase() === 'gym').length;
+            const yogaCount = dbPackages.filter(p => (p.PackageType || '').toLowerCase() === 'yoga').length;
+            const ptCount = dbPackages.filter(p => (p.PackageType || '').toLowerCase() === 'pt').length;
+            const trialCount = dbPackages.filter(p => (p.DurationDays || 30) <= 7).length;
+
+            const gymBtn = document.querySelector('[data-category="gym"] span:last-child');
+            if (gymBtn) gymBtn.innerText = gymCount;
+
+            const yogaBtn = document.querySelector('[data-category="yoga"] span:last-child');
+            if (yogaBtn) yogaBtn.innerText = yogaCount;
+
+            const ptBtn = document.querySelector('[data-category="pt"] span:last-child');
+            if (ptBtn) ptBtn.innerText = ptCount;
+
+            const trialBtn = document.querySelector('[data-category="trial"] span:last-child');
+            if (trialBtn) trialBtn.innerText = trialCount;
+
+            // Đồng bộ danh sách vào Modal Lập hợp đồng
+            const modalSelect = document.getElementById('modalPackageSelect');
+            if (modalSelect) {
+              modalSelect.replaceChildren(...dbPackages.map(p => {
+                const priceFormatted = (p.Price || 0).toLocaleString('vi-VN');
+                const option = document.createElement('option');
+                option.value = String(p.Price || 0);
+                option.dataset.days = String(p.DurationDays || 30);
+                option.textContent = `${p.PackageName} (${priceFormatted} đ / ${p.DurationDays} ngày)`;
+                return option;
+              }));
+              onModalPackageChange();
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('[Packages] Lỗi tải /api/Packages:', err);
+      }
+    }
+
     // Đóng drawer / modal khi nhấn ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -1704,6 +1769,13 @@
         closeContractModal();
       }
     });
+
+    // Khởi chạy khi DOM sẵn sàng
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadRealPackages);
+    } else {
+      loadRealPackages();
+    }
   </script>
 
 </body>

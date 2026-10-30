@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FitManage GYM &amp; YOGA SUITE - Trợ lý AI gia hạn (AI Retention Copilot)</title>
-  
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Google Fonts: Be Vietnam Pro & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -86,6 +86,9 @@
   </style>
   <link rel="stylesheet" href="/css/sidebar.css">
   <script src="/js/sidebar.js" defer></script>
+<link href="/css/permissions.css" rel="stylesheet">
+<script src="/js/auth-session.js"></script>
+<script src="/js/permissions.js"></script>
 </head>
 <body class="bg-[#f8f9ff] antialiased flex h-screen w-full overflow-hidden text-slate-800">
 
@@ -149,7 +152,7 @@
             AT
           </div>
           <div class="flex flex-col text-left">
-            <span class="text-xs font-bold text-slate-800">Admin Thana</span>
+            <span class="text-xs font-bold text-slate-800" data-user-name>Admin Thana</span>
             <span class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Điều phối AI
             </span>
@@ -163,7 +166,7 @@
 
       <!-- ==================== HÀNG 4 THẺ KPI TỔNG QUAN ==================== -->
       <div class="grid grid-cols-4 gap-5">
-        
+
         <!-- KPI 1: Churn Risk -->
         <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
           <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-rose-100/60 rounded-full blur-xl pointer-events-none"></div>
@@ -175,7 +178,7 @@
             </span>
           </div>
           <div class="flex items-baseline gap-2">
-            <span class="text-3xl font-extrabold text-rose-600 tracking-tight font-mono">24</span>
+            <span id="kpiHighRisk" class="text-3xl font-extrabold text-rose-600 tracking-tight font-mono">24</span>
             <span class="text-xs font-semibold text-slate-500">hội viên</span>
           </div>
           <div class="mt-2 text-xs text-rose-600/95 font-medium flex items-center gap-1">
@@ -185,7 +188,7 @@
         </div>
 
         <!-- KPI 2: Revenue at Risk -->
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+        <div data-permission="administration" class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
           <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-100/50 rounded-full blur-xl pointer-events-none"></div>
           <div class="flex items-start justify-between pb-3">
             <span class="text-xs font-semibold text-slate-500">Doanh thu có thể mất (Revenue at Risk)</span>
@@ -194,8 +197,8 @@
             </span>
           </div>
           <div class="flex items-baseline gap-1.5">
-            <span class="text-3xl font-extrabold text-slate-900 tracking-tight font-mono">$14.850</span>
-            <span class="text-xs font-semibold text-slate-500">USD</span>
+            <span id="kpiRevenueAtRisk" class="text-3xl font-extrabold text-slate-900 tracking-tight font-mono">85.800.000</span>
+            <span class="text-xs font-semibold text-slate-500">VNĐ</span>
           </div>
           <div class="mt-2 text-xs text-amber-700 font-medium flex items-center gap-1">
             <span class="text-amber-600 font-bold">↘</span>
@@ -204,7 +207,7 @@
         </div>
 
         <!-- KPI 3: Retention Success Rate -->
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+        <div data-permission="administration" class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
           <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-100/50 rounded-full blur-xl pointer-events-none"></div>
           <div class="flex items-start justify-between pb-3">
             <span class="text-xs font-semibold text-slate-500">Tỷ lệ giữ chân tháng này (Retention Success)</span>
@@ -213,7 +216,7 @@
             </span>
           </div>
           <div class="flex items-baseline gap-2">
-            <span class="text-3xl font-extrabold text-emerald-600 tracking-tight font-mono">74.2%</span>
+            <span id="kpiRetentionRate" class="text-3xl font-extrabold text-emerald-600 tracking-tight font-mono">74.2%</span>
             <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">+8.5%</span>
           </div>
           <div class="mt-2 text-xs text-emerald-700 font-medium flex items-center gap-1">
@@ -248,7 +251,7 @@
 
         <!-- ==================== CỘT 1: HÀNG ĐỢI HỘI VIÊN RỦI RO (~42% Width) ==================== -->
         <div class="w-[42%] flex-shrink-0 bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 flex flex-col space-y-4">
-          
+
           <!-- Column Header & Queue Stats -->
           <div>
             <div class="flex items-center justify-between">
@@ -260,7 +263,7 @@
                 </div>
               </div>
               <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-rose-50 text-rose-600 border border-rose-200">
-                18 cần gọi hôm nay
+                <span id="queueBadgeToday">18 cần gọi hôm nay</span>
               </span>
             </div>
 
@@ -268,15 +271,15 @@
             <div class="flex items-center gap-1.5 mt-4 bg-slate-100 p-1 rounded-xl border border-slate-200/80 text-xs font-semibold">
               <button onclick="setQueueTab('unhandled')" id="tabUnhandled" class="flex-1 py-1.5 px-2 rounded-lg bg-[#0b1c30] text-white shadow-sm flex items-center justify-center gap-1.5 transition-all">
                 <span>Chưa xử lý</span>
-                <span class="px-1.5 py-0.2 rounded-full bg-rose-500 text-[10px] font-bold text-white">18</span>
+                <span class="px-1.5 py-0.2 rounded-full bg-rose-500 text-[10px] font-bold text-white" id="badgeUnhandledCount">18</span>
               </button>
               <button onclick="setQueueTab('caring')" id="tabCaring" class="flex-1 py-1.5 px-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center justify-center gap-1.5">
                 <span>Đang chăm sóc</span>
-                <span class="px-1.5 py-0.2 rounded-full bg-amber-200 text-amber-800 text-[10px] font-bold">4</span>
+                <span class="px-1.5 py-0.2 rounded-full bg-amber-200 text-amber-800 text-[10px] font-bold" id="badgeCaringCount">4</span>
               </button>
               <button onclick="setQueueTab('renewed')" id="tabRenewed" class="flex-1 py-1.5 px-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center justify-center gap-1.5">
                 <span>Đã tái ký thành công</span>
-                <span class="px-1.5 py-0.2 rounded-full bg-emerald-200 text-emerald-800 text-[10px] font-bold">62</span>
+                <span class="px-1.5 py-0.2 rounded-full bg-emerald-200 text-emerald-800 text-[10px] font-bold" id="badgeRenewedCount">62</span>
               </button>
             </div>
 
@@ -286,21 +289,26 @@
                 <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
                 <input type="text" id="memberSearchInput" oninput="filterMemberList()" placeholder="Tìm theo tên, SĐT, mã hội viên..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-purple-500">
               </div>
-              <div class="flex items-center gap-1 text-xs text-slate-600 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg font-medium cursor-pointer hover:bg-slate-100 transition-colors">
-                <span>Sắp xếp:</span>
-                <span class="text-slate-900 font-bold">Rủi ro cao nhất</span>
-                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+              <div class="relative flex items-center bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors shadow-xs">
+                <span class="text-xs text-slate-600 font-medium select-none whitespace-nowrap mr-1">Sắp xếp:</span>
+                <select id="sortMembersSelect" onchange="sortMemberList(this.value)" class="appearance-none bg-transparent text-xs text-slate-900 font-bold outline-none cursor-pointer pr-4 focus:ring-0">
+                  <option value="risk-desc">Rủi ro cao nhất</option>
+                  <option value="risk-asc">Rủi ro thấp nhất</option>
+                  <option value="days-asc">Hạn HĐ gần nhất</option>
+                  <option value="name-asc">Tên (A → Z)</option>
+                </select>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"></i>
               </div>
             </div>
           </div>
 
           <!-- MEMBER CARDS SCROLLABLE CONTAINER -->
-          <div id="memberListContainer" class="space-y-3.5 max-h-[640px] overflow-y-auto pr-1.5 custom-scrollbar">
+          <div id="memberListContainer" class="space-y-4 max-h-[640px] overflow-y-auto pt-3.5 pb-2 px-1 pr-1.5 custom-scrollbar">
 
             <!-- ================= CARD 1: SARAH MITCHEL (ACTIVE/SELECTED) ================= -->
             <div id="card-MB1042" onclick="selectMember('MB-1042')" class="member-card relative bg-white rounded-2xl p-4 border-2 border-purple-600 shadow-[0_4px_20px_rgba(124,58,237,0.12)] transition-all cursor-pointer">
               <!-- Floating Active State Tag -->
-              <div class="active-badge absolute -top-2.5 right-4 px-2.5 py-0.5 bg-purple-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm">
+              <div class="active-badge absolute -top-2.5 right-4 px-2.5 py-0.5 bg-purple-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm z-10">
                 <i data-lucide="check" class="w-3 h-3 text-cyan-300"></i>
                 ĐANG CHỌN PHÂN TÍCH
               </div>
@@ -370,7 +378,7 @@
             </div>
 
             <!-- ================= CARD 2: JAMES TORLAK ================= -->
-            <div id="card-MB1088" onclick="selectMember('MB-1088')" class="member-card bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
+            <div id="card-MB1088" onclick="selectMember('MB-1088')" class="member-card relative bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
               <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-full bg-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
@@ -421,7 +429,7 @@
             </div>
 
             <!-- ================= CARD 3: PRIYA NATARAJAN ================= -->
-            <div id="card-MB1120" onclick="selectMember('MB-1120')" class="member-card bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
+            <div id="card-MB1120" onclick="selectMember('MB-1120')" class="member-card relative bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
               <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
@@ -472,7 +480,7 @@
             </div>
 
             <!-- ================= CARD 4: CARLOS REYES ================= -->
-            <div id="card-MB1094" onclick="selectMember('MB-1094')" class="member-card bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
+            <div id="card-MB1094" onclick="selectMember('MB-1094')" class="member-card relative bg-white rounded-2xl p-4 border border-slate-200 hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
               <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
@@ -655,7 +663,7 @@
                     <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-500"></i>
                     <span>Sao chép kịch bản (Copy)</span>
                   </button>
-                  <button onclick="regenerateScript()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-purple-700 hover:bg-purple-50 shadow-sm transition-all">
+                  <button data-permission="administration" onclick="regenerateScript()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-purple-700 hover:bg-purple-50 shadow-sm transition-all">
                     <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-purple-600"></i>
                     <span>Tạo lại kịch bản khác (Regenerate)</span>
                   </button>
@@ -750,7 +758,16 @@
     lucide.createIcons();
 
     // Data Store for members
-    const membersData = {
+    let predictionsList = [];
+    let membersData = {};
+    let activeMemberId = 'MB-1042';
+    let currentScriptTab = 'call';
+    let currentQueueTab = 'unhandled';
+    let currentSort = 'risk-desc';
+    let currentSearch = '';
+
+    // Dữ liệu mẫu dự phòng (Mock Fallback) nếu chưa nạp được API
+    const fallbackMock = {
       'MB-1042': {
         name: 'Sarah Mitchel',
         code: '#MB-1042',
@@ -758,13 +775,24 @@
         type: 'Khách hàng thân thiết 18 tháng',
         membership: 'GOLD VIP',
         churnRisk: 78,
+        daysRemaining: 7,
         riskLevel: 'Nguy cơ cao (High)',
         package: 'Yoga Không Giới Hạn (Yoga Unlimited) | HĐ: 12 Tháng',
+        packageName: 'Yoga Không Giới Hạn (Yoga Unlimited)',
+        packageType: 'Yoga',
+        price: 14200000,
         confidence: '94.0%',
         closeProb: '82%',
         offerTitle: 'Gói gia hạn 6 Tháng Yoga Không Giới Hạn',
         oldPrice: '8.900.000 đ',
         newPrice: '7.830.000 đ',
+        promoCode: 'AI_COMEBACK_20',
+        contractId: 4,
+        predictionId: 3,
+        isHandled: false,
+        checkIns: 2,
+        daysSinceLastCheckIn: 14,
+        retentionStrategy: 'Chào Sarah, chúng tôi nhận thấy bạn đã không tập trong 14 ngày. Để giúp bạn tiếp tục hành trình Yoga, chúng tôi muốn gửi 2 ưu đãi đặc biệt: 1) Giảm 20% cho gói 3 tháng tiếp theo, 2) Tặng 1 buổi tư vấn cá nhân miễn phí. Hãy liên hệ qua Zalo để nhận mã khuyến mãi!',
         diagnosis: [
           { type: 'danger', title: 'Tần suất tập giảm đột biến:', desc: 'Giảm từ 4 buổi/tuần xuống còn 2 buổi/tháng trong suốt 45 ngày qua (mất thói quen vận động).' },
           { type: 'warning', title: 'Thay đổi giảng viên yêu thích:', desc: 'Thường xuyên bỏ ca Yoga cuối tuần tại Studio A do HLV Aisha Kumara đi công tác vào tháng 8.' },
@@ -785,108 +813,337 @@
           `Nhân dịp HĐ 12T của chị sắp đến hạn (25/09), FitManage tặng chị 02 buổi PT nắn chỉnh cột sống + Voucher giảm 12% khi tái ký gói 6 Tháng trong tuần này.`,
           `Chị bấm link sau để xác nhận giữ chỗ lớp và nhận quà ưu đãi riêng: fitmanage.vn/renew/MB1042`
         ]
-      },
-      'MB-1088': {
-        name: 'James Torlak',
-        code: '#MB-1088',
-        phone: '081-345-6789',
-        type: 'Hội viên 1 năm',
-        membership: 'SILVER',
-        churnRisk: 72,
-        riskLevel: 'Nguy cơ cao (High)',
-        package: 'Gym Cao Cấp (Premium Gym) · HĐ 6 Tháng',
-        confidence: '91.5%',
-        closeProb: '76%',
-        offerTitle: 'Gói gia hạn 12 Tháng Premium Gym + Free Locker',
-        oldPrice: '12.000.000 đ',
-        newPrice: '9.600.000 đ',
-        diagnosis: [
-          { type: 'danger', title: 'Tần suất tập giảm mạnh:', desc: 'Giảm xuống chỉ còn 4 buổi / 30 ngày qua, chủ yếu tập muộn sau 21h.' },
-          { type: 'warning', title: 'Không sử dụng khu vực Sauna:', desc: 'Chưa từng kích hoạt quyền lợi phục hồi cơ sau tập.' },
-          { type: 'primary', title: 'Hạn hợp đồng còn 14 ngày:', desc: 'Sắp hết hạn vào ngày 02/10/2026.' }
-        ],
-        benefits: [
-          '+ Tặng kèm <strong class="text-slate-900">Tủ đồ cá nhân VIP 6 tháng</strong> miễn phí.',
-          '+ Voucher chiết khấu <strong class="text-purple-700">20% phí thường niên</strong> khi gia hạn hợp đồng 12 tháng.'
-        ],
-        callScript: [
-          `"Em chào anh James, em là Thana từ FitManage. Nhận thấy gần đây anh thường tập ca tối muộn sau giờ làm, CLB vừa nâng cấp dàn tạ Hammer Strength mới và mở rộng khung giờ Sauna đêm đến 22:30."`,
-          `"Hợp đồng của anh còn 14 ngày, bên em xin tặng anh gói nâng cấp Locker VIP riêng cùng ưu đãi giảm 20% khi gia hạn năm tới ạ!"`
-        ],
-        smsScript: [
-          `[FitManage] Chào anh James, hợp đồng #MB-1088 của anh còn 14 ngày. Nhận ngay ưu đãi Locker VIP miễn phí + Giảm 20% khi gia hạn hôm nay: fitmanage.vn/renew/MB1088`
-        ]
-      },
-      'MB-1120': {
-        name: 'Priya Natarajan',
-        code: '#MB-1120',
-        phone: '081-456-7890',
-        type: 'Hội viên VIP 8 tháng',
-        membership: 'VIP PLATINUM',
-        churnRisk: 48,
-        riskLevel: 'Trung bình (Medium)',
-        package: 'Combo Yoga + PT 1-1 · Gói 36 Buổi',
-        confidence: '89.0%',
-        closeProb: '88%',
-        offerTitle: 'Gói gia hạn Combo Yoga Unlimited + 24 Buổi PT',
-        oldPrice: '18.500.000 đ',
-        newPrice: '15.900.000 đ',
-        diagnosis: [
-          { type: 'warning', title: 'Gói PT sắp hết buổi:', desc: 'Đã hoàn thành 32/36 buổi kèm cùng PT David Trần.' },
-          { type: 'primary', title: 'Tiến độ tập luyện tốt:', desc: 'Tần suất ổn định 8 buổi/tháng nhưng cần lộ trình mục tiêu mới.' }
-        ],
-        benefits: [
-          '+ Tiếp tục ghép lớp với <strong class="text-slate-900">PT David Trần</strong>.',
-          '+ Giảm ngay <strong class="text-purple-700">2.600.000 đ</strong> khi gia hạn gói combo.'
-        ],
-        callScript: [
-          `"Dạ chào chị Priya, PT David Trần có chia sẻ về tiến độ tập rất ấn tượng của chị sau 32 buổi vừa qua. David đã chuẩn bị sẵn giáo án tăng cơ giai đoạn 2 cho chị kèm ưu đãi đặc biệt khi gia hạn gói combo ạ!"`
-        ],
-        smsScript: [
-          `[FitManage] Chúc mừng chị Priya hoàn thành xuất sắc 32 buổi PT! Xem giáo án giai đoạn 2 cùng PT David & ưu đãi gia hạn riêng: fitmanage.vn/renew/MB1120`
-        ]
-      },
-      'MB-1094': {
-        name: 'Carlos Reyes',
-        code: '#MB-1094',
-        phone: '081-567-8901',
-        type: 'Hội viên 6 tháng',
-        membership: 'REGULAR',
-        churnRisk: 42,
-        riskLevel: 'Trung bình',
-        package: 'Gym Tiêu Chuẩn (Cardio Only) · HĐ 12 Tháng',
-        confidence: '88.5%',
-        closeProb: '80%',
-        offerTitle: 'Nâng cấp Gói Toàn Diện All-Access 12 Tháng',
-        oldPrice: '9.000.000 đ',
-        newPrice: '7.200.000 đ',
-        diagnosis: [
-          { type: 'warning', title: 'Tần suất duy trì đều:', desc: '5 buổi/tháng khu vực Cardio nhưng chưa trải nghiệm lớp nhóm Studio B.' },
-          { type: 'primary', title: 'Còn 28 ngày hết hạn:', desc: 'Có nhu cầu đổi mới bài tập tránh nhàm chán.' }
-        ],
-        benefits: [
-          '+ Tặng thẻ trải nghiệm các lớp Spinning & HIIT Studio B.',
-          '+ Giảm <strong class="text-purple-700">1.800.000 đ</strong> khi nâng cấp lên All-Access.'
-        ],
-        callScript: [
-          `"Chào anh Carlos, FitManage Thảo Điền ra mắt dàn xe đạp RPM thế hệ mới tại Studio B. Mời anh tham gia miễn phí tuần trải nghiệm và nhận ưu đãi nâng cấp gói tập năm tới nhé ạ!"`
-        ],
-        smsScript: [
-          `[FitManage] Chào anh Carlos, nhận vé mời miễn phí trải nghiệm Studio B & giảm giá nâng cấp gói hội viên: fitmanage.vn/renew/MB1094`
-        ]
       }
     };
 
-    let activeMemberId = 'MB-1042';
-    let currentScriptTab = 'call';
+    // 1. TẢI DỮ LIỆU DỰ BÁO AI TỪ DATABASE (GET /api/AiPredictions)
+    async function loadRealPredictions() {
+      try {
+        const res = await fetch('/api/AiPredictions', { headers: { Authorization: 'Bearer ' + (localStorage.getItem('token') || '') } });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data)) {
+            parseApiPredictions(data);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('[AI Retention] Không thể tải dữ liệu dự báo:', err);
+      }
 
-    // Member Selection Handler
+      // Failed requests must not present sample members as live operational data.
+      membersData = {};
+      predictionsList = [];
+      updateKpisFromData();
+      renderMemberList();
+      document.getElementById('memberListContainer').textContent = 'Không tải được dữ liệu dự báo. Vui lòng đăng nhập lại hoặc tải lại trang.';
+      document.getElementById('scriptContentBox').textContent = 'Chưa có dữ liệu tư vấn.';
+    }
+
+    function parseApiPredictions(data) {
+      predictionsList = data.map(p => {
+        const words = (p.fullName || 'Hội Viên').trim().split(/\s+/);
+        const initials = words.length >= 2
+          ? (words[0][0] + words[words.length - 1][0]).toUpperCase()
+          : (words[0].slice(0, 2)).toUpperCase();
+
+        const memberKey = 'MB-' + (1000 + p.memberID);
+        const code = '#' + memberKey;
+        const prob = Math.round(p.renewalProbability || 50);
+        const churnRisk = Math.max(5, Math.min(99, 100 - prob));
+        const price = p.price || 5000000;
+        const promoCode = p.suggestedPromoCode || 'AI_COMEBACK_20';
+        const discountRate = promoCode.includes('20') ? 0.2 : 0.12;
+        const newPriceVal = Math.round(price * (1 - discountRate));
+
+        let membership = 'REGULAR';
+        if (price >= 18000000) membership = 'GOLD VIP';
+        else if (price >= 14000000) membership = 'VIP PLATINUM';
+        else if (price >= 8000000) membership = 'SILVER';
+
+        let riskLevelVi = 'Trung bình (Medium)';
+        if (p.riskLevel === 'High') riskLevelVi = 'Nguy cơ cao (High)';
+        else if (p.riskLevel === 'Low') riskLevelVi = 'Thấp (Low)';
+
+        const diagnosis = [
+          {
+            type: p.daysSinceLastCheckIn > 10 ? 'danger' : 'warning',
+            title: 'Tần suất tập luyện gần đây:',
+            desc: `Đã vắng mặt <strong>${p.daysSinceLastCheckIn} ngày</strong> kể từ lần tập gần nhất (tổng check-in 30 ngày qua: <strong>${p.totalCheckInsLast30Days} buổi</strong>).`
+          },
+          {
+            type: p.daysRemaining <= 14 ? 'danger' : 'warning',
+            title: 'Áp lực kỳ hạn hợp đồng:',
+            desc: p.daysRemaining <= 0
+              ? `Hợp đồng đã quá hạn <strong>${Math.abs(p.daysRemaining)} ngày</strong>, cần kích hoạt kịch bản Comeback ngay.`
+              : `Hợp đồng còn <strong>${p.daysRemaining} ngày</strong> nữa là hết hạn (hạn: <strong>${new Date(p.endDate).toLocaleDateString('vi-VN')}</strong>).`
+          },
+          {
+            type: 'primary',
+            title: 'Khuyến nghị Groq Llama-3 AI:',
+            desc: `Xác suất tái ký hiện tại là <strong>${prob}%</strong>. ${p.retentionStrategy ? p.retentionStrategy.slice(0, 140) + '...' : 'Đề xuất tặng thêm ưu đãi để giữ chân.'}`
+          }
+        ];
+
+        const benefits = [
+          `+ Áp dụng mã đặc quyền AI: <strong class="text-purple-700 font-mono">${promoCode}</strong> (Chiết khấu ${Math.round(discountRate * 100)}%).`,
+          `+ Tặng kèm <strong class="text-slate-900">02 buổi kèm 1-1 nắn chỉnh tư thế</strong> cùng Huấn luyện viên trưởng.`
+        ];
+
+        const strategyText = p.retentionStrategy || `Dạ em chào anh/chị ${p.fullName}, em là Thana quản lý CSKH FitManage. Nhận thấy thời hạn gói tập ${p.packageName} của mình sắp hết hạn, FitManage xin gửi tặng riêng anh/chị mã ưu đãi ${promoCode}!`;
+
+        const callScript = [
+          `"Dạ em chào ${p.gender === 'Nữ' ? 'chị' : 'anh'} ${p.fullName}, em là <strong>Thana quản lý CSKH tại FitManage Thảo Điền</strong>. Em thấy thời gian gần đây ${p.gender === 'Nữ' ? 'chị' : 'anh'} bận việc nên chưa ghé phòng tập được ${p.daysSinceLastCheckIn} ngày rồi ạ!"`,
+          `"${strategyText}"`,
+          `<div class="font-medium text-purple-900 not-italic bg-purple-100/60 p-2.5 rounded-lg border border-purple-200">🎁 Ưu đãi độc quyền AI: Áp dụng mã <strong>${promoCode}</strong> giảm ngay ${Math.round(discountRate * 100)}% + Tặng 02 buổi PT 1-1 khi tái ký trong tuần này.</div>`,
+          `"Em xin phép giữ chỗ ưu đãi này cho ${p.gender === 'Nữ' ? 'chị' : 'anh'} trước nhé ạ?"`
+        ];
+
+        const smsScript = [
+          `[FitManage Thảo Điền] Chào ${p.gender === 'Nữ' ? 'chị' : 'anh'} ${p.fullName}, hợp đồng ${p.packageName} của bạn còn ${p.daysRemaining} ngày.`,
+          `FitManage tặng riêng bạn: Giảm ${Math.round(discountRate * 100)}% + 02 buổi PT 1:1 khi tái ký. Mã ưu đãi: ${promoCode}.`,
+          `Bấm để kích hoạt ưu đãi: fitmanage.vn/renew/${memberKey}`
+        ];
+
+        return {
+          id: memberKey,
+          name: p.fullName,
+          code: code,
+          phone: p.phone || '0901 234 567',
+          type: `Hội viên · ${p.gender || 'VIP'} ${p.age ? p.age + ' tuổi' : ''}`,
+          membership: membership,
+          churnRisk: churnRisk,
+          daysRemaining: p.daysRemaining,
+          riskLevel: riskLevelVi,
+          rawRiskLevel: p.riskLevel,
+          package: `${p.packageName} | HĐ: ${p.daysRemaining > 0 ? (p.daysRemaining > 100 ? '12 Tháng' : '6 Tháng') : '1 Tháng'}`,
+          packageName: p.packageName,
+          packageType: p.packageType,
+          price: price,
+          confidence: '94.0%',
+          closeProb: `${prob}%`,
+          offerTitle: `Gói gia hạn: ${p.packageName}`,
+          oldPrice: price.toLocaleString('vi-VN') + ' đ',
+          newPrice: newPriceVal.toLocaleString('vi-VN') + ' đ',
+          promoCode: promoCode,
+          contractId: p.contractID,
+          predictionId: p.predictionID,
+          isHandled: p.isHandled,
+          checkIns: p.totalCheckInsLast30Days,
+          daysSinceLastCheckIn: p.daysSinceLastCheckIn,
+          retentionStrategy: strategyText,
+          initials: initials,
+          diagnosis: diagnosis,
+          benefits: benefits,
+          callScript: callScript,
+          smsScript: smsScript
+        };
+      });
+
+      membersData = {};
+      predictionsList.forEach(m => {
+        membersData[m.id] = m;
+      });
+
+      // KPI Counter Sync
+      updateKpisFromData();
+
+      // Mặc định chọn Sarah Mitchel nếu có, hoặc phần tử đầu tiên
+      const sarah = predictionsList.find(m => m.name.toLowerCase().includes('sarah'));
+      if (sarah) {
+        activeMemberId = sarah.id;
+      } else if (predictionsList.length > 0) {
+        activeMemberId = predictionsList[0].id;
+      }
+
+      renderMemberList();
+      selectMember(activeMemberId);
+    }
+
+    function updateKpisFromData() {
+      const highRiskCount = predictionsList.filter(m => m.rawRiskLevel === 'High' && !m.isHandled).length;
+      const unhandledCount = predictionsList.filter(m => !m.isHandled).length;
+      const caringCount = predictionsList.filter(m => !m.isHandled && m.daysRemaining <= 14).length;
+      const renewedCount = predictionsList.filter(m => m.isHandled).length;
+
+      const revenueAtRisk = predictionsList
+        .filter(m => !m.isHandled)
+        .reduce((sum, m) => sum + (m.price || 0), 0);
+
+      const total = predictionsList.length || 1;
+      const retentionRate = Math.round((renewedCount / total) * 100);
+
+      const kpiHigh = document.getElementById('kpiHighRisk');
+      if (kpiHigh) kpiHigh.innerText = highRiskCount;
+
+      const kpiRev = document.getElementById('kpiRevenueAtRisk');
+      if (kpiRev) kpiRev.innerText = revenueAtRisk.toLocaleString('vi-VN');
+
+      const kpiRate = document.getElementById('kpiRetentionRate');
+      if (kpiRate) kpiRate.innerText = retentionRate + '%';
+
+      const badgeUnhandled = document.getElementById('badgeUnhandledCount');
+      if (badgeUnhandled) badgeUnhandled.innerText = unhandledCount;
+
+      const badgeCaring = document.getElementById('badgeCaringCount');
+      if (badgeCaring) badgeCaring.innerText = caringCount;
+
+      const badgeRenewed = document.getElementById('badgeRenewedCount');
+      if (badgeRenewed) badgeRenewed.innerText = renewedCount;
+
+      const queueToday = document.getElementById('queueBadgeToday');
+      if (queueToday) queueToday.innerText = `${unhandledCount} cần gọi hôm nay`;
+    }
+
+    // 2. RENDER DANH SÁCH THẺ HỘI VIÊN VÀO #memberListContainer
+    function renderMemberList() {
+      const container = document.getElementById('memberListContainer');
+      if (!container) return;
+
+      let list = predictionsList.slice();
+
+      // Tab filtering
+      if (currentQueueTab === 'unhandled') {
+        list = list.filter(m => !m.isHandled);
+      } else if (currentQueueTab === 'caring') {
+        list = list.filter(m => !m.isHandled && m.daysRemaining <= 14);
+      } else if (currentQueueTab === 'renewed') {
+        list = list.filter(m => m.isHandled);
+      }
+
+      // Search filtering
+      if (currentSearch) {
+        list = list.filter(m =>
+          m.name.toLowerCase().includes(currentSearch) ||
+          m.phone.toLowerCase().includes(currentSearch) ||
+          m.code.toLowerCase().includes(currentSearch) ||
+          m.packageName.toLowerCase().includes(currentSearch)
+        );
+      }
+
+      // Sorting
+      list.sort((a, b) => {
+        switch (currentSort) {
+          case 'risk-desc': return (b.churnRisk || 0) - (a.churnRisk || 0);
+          case 'risk-asc': return (a.churnRisk || 0) - (b.churnRisk || 0);
+          case 'days-asc': return (a.daysRemaining || 0) - (b.daysRemaining || 0);
+          case 'name-asc': return (a.name || '').localeCompare(b.name || '');
+          default: return 0;
+        }
+      });
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-slate-400 text-xs">
+            <i data-lucide="inbox" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+            <p>Không có hội viên nào trong hàng đợi này.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      container.innerHTML = list.map(m => {
+        const isSelected = (m.id === activeMemberId);
+        const borderStyle = isSelected
+          ? 'border-2 border-purple-600 shadow-[0_4px_20px_rgba(124,58,237,0.12)]'
+          : 'border border-slate-200 hover:border-purple-300 hover:shadow-sm';
+
+        let riskBadgeClass = 'bg-rose-50 border border-rose-200 text-rose-600';
+        let riskDotClass = 'bg-rose-500';
+        let barColor = 'from-amber-500 via-rose-500 to-red-600';
+
+        if (m.rawRiskLevel === 'Medium') {
+          riskBadgeClass = 'bg-amber-50 border border-amber-200 text-amber-700';
+          riskDotClass = 'bg-amber-500';
+          barColor = 'from-amber-400 to-amber-500';
+        } else if (m.rawRiskLevel === 'Low') {
+          riskBadgeClass = 'bg-emerald-50 border border-emerald-200 text-emerald-700';
+          riskDotClass = 'bg-emerald-500';
+          barColor = 'from-emerald-400 to-emerald-500';
+        }
+
+        const avatarGrad = isSelected
+          ? 'bg-gradient-to-tr from-purple-700 to-indigo-600 text-white ring-2 ring-purple-200'
+          : 'bg-slate-800 text-white';
+
+        return `
+          <div id="card-${m.id.replace('#', '').replace('-', '')}" onclick="selectMember('${m.id}')" class="member-card relative bg-white rounded-2xl p-4 ${borderStyle} transition-all cursor-pointer">
+            ${isSelected ? `
+              <div class="active-badge absolute -top-2.5 right-4 px-2.5 py-0.5 bg-purple-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm z-10">
+                <i data-lucide="check" class="w-3 h-3 text-cyan-300"></i>
+                ĐANG CHỌN PHÂN TÍCH
+              </div>
+            ` : ''}
+
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full ${avatarGrad} flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+                  ${m.initials}
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-bold text-sm text-slate-900">${m.name}</h3>
+                    <span class="text-[10px] font-semibold text-purple-700 bg-purple-50 border border-purple-200 px-1.5 py-0.2 rounded flex items-center gap-1">
+                      <span class="text-yellow-500">★</span> ${m.membership}
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5 font-mono">
+                    <span>${m.phone}</span>
+                    <span>·</span>
+                    <span class="text-purple-600 font-semibold">${m.code}</span>
+                  </div>
+                </div>
+              </div>
+
+              <span class="px-2.5 py-1 rounded-full ${riskBadgeClass} text-[11px] font-bold flex items-center gap-1.5 whitespace-nowrap">
+                <span class="w-2 h-2 rounded-full ${riskDotClass}"></span> ${m.riskLevel}
+              </span>
+            </div>
+
+            <div class="mt-3 flex items-center gap-2 text-xs text-slate-700 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200/60 truncate">
+              <span class="text-purple-600 text-sm">🧘</span>
+              <span class="font-semibold text-slate-900 truncate">${m.package}</span>
+            </div>
+
+            <div class="mt-3 space-y-1.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-semibold text-slate-700 flex items-center gap-1">
+                  <i data-lucide="flame" class="w-3.5 h-3.5 text-rose-500 fill-rose-500"></i>
+                  Xác suất rời bỏ (Churn Risk)
+                </span>
+                <span class="font-extrabold text-rose-600 font-mono text-sm">${m.churnRisk}%</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r ${barColor} h-2 rounded-full w-[${m.churnRisk}%] transition-all duration-700"></div>
+              </div>
+            </div>
+
+            <div class="mt-3 flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 rounded-md ${m.daysRemaining <= 14 ? 'bg-rose-50 border border-rose-200 text-rose-700' : 'bg-slate-100 border border-slate-200 text-slate-700'} text-[11px] font-semibold flex items-center gap-1">
+                ⏳ ${m.daysRemaining <= 0 ? `Đã quá hạn ${Math.abs(m.daysRemaining)} ngày` : `Còn ${m.daysRemaining} ngày HĐ`}
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-700 text-[11px] font-medium">
+                📉 Check-in: ${m.checkIns} buổi / 30 ngày
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-purple-50 border border-purple-200 text-purple-700 text-[11px] font-medium">
+                Vắng: ${m.daysSinceLastCheckIn} ngày
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // 3. XỬ LÝ CHỌN HỘI VIÊN ĐỂ PHÂN TÍCH (SELECT MEMBER)
     function selectMember(memberId) {
       if (!membersData[memberId]) return;
       activeMemberId = memberId;
       const data = membersData[memberId];
 
-      // Update card UI selection states
+      // Cập nhật viền chọn cho thẻ
       document.querySelectorAll('.member-card').forEach(card => {
         card.classList.remove('border-2', 'border-purple-600', 'shadow-[0_4px_20px_rgba(124,58,237,0.12)]');
         card.classList.add('border', 'border-slate-200');
@@ -894,19 +1151,19 @@
         if (badge) badge.remove();
       });
 
-      const selectedCard = document.getElementById(`card-${memberId.replace('#', '').replace('-', '')}`);
+      const cardId = `card-${memberId.replace('#', '').replace('-', '')}`;
+      const selectedCard = document.getElementById(cardId);
       if (selectedCard) {
         selectedCard.classList.remove('border', 'border-slate-200');
         selectedCard.classList.add('border-2', 'border-purple-600', 'shadow-[0_4px_20px_rgba(124,58,237,0.12)]');
 
-        // Append floating active badge
         const badgeDiv = document.createElement('div');
-        badgeDiv.className = 'active-badge absolute -top-2.5 right-4 px-2.5 py-0.5 bg-purple-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm';
+        badgeDiv.className = 'active-badge absolute -top-2.5 right-4 px-2.5 py-0.5 bg-purple-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm z-10';
         badgeDiv.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-cyan-300"></i> ĐANG CHỌN PHÂN TÍCH`;
         selectedCard.appendChild(badgeDiv);
       }
 
-      // Populate Column 2 Details
+      // Populate Chi tiết Cột 2
       document.getElementById('detailMemberName').innerText = `${data.name} (${data.code})`;
       document.getElementById('detailMemberType').innerText = data.type;
       document.getElementById('detailConfidence').innerText = `Độ tin cậy: ${data.confidence}`;
@@ -915,7 +1172,7 @@
       document.getElementById('detailOldPrice').innerText = data.oldPrice;
       document.getElementById('detailNewPrice').innerText = data.newPrice;
 
-      // Populate diagnosis
+      // Populate Diagnosis
       const diagContainer = document.getElementById('diagnosisList');
       diagContainer.innerHTML = data.diagnosis.map(item => {
         let iconBg = 'bg-rose-100 text-rose-600';
@@ -931,18 +1188,17 @@
         `;
       }).join('');
 
-      // Populate benefits
+      // Populate Benefits
       const benefitsContainer = document.getElementById('detailOfferBenefits');
       benefitsContainer.innerHTML = data.benefits.map(b => `<p>${b}</p>`).join('');
 
-      // Update script
+      // Update script text
       renderScriptContent();
       lucide.createIcons();
 
       showToast(`Đã chuyển sang phân tích: ${data.name}`);
     }
 
-    // Script tab toggling (Call vs SMS)
     function setScriptTab(tab) {
       currentScriptTab = tab;
       const btnCall = document.getElementById('btnScriptCall');
@@ -965,17 +1221,19 @@
 
     function renderScriptContent() {
       const data = membersData[activeMemberId];
+      if (!data) return;
       const box = document.getElementById('scriptContentBox');
       const lines = currentScriptTab === 'call' ? data.callScript : data.smsScript;
       box.innerHTML = lines.map(line => line.startsWith('<div') ? line : `<p>${line}</p>`).join('');
     }
 
-    // Queue tab toggling
+    // 4. LỌC HÀNG ĐỢI (QUEUE TABS)
     function setQueueTab(tabName) {
+      currentQueueTab = tabName;
       const tabs = ['tabUnhandled', 'tabCaring', 'tabRenewed'];
       tabs.forEach(t => {
         const el = document.getElementById(t);
-        el.className = 'flex-1 py-1.5 px-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center justify-center gap-1.5';
+        if (el) el.className = 'flex-1 py-1.5 px-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center justify-center gap-1.5';
       });
 
       let targetId = 'tabUnhandled';
@@ -983,21 +1241,46 @@
       if (tabName === 'renewed') targetId = 'tabRenewed';
 
       const activeEl = document.getElementById(targetId);
-      activeEl.className = 'flex-1 py-1.5 px-2 rounded-lg bg-[#0b1c30] text-white shadow-sm flex items-center justify-center gap-1.5 transition-all';
+      if (activeEl) {
+        activeEl.className = 'flex-1 py-1.5 px-2 rounded-lg bg-[#0b1c30] text-white shadow-sm flex items-center justify-center gap-1.5 transition-all';
+        showToast(`Đang lọc danh sách: ${activeEl.innerText.replace(/\n/g, ' ')}`);
+      }
 
-      showToast(`Đang lọc danh sách: ${activeEl.innerText.replace(/\n/g, ' ')}`);
+      renderMemberList();
     }
 
-    // Search filtering
+    // 5. SẮP XẾP HỘI VIÊN DYNAMIC & AN TOÀN
+    function sortMemberList(sortType) {
+      currentSort = sortType;
+      const container = document.getElementById('memberListContainer');
+      if (!container) return;
+
+      container.style.opacity = '0.5';
+      container.style.transform = 'translateY(2px)';
+      container.style.transition = 'opacity 150ms cubic-bezier(0.16, 1, 0.3, 1), transform 150ms cubic-bezier(0.16, 1, 0.3, 1)';
+
+      setTimeout(() => {
+        renderMemberList();
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 75);
+
+      const labels = {
+        'risk-desc': 'Rủi ro cao nhất',
+        'risk-asc': 'Rủi ro thấp nhất',
+        'days-asc': 'Hạn HĐ gần nhất',
+        'name-asc': 'Tên (A → Z)'
+      };
+      showToast('Đã sắp xếp danh sách theo: ' + (labels[sortType] || sortType));
+    }
+
+    // 6. TÌM KIẾM HỘI VIÊN
     function filterMemberList() {
-      const q = document.getElementById('memberSearchInput').value.toLowerCase();
-      document.querySelectorAll('.member-card').forEach(card => {
-        const text = card.innerText.toLowerCase();
-        card.style.display = text.includes(q) ? 'block' : 'none';
-      });
+      currentSearch = (document.getElementById('memberSearchInput').value || '').trim().toLowerCase();
+      renderMemberList();
     }
 
-    // Copy script
+    // 7. SAO CHÉP KỊCH BẢN
     function copyCurrentScript() {
       const text = document.getElementById('scriptContentBox').innerText;
       navigator.clipboard.writeText(text).then(() => {
@@ -1007,41 +1290,112 @@
       });
     }
 
-    // Regenerate script with subtle simulation
-    function regenerateScript() {
+    // 8. TÁI TẠO KỊCH BẢN THỜI GIAN THỰC BẰNG GROQ CLOUD LLAMA-3
+    async function regenerateScript() {
+  if (!window.FitManagePermissions?.can('administration')) return;
+      const m = membersData[activeMemberId];
+      if (!m) return;
+
       showToast('Đang kết nối Groq Cloud Llama-3 để tối ưu lại kịch bản...');
       const box = document.getElementById('scriptContentBox');
-      box.style.opacity = '0.4';
-      setTimeout(() => {
-        box.style.opacity = '1';
-        showToast('✓ Đã cập nhật phiên bản kịch bản mới tối ưu hơn!');
-      }, 400);
+      box.innerHTML = `
+        <div class="p-6 flex flex-col items-center justify-center gap-3 text-purple-700 font-medium">
+          <div class="w-6 h-6 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+          <span class="text-xs">Groq Llama-3 đang phân tích và tối ưu kịch bản mới theo thời gian thực...</span>
+        </div>
+      `;
+
+      try {
+        const res = await fetch(`/api/AiPredictions/analyze/${m.contractId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+          }
+        });
+
+        if (res.ok) {
+          const aiData = await res.json();
+          if (aiData && aiData.retentionStrategy) {
+            m.retentionStrategy = aiData.retentionStrategy;
+            m.renewalProbability = aiData.renewalProbability;
+            m.closeProb = `${Math.round(aiData.renewalProbability || 60)}%`;
+            m.churnRisk = Math.max(5, Math.min(99, 100 - Math.round(aiData.renewalProbability || 50)));
+            if (aiData.riskLevel) {
+              m.rawRiskLevel = aiData.riskLevel;
+              m.riskLevel = aiData.riskLevel === 'High' ? 'Nguy cơ cao (High)' : (aiData.riskLevel === 'Low' ? 'Thấp (Low)' : 'Trung bình (Medium)');
+            }
+            if (aiData.suggestedPromoCode) {
+              m.promoCode = aiData.suggestedPromoCode;
+            }
+
+            // Rebuild scripts
+            m.callScript[1] = `"${aiData.retentionStrategy}"`;
+            m.smsScript[1] = `FitManage gửi ưu đãi riêng: ${aiData.retentionStrategy} Mã ưu đãi: ${m.promoCode}`;
+
+            selectMember(activeMemberId);
+            renderMemberList();
+            showToast('✓ Đã cập nhật phiên bản kịch bản mới từ Groq Llama-3!');
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Lỗi gọi Groq analyze:', err);
+      }
+
+      renderScriptContent();
+      showToast('Không tạo được kịch bản mới. Nội dung trước đó được giữ lại.');
     }
 
-    // Open Zalo ZNS
+    // 9. GỬI TIN NHẮN ZALO ZNS
     function openZaloZns() {
       const m = membersData[activeMemberId];
+      if (!m) return;
       showToast(`Đã mở giao diện gửi tin ZNS tới số ${m.phone} (${m.name})`);
     }
 
-    // Resolution actions
-    function handleResolution(type) {
+    // 10. GHI NHẬN KẾT QUẢ XỬ LÝ (PUT /api/AiPredictions/{id}/handle)
+    async function handleResolution(type) {
       const m = membersData[activeMemberId];
+      if (!m) return;
+
+      try {
+        if (m.predictionId) {
+          const response = await fetch(`/api/AiPredictions/${m.predictionId}/handle`, {
+            method: 'PUT',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token') || ''}` }
+          });
+          if (!response.ok) throw new Error('Không lưu được kết quả chăm sóc.');
+        } else {
+          throw new Error('Chưa có dự báo hợp lệ để cập nhật.');
+        }
+      } catch (err) {
+        console.warn('Lỗi lưu kết quả xử lý:', err);
+        showToast('Không lưu được kết quả chăm sóc. Vui lòng thử lại.');
+        return;
+      }
+
+      m.isHandled = true;
+      updateKpisFromData();
+
       if (type === 'renewSuccess') {
         document.getElementById('modalMemberText').innerText = `Hợp đồng gia hạn đã được khởi tạo thành công cho hội viên ${m.name} (${m.code}).`;
         document.getElementById('contractModal').classList.remove('hidden');
       } else if (type === 'lost') {
         showToast(`Đã ghi nhận kết quả: Hội viên ${m.name} TỪ CHỐI gia hạn.`);
+        renderMemberList();
       } else if (type === 'callLater') {
         showToast(`Đã lên lịch hẹn gọi lại cho ${m.name} vào 15:00 chiều mai.`);
+        renderMemberList();
       }
     }
 
     function closeModal() {
       document.getElementById('contractModal').classList.add('hidden');
+      renderMemberList();
     }
 
-    // Language switch
+    // 11. BILINGUAL LANGUAGE SWITCH
     function setLanguage(lang) {
       const btnVN = document.getElementById('langVN');
       const btnEN = document.getElementById('langEN');
@@ -1056,10 +1410,11 @@
       }
     }
 
-    // Toast helper
+    // 12. TOAST NOTIFICATION HELPER
     function showToast(msg) {
       const toast = document.getElementById('toastNotification');
       const text = document.getElementById('toastMessage');
+      if (!toast || !text) return;
       text.innerText = msg;
       toast.classList.remove('translate-y-20', 'opacity-0');
       toast.classList.add('translate-y-0', 'opacity-100');
@@ -1069,6 +1424,11 @@
         toast.classList.remove('translate-y-0', 'opacity-100');
       }, 3000);
     }
+
+    // Khởi chạy khi tài liệu nạp xong
+    document.addEventListener('DOMContentLoaded', () => {
+      loadRealPredictions();
+    });
   </script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tài khoản · FitManage</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="/css/auth.css" rel="stylesheet">
+  <style>
+    body { margin:0;background:#f8f9ff;color:#0b1c30;font-family:'DM Sans',sans-serif;min-height:100dvh;display:grid;place-items:center }
+    main { background:white;border:1px solid #e2e8f0;border-radius:24px;padding:40px;max-width:460px;margin:24px;box-shadow:0 8px 32px #0b1c3008 }
+    .logo { width:44px;height:44px;display:grid;place-items:center;background:#acedff;border-radius:12px;font-size:28px;font-weight:800 }
+    .status { display:inline-block;color:#065f46;background:#ecfdf5;padding:7px 12px;border-radius:20px;font-size:13px }
+    p { color:#64748b;line-height:1.7 } button,a { display:inline-block;background:#0b1c30;color:white;padding:12px 18px;border:0;border-radius:10px;text-decoration:none;font-weight:700 }
+    [hidden] { display:none }
+  </style>
+  <script src="/js/auth-session.js"></script>
+  <script src="/js/account.js" defer></script>
+</head>
+<body>
+  <main>
+    <div class="logo" aria-label="FitManage">F</div>
+    <p>FITMANAGE · GYM &amp; YOGA SUITE</p>
+    <span class="status">Đăng nhập thành công</span>
+    <h1>Xin chào, <span id="account-name"></span></h1>
+    <p>Vai trò: <strong id="account-role"></strong></p>
+    <p id="account-description">Tài khoản của bạn đã sẵn sàng. Khu vực cá nhân dành cho hội viên và huấn luyện viên đang được tích hợp. Vui lòng liên hệ lễ tân để được hỗ trợ lịch tập và gói dịch vụ.</p>
+    <a id="account-dashboard" href="/dashboard.html" hidden>Vào trang quản lý</a>
+    <button type="button" id="account-logout">Đăng xuất</button>
+  </main>
+</body>
+</html>

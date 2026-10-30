@@ -412,13 +412,13 @@ function renderClassCard(c) {
         <span class="font-label-sm text-label-sm font-bold ${timeTextColor}">${c.time}</span>
         <span class="material-symbols-outlined text-[16px] ${iconColor}">${c.icon}</span>
       </div>
-      <div class="font-title-md text-title-md font-bold text-on-surface mt-1 group-hover:text-primary transition-colors truncate">
+      <div class="font-title-md text-title-md font-bold text-on-surface mt-1 group-hover:text-primary transition-colors line-clamp-2 leading-snug" title="${c.name}">
         ${c.name}
       </div>
       <div class="flex items-center gap-1.5 text-secondary font-label-sm text-label-sm mt-1 truncate">
         <span class="material-symbols-outlined text-[14px]">meeting_room</span> ${c.studio}
         <span>•</span>
-        <span class="truncate">${c.trainer}</span>
+        <span class="truncate">${c.trainer.replace('HLV ', '')}</span>
       </div>
       <div class="mt-2 flex items-center justify-between gap-1">
         ${badgeHtml}
@@ -584,6 +584,7 @@ function confirmBooking() {
 // 6. CREATE CLASS MODAL (+ Mở lớp mới)
 // =============================================================================
 function openCreateClassModal() {
+  if (!window.FitManagePermissions?.can('administration')) return;
   const modal = document.getElementById("createClassModal");
   const box = document.getElementById("createClassBox");
   if (!modal || !box) return;
@@ -740,7 +741,32 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnAi) {
     btnAi.addEventListener("click", triggerAiRecommendation);
   }
+
+  // Tải dữ liệu lịch học thật từ Database qua GET /api/Classes/schedules
+  loadRealSchedulesFromApi();
 });
+
+async function loadRealSchedulesFromApi() {
+  try {
+    const res = await fetch('/api/Classes/schedules', { headers: { Authorization: 'Bearer ' + (localStorage.getItem('token') || '') } });
+    if (res.ok) {
+      const dbSchedules = await res.json();
+      if (Array.isArray(dbSchedules) && dbSchedules.length > 0) {
+        dbSchedules.forEach(dbS => {
+          const matched = mockClasses.find(c => c.name.toLowerCase().includes((dbS.ClassName || '').toLowerCase()) || c.studio === dbS.Room);
+          if (matched) {
+            matched.capacity = dbS.CurrentBooked || matched.capacity;
+            matched.maxCapacity = dbS.Capacity || matched.maxCapacity;
+          }
+        });
+        updateScheduleKpis();
+        renderTimetable();
+      }
+    }
+  } catch (err) {
+    console.warn('[Schedules] Lỗi tải /api/Classes/schedules:', err);
+  }
+}
 
 function handleNavFeature(name) {
   showToast(name, `Tính năng "${name}" đang được kết nối với module hệ thống trong phiên bản kế tiếp.`, "info");

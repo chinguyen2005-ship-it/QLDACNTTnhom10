@@ -6,11 +6,12 @@ using Microsoft.Data.SqlClient;
 using QLDACNTTnhom10.DTOs;
 using QLDACNTTNhom10.DTOs;
 using System.Text.RegularExpressions;
+using QLDACNTTnhom10.Security;
 namespace QLDACNTTNhom10.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Staff")]
+    [Authorize(Policy = AccessPolicies.Administration)]
     public class ReportsController : ControllerBase
     {
         private readonly string _connectionString;
@@ -45,7 +46,7 @@ namespace QLDACNTTNhom10.Controllers
 
             // 1. Truy vấn thống kê doanh thu gom nhóm theo Gói tập (GROUP BY)
             var summaryByPackageSql = @"
-                SELECT 
+                SELECT
                     pkg.PackageID,
                     pkg.PackageName,
                     pkg.PackageType,
@@ -67,7 +68,7 @@ namespace QLDACNTTNhom10.Controllers
 
             // 2. Truy vấn danh sách giao dịch chi tiết theo thời gian
             var detailSql = @"
-                SELECT 
+                SELECT
                     p.PaymentID,
                     c.ContractID,
                     m.FullName AS MemberName,
@@ -115,8 +116,8 @@ namespace QLDACNTTNhom10.Controllers
 
             // 1.1 Tổng hội viên đang hoạt động
             var activeMembers = await connection.ExecuteScalarAsync<int>(@"
-                SELECT COUNT(1) FROM MEMBERS m 
-                JOIN USERS u ON m.UserID = u.UserID 
+                SELECT COUNT(1) FROM MEMBERS m
+                JOIN USERS u ON m.UserID = u.UserID
                 WHERE u.IsActive = 1");
 
             // 1.2 Hợp đồng đang Active & Hợp đồng sắp hết hạn (trong 7 ngày tới)
@@ -124,20 +125,20 @@ namespace QLDACNTTNhom10.Controllers
                 "SELECT COUNT(1) FROM CONTRACTS WHERE Status = N'Active'");
 
             var expiringSoon = await connection.ExecuteScalarAsync<int>(@"
-                SELECT COUNT(1) FROM CONTRACTS 
-                WHERE Status = N'Active' 
+                SELECT COUNT(1) FROM CONTRACTS
+                WHERE Status = N'Active'
                   AND EndDate BETWEEN CAST(GETDATE() AS DATE) AND DATEADD(DAY, 7, CAST(GETDATE() AS DATE))");
 
             // 1.3 Lượt check-in trong ngày hôm nay
             var todayCheckIns = await connection.ExecuteScalarAsync<int>(@"
-                SELECT COUNT(1) FROM CHECK_INS 
+                SELECT COUNT(1) FROM CHECK_INS
                 WHERE CAST(CheckInTime AS DATE) = CAST(GETDATE() AS DATE)");
 
             // 1.4 Doanh thu tháng hiện tại & Toàn thời gian
             var monthlyRevenue = await connection.ExecuteScalarAsync<decimal>(@"
-                SELECT ISNULL(SUM(Amount), 0) FROM PAYMENTS 
-                WHERE Status = N'Completed' 
-                  AND MONTH(PaymentDate) = MONTH(GETDATE()) 
+                SELECT ISNULL(SUM(Amount), 0) FROM PAYMENTS
+                WHERE Status = N'Completed'
+                  AND MONTH(PaymentDate) = MONTH(GETDATE())
                   AND YEAR(PaymentDate) = YEAR(GETDATE())");
 
             var totalRevenue = await connection.ExecuteScalarAsync<decimal>(@"
@@ -154,7 +155,7 @@ namespace QLDACNTTNhom10.Controllers
 
             // 1.6 Thống kê hiệu suất HLV (Số lớp phụ trách, số hợp đồng PT & doanh thu PT)
             var trainerSql = @"
-                SELECT 
+                SELECT
                     t.TrainerID,
                     t.Specialization,
                     t.Phone,
@@ -191,7 +192,7 @@ namespace QLDACNTTNhom10.Controllers
         {
             using var connection = new SqlConnection(_connectionString);
             var sql = @"
-                SELECT 
+                SELECT
                     p.PaymentID,
                     c.ContractID,
                     m.FullName AS MemberName,
@@ -467,8 +468,8 @@ namespace QLDACNTTNhom10.Controllers
                 if (!rowErrors.Any())
                 {
                     var dbConflict = await connection.QueryFirstOrDefaultAsync<string>(@"
-                        SELECT TOP 1 
-                            CASE 
+                        SELECT TOP 1
+                            CASE
                                 WHEN u.Username = @Username THEN N'Username đã tồn tại trong CSDL'
                                 WHEN u.Email = @Email THEN N'Email đã tồn tại trong CSDL'
                                 WHEN m.Phone = @Phone THEN N'Số điện thoại đã tồn tại trong CSDL'

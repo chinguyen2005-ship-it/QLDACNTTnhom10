@@ -2,14 +2,42 @@
    trainers.css - Custom styling for FitManage Trainer Directory
    ========================================================================== */
 
-/* Smooth Card Hover Animations */
+/* Solid, beautiful card styling */
 .trainer-card {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 4px rgba(11, 28, 48, 0.04) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease !important;
 }
 
 .trainer-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(11, 34, 56, 0.08), 0 8px 10px -6px rgba(11, 34, 56, 0.04);
+  transform: translateY(-2px) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 25px -5px rgba(11, 34, 56, 0.08), 0 8px 10px -6px rgba(11, 34, 56, 0.04) !important;
+}
+
+/* KPI Overview Cards */
+.trainer-kpi-card {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 4px rgba(11, 28, 48, 0.04) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.trainer-kpi-card:hover {
+  box-shadow: 0 6px 18px rgba(11, 28, 48, 0.06) !important;
+}
+
+/* Filter Bar */
+.trainer-filter-bar {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 4px rgba(11, 28, 48, 0.04) !important;
 }
 
 /* Modal Transition Helpers */
