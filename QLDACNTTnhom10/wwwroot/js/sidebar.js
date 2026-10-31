@@ -107,7 +107,8 @@ function renderSidebar(htmlString) {
     const role = host.querySelector('.fm-meta small');
     const avatar = host.querySelector('.fm-avatar');
     if (name) name.textContent = user.username;
-    if (role) role.textContent = user.role === 'Admin' ? 'Quản trị viên' : 'Nhân viên';
+    const isEn = localStorage.getItem('fitmanage_lang') === 'en';
+    if (role) role.textContent = user.role === 'Admin' ? (isEn ? 'Administrator' : 'Quản trị viên') : (isEn ? 'Staff' : 'Nhân viên');
     if (avatar) avatar.textContent = user.username.slice(0, 2).toUpperCase();
     const profile = host.querySelector('.fm-profile');
     if (profile && !profile.querySelector('[data-auth-logout]')) {
@@ -481,8 +482,24 @@ async function ensureAuthenticated() {
   return user.token;
 }
 
+function ensureTopbarResources() {
+  if (!document.querySelector('link[href*="topbar.css"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/css/topbar.css';
+    document.head.append(link);
+  }
+  if (!window.FitManageTopbar && !document.querySelector('script[src*="topbar.js"]')) {
+    const script = document.createElement('script');
+    script.src = '/js/topbar.js';
+    script.defer = true;
+    document.head.append(script);
+  }
+}
+
 async function initializeAuthenticatedSidebar() {
   try {
+    ensureTopbarResources();
     if (await ensureAuthenticated()) await loadSidebar();
   } catch {
     location.replace('/login.html');

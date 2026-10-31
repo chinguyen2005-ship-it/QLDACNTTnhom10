@@ -18,7 +18,11 @@
       if (element.textContent !== user?.username) element.textContent = user?.username || '';
     });
     root.querySelectorAll('[data-user-role]').forEach(element => {
-      const label = { Admin: 'Quản trị viên', Staff: 'Nhân viên', Trainer: 'Huấn luyện viên', Member: 'Hội viên' }[user?.role] || '';
+      const isEn = localStorage.getItem('fitmanage_lang') === 'en';
+      const labels = isEn
+        ? { Admin: 'Administrator', Staff: 'Staff', Trainer: 'Personal Trainer', Member: 'Member' }
+        : { Admin: 'Quản trị viên', Staff: 'Nhân viên', Trainer: 'Huấn luyện viên', Member: 'Hội viên' };
+      const label = labels[user?.role] || '';
       if (element.textContent !== label) element.textContent = label;
     });
   }

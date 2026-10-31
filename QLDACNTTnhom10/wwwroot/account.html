@@ -2,31 +2,331 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Tài khoản · FitManage</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="/css/auth.css" rel="stylesheet">
-  <style>
-    body { margin:0;background:#f8f9ff;color:#0b1c30;font-family:'DM Sans',sans-serif;min-height:100dvh;display:grid;place-items:center }
-    main { background:white;border:1px solid #e2e8f0;border-radius:24px;padding:40px;max-width:460px;margin:24px;box-shadow:0 8px 32px #0b1c3008 }
-    .logo { width:44px;height:44px;display:grid;place-items:center;background:#acedff;border-radius:12px;font-size:28px;font-weight:800 }
-    .status { display:inline-block;color:#065f46;background:#ecfdf5;padding:7px 12px;border-radius:20px;font-size:13px }
-    p { color:#64748b;line-height:1.7 } button,a { display:inline-block;background:#0b1c30;color:white;padding:12px 18px;border:0;border-radius:10px;text-decoration:none;font-weight:700 }
-    [hidden] { display:none }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cổng Thông Tin Hội Viên (Member Portal) - FitManage GYM & YOGA</title>
+
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/topbar.css">
+  <link rel="stylesheet" href="/css/auth.css">
+
   <script src="/js/auth-session.js"></script>
+  <script src="/js/permissions.js"></script>
+  <script src="/js/topbar.js" defer></script>
   <script src="/js/account.js" defer></script>
 </head>
-<body>
-  <main>
-    <div class="logo" aria-label="FitManage">F</div>
-    <p>FITMANAGE · GYM &amp; YOGA SUITE</p>
-    <span class="status">Đăng nhập thành công</span>
-    <h1>Xin chào, <span id="account-name"></span></h1>
-    <p>Vai trò: <strong id="account-role"></strong></p>
-    <p id="account-description">Tài khoản của bạn đã sẵn sàng. Khu vực cá nhân dành cho hội viên và huấn luyện viên đang được tích hợp. Vui lòng liên hệ lễ tân để được hỗ trợ lịch tập và gói dịch vụ.</p>
-    <a id="account-dashboard" href="/dashboard.html" hidden>Vào trang quản lý</a>
-    <button type="button" id="account-logout">Đăng xuất</button>
+
+<body class="bg-[#F8F9FF] font-['Be_Vietnam_Pro',sans-serif] text-[#0B1C30] antialiased min-h-screen flex flex-col">
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="h-16 bg-white border-b border-slate-200/80 sticky top-0 z-40 px-4 sm:px-8 flex items-center justify-between shadow-xs">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-[#0B1C30] text-white flex items-center justify-center font-extrabold text-base shadow-xs">
+          F
+        </div>
+        <div>
+          <span class="font-bold text-base tracking-tight text-[#0B1C30] leading-none block">FitManage</span>
+          <span class="text-[10px] font-semibold text-teal-700 tracking-wider uppercase block">Member Portal</span>
+        </div>
+      </div>
+      <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>07:00 – 23:00 Live Club</span>
+      </div>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="flex items-center gap-3">
+      <div class="fm-lang-toggle" role="group" aria-label="Ngôn ngữ">
+        <button type="button" class="fm-lang-btn active" data-lang="vi">VN</button>
+        <button type="button" class="fm-lang-btn" data-lang="en">EN</button>
+      </div>
+
+      <button type="button" class="fm-bell-btn" title="Thông báo hệ thống">
+        <span class="material-symbols-outlined text-[20px]">notifications</span>
+        <span class="fm-bell-badge">2</span>
+      </button>
+
+      <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+        <div id="member-avatar" class="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-700 to-indigo-600 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+          HV
+        </div>
+        <div class="hidden md:flex flex-col text-left">
+          <span id="account-name" class="text-xs font-bold text-[#0B1C30] leading-tight">Hội viên</span>
+          <span id="account-role-badge" class="text-[10px] text-teal-700 font-semibold leading-none">Hội viên FitManage</span>
+        </div>
+        <button id="account-logout" type="button" class="ml-2 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-600 text-xs font-bold transition-colors" title="Đăng xuất">
+          <span class="material-symbols-outlined text-[16px] align-middle">logout</span>
+          <span class="hidden sm:inline ml-1">Đăng xuất</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN MEMBER DASHBOARD ==================== -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+
+    <!-- Welcome Banner & Role Status -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-[#0B1C30] via-[#112E4F] to-[#1E3A8A] text-white p-6 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 flex flex-col gap-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-teal-300 text-xs font-semibold w-fit border border-white/10">
+          <span class="material-symbols-outlined text-[15px]">verified</span>
+          <span>Tài khoản Hội viên chính thức</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          Xin chào, <span id="welcome-fullname" class="text-teal-300">Quý Hội Viên</span>! 👋
+        </h1>
+        <p class="text-sm text-slate-300 max-w-xl">
+          Chào mừng bạn đến với Cổng thông tin thẻ tập điện tử. Theo dõi thời hạn gói tập, lịch sử check-in và đặt chỗ lớp Yoga & Gym yêu thích.
+        </p>
+      </div>
+
+      <!-- Quick Action if Admin logged in by mistake -->
+      <div class="relative z-10 shrink-0">
+        <a id="account-dashboard" href="/dashboard.html" hidden class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#0B1C30] text-sm font-bold shadow-md hover:bg-slate-100 transition-all">
+          <span class="material-symbols-outlined text-[18px]">dashboard</span>
+          <span>Vào Bảng điều khiển Quản lý</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Core Grid: Digital Card & Member Stats -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- 1. DIGITAL MEMBERSHIP CARD (VIP Smart Card) -->
+      <div class="lg:col-span-1 flex flex-col gap-4">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-teal-600">credit_card</span>
+          <span>Thẻ Hội Viên Điện Tử (E-Card)</span>
+        </h2>
+
+        <!-- The Card -->
+        <div class="relative h-60 rounded-3xl p-6 bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#020617] text-white shadow-2xl border border-slate-700/60 flex flex-col justify-between overflow-hidden group">
+          <!-- Background Hologram Accents -->
+          <div class="absolute -top-16 -right-16 w-44 h-44 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-full blur-2xl"></div>
+          <div class="absolute bottom-0 right-0 w-32 h-32 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-amber-500/15 via-transparent to-transparent"></div>
+
+          <!-- Top Row: Chip & Brand -->
+          <div class="flex items-center justify-between relative z-10">
+            <div class="flex items-center gap-2">
+              <!-- EMV Chip Visual -->
+              <div class="w-10 h-7 rounded-md bg-gradient-to-r from-amber-300 to-amber-500 border border-amber-600/40 shadow-inner flex items-center justify-center">
+                <div class="w-6 h-4 border border-amber-700/40 rounded-xs opacity-60"></div>
+              </div>
+              <span class="material-symbols-outlined text-[20px] text-slate-400">contactless</span>
+            </div>
+            <div class="text-right">
+              <span class="font-extrabold tracking-wider text-xs block text-teal-400">FITMANAGE SUITE</span>
+              <span class="text-[9px] tracking-widest text-slate-400 uppercase block">ALL-ACCESS CLUB</span>
+            </div>
+          </div>
+
+          <!-- Middle: Card Code & RFID -->
+          <div class="my-auto relative z-10">
+            <span class="text-[10px] tracking-widest text-slate-400 uppercase block">MÃ THẺ THÀNH VIÊN</span>
+            <span id="card-member-code" class="text-xl sm:text-2xl font-mono font-bold tracking-widest text-white drop-shadow">
+              #HV-2026-9821
+            </span>
+          </div>
+
+          <!-- Bottom: Member Name & Expiry -->
+          <div class="flex items-end justify-between relative z-10">
+            <div>
+              <span class="text-[9px] tracking-wider text-slate-400 uppercase block">CHỦ THẺ HỘI VIÊN</span>
+              <span id="card-holder-name" class="font-bold text-sm tracking-wide text-white uppercase block">
+                NGUYỄN VĂN A
+              </span>
+            </div>
+            <div class="text-right">
+              <span class="text-[9px] tracking-wider text-slate-400 uppercase block">TRẠNG THÁI</span>
+              <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>ACTIVE</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Check-in QR Simulation button -->
+        <button type="button" onclick="alert('Mã QR Check-in RFID của bạn: FIT-' + Math.floor(100000 + Math.random() * 900000) + '\n\nĐưa mã này vào máy quét tại quầy lễ tân hoặc cổng turnstile CS1 Flagship để vào phòng tập.')" class="w-full py-3 px-4 rounded-xl bg-white border border-slate-200 text-[#0B1C30] hover:bg-slate-50 text-xs font-bold flex items-center justify-center gap-2 shadow-xs transition-all">
+          <span class="material-symbols-outlined text-[18px] text-teal-600">qr_code_scanner</span>
+          <span>Bấm để quét mã QR vào cổng</span>
+        </button>
+      </div>
+
+      <!-- 2. MEMBERSHIP PACKAGE DETAILS & PRIVILEGES -->
+      <div class="lg:col-span-2 flex flex-col gap-4">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-indigo-600">stars</span>
+          <span>Gói Dịch Vụ Đang Áp Dụng (Current Package)</span>
+        </h2>
+
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex flex-col gap-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-purple-100 text-purple-700">
+                  GÓI CAO CẤP
+                </span>
+                <span class="text-xs font-semibold text-slate-400">Hợp đồng #HD-2026-VIP</span>
+              </div>
+              <h3 id="package-title" class="text-xl font-extrabold text-[#0B1C30]">
+                Gym Diamond 12 Tháng All-Access
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">Tập luyện không giới hạn toàn bộ chi nhánh Gym & Yoga trong hệ thống.</p>
+            </div>
+            <div class="sm:text-right shrink-0">
+              <span class="text-xs text-slate-400 block font-medium">Hạn sử dụng</span>
+              <span id="package-expiry" class="text-sm font-extrabold text-emerald-600 block">Còn 248 ngày</span>
+            </div>
+          </div>
+
+          <!-- Package Highlights Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col gap-1">
+              <span class="material-symbols-outlined text-teal-600 text-[22px]">fitness_center</span>
+              <span class="text-[11px] font-semibold text-slate-400">Khu vực tập</span>
+              <span class="text-xs font-bold text-[#0B1C30]">Gym & Cardio</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col gap-1">
+              <span class="material-symbols-outlined text-purple-600 text-[22px]">self_improvement</span>
+              <span class="text-[11px] font-semibold text-slate-400">Lớp Yoga & Pilates</span>
+              <span class="text-xs font-bold text-[#0B1C30]">Miễn phí 100%</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col gap-1">
+              <span class="material-symbols-outlined text-amber-600 text-[22px]">lock</span>
+              <span class="text-[11px] font-semibold text-slate-400">Locker & Khăn</span>
+              <span class="text-xs font-bold text-[#0B1C30]">Smart Locker</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col gap-1">
+              <span class="material-symbols-outlined text-blue-600 text-[22px]">hot_tub</span>
+              <span class="text-[11px] font-semibold text-slate-400">Thư giãn Sauna</span>
+              <span class="text-xs font-bold text-[#0B1C30]">Jacuzzi VIP</span>
+            </div>
+          </div>
+
+          <!-- Included Benefits Checklist -->
+          <div class="flex flex-col gap-2 pt-2">
+            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Quyền lợi thành viên đi kèm:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-emerald-500 text-[18px]">check_circle</span>
+                <span>Tặng 03 buổi tập định hướng 1:1 cùng Master Coach</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-emerald-500 text-[18px]">check_circle</span>
+                <span>Đo chỉ số cơ thể InBody 3D định kỳ mỗi tháng</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-emerald-500 text-[18px]">check_circle</span>
+                <span>Đặt trước chỗ lớp Yoga qua FitManage App trước 48h</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-emerald-500 text-[18px]">check_circle</span>
+                <span>Tặng 02 Guest Pass mời bạn bè trải nghiệm mỗi tháng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. WORKOUT SCHEDULE SHORTCUT & RECENT ACTIVITIES -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Today's Schedule -->
+      <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-extrabold text-base text-[#0B1C30]">Lịch Lớp Yoga & Gym Hôm Nay</h3>
+            <p class="text-xs text-slate-400">Chọn lớp và liên hệ quầy lễ tân để ghi danh trực tiếp</p>
+          </div>
+          <a href="/schedules.html" class="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:text-teal-900 transition-colors">
+            <span>Xem thời khóa biểu tuần</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="divide-y divide-slate-100">
+          <div class="py-3 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 font-bold flex items-center justify-center text-xs">
+                07:00
+              </div>
+              <div>
+                <span class="text-xs font-bold text-[#0B1C30] block">Vinyasa Flow Yoga (Cơ bản)</span>
+                <span class="text-[11px] text-slate-400">Studio 01 · HLV Thu Trang</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700">Còn 5 chỗ</span>
+          </div>
+
+          <div class="py-3 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 font-bold flex items-center justify-center text-xs">
+                09:30
+              </div>
+              <div>
+                <span class="text-xs font-bold text-[#0B1C30] block">Pilates Reformer Core Toning</span>
+                <span class="text-[11px] text-slate-400">Studio Pilates · HLV David Trần</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700">Sắp đầy (1/6 chỗ)</span>
+          </div>
+
+          <div class="py-3 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 font-bold flex items-center justify-center text-xs">
+                18:30
+              </div>
+              <div>
+                <span class="text-xs font-bold text-[#0B1C30] block">BodyPump Strength & Cardio</span>
+                <span class="text-[11px] text-slate-400">Studio GroupX · HLV Minh Quân</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700">Còn 8 chỗ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Member Profile Support & Gym Hotlines -->
+      <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex flex-col gap-4">
+        <h3 class="font-extrabold text-base text-[#0B1C30]">Hỗ Trợ Hội Viên 24/7</h3>
+        <p class="text-xs text-slate-400">Cần gia hạn gói tập, đóng băng thẻ hoặc tư vấn PT?</p>
+
+        <div class="p-4 rounded-2xl bg-teal-50/60 border border-teal-100 flex items-start gap-3">
+          <span class="material-symbols-outlined text-teal-700 text-[24px]">support_agent</span>
+          <div>
+            <span class="text-xs font-bold text-teal-900 block">Hotline Chăm Sóc Hội Viên</span>
+            <span class="text-sm font-extrabold text-teal-700 font-mono">1900 6868 · 0971 229 012</span>
+            <span class="text-[11px] text-teal-800 block mt-0.5">Phục vụ 07:00 – 23:00 hàng ngày</span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-3">
+          <span class="material-symbols-outlined text-slate-600 text-[24px]">location_on</span>
+          <div>
+            <span class="text-xs font-bold text-slate-900 block">Cơ sở tập luyện chính</span>
+            <span class="text-xs text-slate-600 block">FitManage Flagship Thảo Điền, TP. Thủ Đức</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="py-6 border-t border-slate-200 bg-white text-center text-xs text-slate-400">
+    <p>© 2026 FitManage GYM & YOGA SUITE. Hệ thống Quản trị & Điều hành Phòng tập.</p>
+  </footer>
+
 </body>
 </html>
