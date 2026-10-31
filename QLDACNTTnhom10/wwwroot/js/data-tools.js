@@ -13,7 +13,18 @@ async function loadFilter() {
     document.addEventListener('fitmanage:filterChange', () => {
       status.textContent = 'Đã cập nhật điều kiện lọc. Chưa truy vấn dữ liệu thực tế.';
     });
-    document.addEventListener('fitmanage:exportExcel', () => {
+    document.addEventListener('fitmanage:exportExcel', (e) => {
+      status.textContent = 'Đang tải xuống tệp Excel...';
+      const a = document.createElement('a');
+      a.href = '/api/Reports/export-members';
+      a.download = `DanhSachHoiVien_${new Date().toISOString().slice(0,10)}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => { status.textContent = 'Đã xuất thành công tệp Excel danh sách hội viên.'; }, 1500);
+      return;
+    });
+    const _oldIgnore = () => {
       status.textContent = 'Xuất Excel chưa được kết nối API. Chưa có tệp nào được tạo.';
     });
     const script = document.createElement('script');

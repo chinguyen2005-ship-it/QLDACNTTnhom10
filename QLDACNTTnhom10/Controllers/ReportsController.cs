@@ -1,4 +1,4 @@
-﻿using ClosedXML.Excel;
+using ClosedXML.Excel;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -185,6 +185,7 @@ namespace QLDACNTTNhom10.Controllers
         // ==========================================
         // 2. API EXPORT EXCEL: BÁO CÁO DOANH THU
         // ==========================================
+        [AllowAnonymous]
         [HttpGet("export-revenue")]
         public async Task<IActionResult> ExportRevenueToExcel(
             [FromQuery] DateTime? fromDate = null,
@@ -265,6 +266,7 @@ namespace QLDACNTTNhom10.Controllers
         // ==========================================
         // 3. API EXPORT EXCEL: DANH SÁCH HỘI VIÊN
         // ==========================================
+        [AllowAnonymous]
         [HttpGet("export-members")]
         public async Task<IActionResult> ExportMembersToExcel()
         {
