@@ -130,6 +130,9 @@
   labels.forEach((label,index)=>text(`metric-label-${index+1}`,label));
   document.getElementById('refreshBtn').addEventListener('click',refresh);
   document.getElementById('periodFilter').addEventListener('change',refresh);
+  document.getElementById('exportRevenueBtn')?.addEventListener('click', () => {
+    window.location.href = '/api/Reports/export-revenue';
+  });
   document.getElementById('globalSearchInput')?.addEventListener('keydown',event=>{
     if(event.key==='Enter') location.assign(`/members.html?search=${encodeURIComponent(event.target.value.trim())}`);
   });

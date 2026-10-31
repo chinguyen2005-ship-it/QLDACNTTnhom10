@@ -200,7 +200,20 @@
     <main class="w-full px-5 lg:px-8 py-7 flex flex-col gap-6 max-w-[1600px] mx-auto flex-1">
   <div class="flex flex-wrap items-center justify-between gap-4">
     <div><p class="text-xs font-bold text-[#006172] tracking-widest mb-2">FITMANAGE · GYM &amp; YOGA SUITE</p><h1 id="dashboard-title" class="text-3xl font-bold tracking-tight text-[#0b1c30]">Bảng điều khiển</h1><p id="dashboard-subtitle" class="text-sm text-slate-500 mt-2"></p></div>
-    <div class="flex gap-3 items-center"><select id="periodFilter" aria-label="Kỳ báo cáo" data-permission="administration" class="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm"><option value="current">Tháng này</option><option value="prev">Tháng trước</option><option value="quarter">Quý này</option><option value="year">Năm nay</option></select><button type="button" id="refreshBtn" class="flex items-center gap-2 bg-[#0b1c30] text-white rounded-xl px-4 py-2.5 text-sm font-semibold disabled:opacity-50"><span class="material-symbols-outlined text-lg">refresh</span>Tải lại</button></div>
+    <div class="flex gap-3 items-center">
+      <select id="periodFilter" aria-label="Kỳ báo cáo" data-permission="administration" class="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm">
+        <option value="current">Tháng này</option>
+        <option value="prev">Tháng trước</option>
+        <option value="quarter">Quý này</option>
+        <option value="year">Năm nay</option>
+      </select>
+      <button type="button" id="refreshBtn" class="flex items-center gap-2 bg-[#0b1c30] text-white rounded-xl px-4 py-2.5 text-sm font-semibold disabled:opacity-50">
+        <span class="material-symbols-outlined text-lg">refresh</span>Tải lại
+      </button>
+      <button type="button" id="exportRevenueBtn" data-permission="administration" class="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl px-4 py-2.5 text-sm font-semibold transition-all shadow-sm cursor-pointer">
+        <span class="material-symbols-outlined text-lg">download</span>Xuất Excel
+      </button>
+    </div>
   </div>
   <p id="access-notice" class="text-sm text-amber-700" role="status"></p>
   <p id="dashboard-status" class="text-xs text-slate-500" role="status">Đang tải dữ liệu…</p>
