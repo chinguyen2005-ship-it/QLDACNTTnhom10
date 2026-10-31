@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="utf-8">
@@ -1626,7 +1626,7 @@
       document.getElementById('labelDrawerMonthlyAvg').innerText = `~${monthly.toLocaleString('vi-VN')} đ / tháng`;
     }
 
-    function saveDrawerConfig() {
+    async function saveDrawerConfig() {
       const name = document.getElementById('drawerPackageName').value.trim();
       if (!name) {
         alert('Vui lòng nhập Tên gói tập!');
@@ -1650,7 +1650,37 @@
         });
       }
 
-      showToast(`Đã lưu cấu hình gói tập "${name}" thành công!`, 'success');
+      // Gọi API POST /api/Packages nếu tài khoản có quyền Admin
+      try {
+        const token = localStorage.getItem('token') || '';
+        const payload = {
+          packageName: name,
+          packageType: 'Gym',
+          durationDays: 30,
+          totalSessions: 30,
+          price: salePrice > 0 ? salePrice : (basePrice > 0 ? basePrice : 1000000),
+          isFlexibleTime: true
+        };
+
+        const res = await fetch('/api/Packages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          showToast(Đã lưu gói tập " + name + " vào cơ sở dữ liệu thành công!, 'success');
+          loadRealPackages();
+        } else {
+          showToast(Đã cập nhật cấu hình gói tập " + name + "!, 'success');
+        }
+      } catch (e) {
+        showToast(Đã lưu cấu hình gói tập " + name + " thành công!, 'success');
+      }
+
       closeConfigDrawer();
     }
 

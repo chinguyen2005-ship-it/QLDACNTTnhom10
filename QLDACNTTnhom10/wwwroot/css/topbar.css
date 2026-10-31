@@ -305,7 +305,8 @@
   color: #0F766E;
 }
 
-.fm-notif-icon.checkin {
+.fm-notif-icon.checkin,
+.fm-notif-icon.operations {
   background: #E0E7FF;
   color: #3730A3;
 }
@@ -334,6 +335,7 @@
 .fm-notif-badge.contract { background: #FEF3C7; color: #92400E; }
 .fm-notif-badge.class { background: #CCFBF1; color: #115E59; }
 .fm-notif-badge.checkin { background: #E0E7FF; color: #3730A3; }
+.fm-notif-badge.operations { background: #E0E7FF; color: #3730A3; }
 
 .fm-notif-time {
   font-size: 11px;

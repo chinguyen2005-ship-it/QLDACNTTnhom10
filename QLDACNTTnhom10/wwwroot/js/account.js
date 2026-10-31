@@ -47,6 +47,48 @@
     if (dashLink) dashLink.hidden = false;
   }
 
+  // Load real schedules for today from API
+  async function loadTodaySchedules() {
+    try {
+      const token = localStorage.getItem('token') || '';
+      const res = await fetch('/api/Classes/schedules', {
+        headers: { Authorization: 'Bearer ' + token }
+      });
+      if (res.ok) {
+        const schedules = await res.json();
+        const container = document.getElementById('today-schedules-container');
+        if (container && Array.isArray(schedules) && schedules.length > 0) {
+          container.innerHTML = schedules.slice(0, 4).map(s => {
+            const timeStr = s.StartTime ? new Date(s.StartTime).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) : '08:00';
+            const cap = s.Capacity || 20;
+            const booked = s.CurrentBooked || 0;
+            const left = Math.max(0, cap - booked);
+            const badgeClass = left <= 3 ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700';
+            const badgeText = left <= 3 ? `Sắp đầy (${left}/${cap} chỗ)` : `Còn ${left} chỗ`;
+
+            return `
+              <div class="py-3 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 font-bold flex items-center justify-center text-xs">
+                    ${timeStr}
+                  </div>
+                  <div>
+                    <span class="text-xs font-bold text-[#0B1C30] block">${s.ClassName || 'Lớp tập luyện'}</span>
+                    <span class="text-[11px] text-slate-400">${s.Room || 'Studio 01'} · HLV FitManage</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${badgeClass}">${badgeText}</span>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+    } catch (e) {
+      console.warn('Không tải được lịch học API cho account:', e);
+    }
+  }
+  loadTodaySchedules();
+
   // Logout handler
   const logoutBtn = document.getElementById('account-logout');
   if (logoutBtn) {

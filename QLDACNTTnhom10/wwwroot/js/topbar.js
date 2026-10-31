@@ -171,7 +171,7 @@
     },
     {
       id: "notif-3",
-      category: "operations",
+      category: "class",
       icon: "event_seat",
       badgeVi: "Lớp học",
       badgeEn: "Class",
@@ -184,7 +184,7 @@
     },
     {
       id: "notif-4",
-      category: "operations",
+      category: "checkin",
       icon: "badge",
       badgeVi: "Check-in",
       badgeEn: "Check-in",

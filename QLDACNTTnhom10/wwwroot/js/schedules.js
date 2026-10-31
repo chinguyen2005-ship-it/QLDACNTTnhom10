@@ -1,4 +1,4 @@
-/**
+﻿/**
  * schedules.js - Logic & Mock Data for FitManage Class Timetable & Booking
  * Weekly Grid, Week Shift, Discipline Filtering, Booking Flow, Real-time Slot Updates
  */
@@ -637,6 +637,30 @@ function handleSaveNewClass(event) {
   mockClasses.push(newClass);
   renderTimetable();
   closeCreateClassModal();
+  // Đồng bộ lên SQL Server qua POST /api/Classes/schedules nếu có quyền
+  try {
+    const token = localStorage.getItem('token') || '';
+    const today = new Date().toISOString().slice(0, 10);
+    const timeParts = time.split('-');
+    const startHour = (timeParts[0] || '08:00').trim();
+    const endHour = (timeParts[1] || '09:00').trim();
+
+    fetch('/api/Classes/schedules', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({
+        classID: 1,
+        room: studio,
+        startTime: today + 'T' + startHour + ':00',
+        endTime: today + 'T' + endHour + ':00'
+      })
+    }).then(res => {
+      if (res.ok) loadRealSchedulesFromApi();
+    }).catch(() => {});
+  } catch (e) {}
   showToast("Mở lớp thành công!", `Đã thêm ca lớp "${name}" vào thời khóa biểu ngày ${day.toUpperCase()}.`, "success");
 }
 

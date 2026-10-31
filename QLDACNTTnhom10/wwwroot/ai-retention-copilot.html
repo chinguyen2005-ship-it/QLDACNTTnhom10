@@ -1294,7 +1294,10 @@
 
     // 8. TÁI TẠO KỊCH BẢN THỜI GIAN THỰC BẰNG GROQ CLOUD LLAMA-3
     async function regenerateScript() {
-  if (!window.FitManagePermissions?.can('administration')) return;
+      if (!window.FitManagePermissions?.can('administration')) {
+        showToast('⚠️ Quyền hạn', 'Chức năng phân tích lại AI yêu cầu quyền Quản trị viên (Admin).', 'info');
+        return;
+      }
       const m = membersData[activeMemberId];
       if (!m) return;
 
