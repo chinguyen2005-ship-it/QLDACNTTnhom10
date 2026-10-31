@@ -7,6 +7,7 @@
   const format = new Intl.NumberFormat('vi-VN');
   const charts = [];
   let activeRequest;
+  let currentSummaryDates = null;
   // SQL/Dapper rows retain their column casing; normalize at this API boundary.
   function normalize(value) {
     if (Array.isArray(value)) return value.map(normalize);
@@ -73,6 +74,7 @@
     text('metric-two', format.format(data.summary.activeMembers));
     text('metric-three', format.format(data.summary.todayCheckIns));
     text('metric-four', format.format(data.summary.expiringSoonContracts));
+    currentSummaryDates = { fromDate: data.summary.fromDate, toDate: data.summary.toDate };
     const from = new Date(data.summary.fromDate);
     const to = new Date(data.summary.toDate);
     text('finance-range', `${from.toLocaleDateString('vi-VN')} – ${to.toLocaleDateString('vi-VN')}`);
@@ -131,7 +133,11 @@
   document.getElementById('refreshBtn').addEventListener('click',refresh);
   document.getElementById('periodFilter').addEventListener('change',refresh);
   document.getElementById('exportRevenueBtn')?.addEventListener('click', () => {
-    window.location.href = '/api/Reports/export-revenue';
+    if (currentSummaryDates && currentSummaryDates.fromDate && currentSummaryDates.toDate) {
+      window.location.href = `/api/Reports/export-revenue?fromDate=${encodeURIComponent(currentSummaryDates.fromDate)}&toDate=${encodeURIComponent(currentSummaryDates.toDate)}`;
+    } else {
+      window.location.href = '/api/Reports/export-revenue';
+    }
   });
   document.getElementById('globalSearchInput')?.addEventListener('keydown',event=>{
     if(event.key==='Enter') location.assign(`/members.html?search=${encodeURIComponent(event.target.value.trim())}`);

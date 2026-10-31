@@ -147,6 +147,78 @@ const mockContractDetails = {
 // =============================================================================
 
 /**
+function normalizeContractData(apiData) {
+  if (!apiData) return mockContractDetails;
+  if (apiData.member && apiData.package) return apiData;
+
+  const mName = apiData.MemberName || apiData.memberName || 'Hội viên FitManage';
+  const pName = apiData.PackageName || apiData.packageName || 'Gói tập tiêu chuẩn';
+  const start = apiData.StartDate || apiData.startDate ? new Date(apiData.StartDate || apiData.startDate) : new Date();
+  const end = apiData.EndDate || apiData.endDate ? new Date(apiData.EndDate || apiData.endDate) : new Date(start.getTime() + 30*86400000);
+  const now = new Date();
+  const diffDays = Math.max(0, Math.ceil((end - now) / (1000 * 60 * 60 * 24)));
+  const totalDays = Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24)));
+  const passedDays = Math.max(0, totalDays - diffDays);
+  const progressPct = Math.min(100, Math.round((passedDays / totalDays) * 100));
+
+  return {
+    contractID: apiData.ContractID || apiData.contractID || 1,
+    status: apiData.Status || apiData.status || 'Active',
+    eSigned: true,
+    signDate: start.toLocaleDateString('vi-VN'),
+    createdBy: 'Hệ thống Quản lý FitManage',
+    branch: 'Trung tâm Gym & Yoga Flagship',
+    member: {
+      name: mName,
+      avatarLetters: getInitials(mName),
+      rank: 'Diamond VIP',
+      memberCode: 'HV-' + (apiData.MemberID || apiData.memberID || 1),
+      rfid: '8892-00' + (apiData.MemberID || 1),
+      phone: apiData.MemberPhone || apiData.memberPhone || '—',
+      cccd: '079098012345',
+      email: (apiData.MemberID || 1) + '@fitmanage.vn',
+      genderAge: 'Hội viên chính thức',
+      address: 'Chi nhánh chính FitManage',
+      parqStatus: 'Đã ký cam kết sức khỏe tập luyện',
+      emergencyContact: 'Đã đăng ký tại quầy',
+      posLimit: 'Không giới hạn'
+    },
+    package: {
+      packageID: apiData.PackageID || apiData.packageID || 1,
+      name: pName,
+      scope: 'Toàn hệ thống (All Clubs)',
+      operatingHours: '05:30 - 22:30 (Mở cửa 7 ngày/tuần)',
+      startDate: start.toLocaleDateString('vi-VN'),
+      endDate: end.toLocaleDateString('vi-VN'),
+      remainingDays: diffDays,
+      passedDays: passedDays,
+      progressPercent: progressPct,
+      policy: 'Miễn phí bảo lưu theo quy chế hội viên'
+    },
+    pt: {
+      trainerName: apiData.TrainerSpecialization ? ('HLV chuyên môn (' + apiData.TrainerSpecialization + ')') : 'HLV Trung tâm',
+      trainerAvatar: 'HLV',
+      title: 'Huấn luyện viên chuyên nghiệp',
+      cert: 'NASM / Yoga Alliance Certified',
+      completedSessions: 0,
+      totalSessions: apiData.RemainingSessions || apiData.remainingSessions || 12,
+      remainingSessions: apiData.RemainingSessions || apiData.remainingSessions || 12,
+      completionDeadline: end.toLocaleDateString('vi-VN'),
+      nextSession: 'Chưa đặt lịch',
+      sessionTopic: 'Tập luyện cá nhân 1:1'
+    },
+    financial: {
+      packageBasePrice: (apiData.TotalAmount || apiData.totalAmount || 0) + (apiData.DiscountAmount || apiData.discountAmount || 0),
+      discount: apiData.DiscountAmount || apiData.discountAmount || 0,
+      finalTotal: apiData.TotalAmount || apiData.totalAmount || 0,
+      paymentMethod: 'Đã thanh toán',
+      paidAmount: apiData.TotalAmount || apiData.totalAmount || 0,
+      remainingBalance: 0
+    },
+    amenities: mockContractDetails.amenities
+  };
+}
+
  * Gọi API lấy chi tiết hợp đồng theo ID: GET /api/contracts/{id}
  * Nếu backend chưa có hoặc lỗi kết nối, tự động fallback sang Mock Data
  */
@@ -162,7 +234,7 @@ async function fetchContractDetail(contractId) {
 
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return normalizeContractData(data);
     } else {
       console.warn(`[API] GET /api/contracts/${contractId} trả về status ${response.status}. Sử dụng dữ liệu Mock.`);
       return mockContractDetails;
@@ -654,7 +726,9 @@ function handleSchedulePtAction() {
 document.addEventListener('DOMContentLoaded', async () => {
   // Lấy mã hợp đồng từ Query Parameter (VD: ?id=HD-2026-0892)
   const urlParams = new URLSearchParams(window.location.search);
-  const contractId = urlParams.get('id') || 'HD-2026-0892';
+  const rawId = urlParams.get('id') || '1';
+  const numMatch = rawId.match(/\d+/);
+  const contractId = numMatch ? parseInt(numMatch[0]) : 1;
 
   // Tải và hiển thị dữ liệu
   const contractData = await fetchContractDetail(contractId);

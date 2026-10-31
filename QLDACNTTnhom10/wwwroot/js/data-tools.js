@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 async function loadFilter() {
   const mount = document.getElementById('filterMount');
@@ -23,9 +23,6 @@ async function loadFilter() {
       a.remove();
       setTimeout(() => { status.textContent = 'Đã xuất thành công tệp Excel danh sách hội viên.'; }, 1500);
       return;
-    });
-    const _oldIgnore = () => {
-      status.textContent = 'Xuất Excel chưa được kết nối API. Chưa có tệp nào được tạo.';
     });
     const script = document.createElement('script');
     script.src = '/components/data-filter.js';

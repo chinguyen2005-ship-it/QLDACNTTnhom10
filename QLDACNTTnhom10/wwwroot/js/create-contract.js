@@ -67,7 +67,12 @@ async function apiCreateContract(payload) {
       body: JSON.stringify(payload)
     });
     if (res.ok) {
-      return await res.json();
+      const data = await res.json();
+      const rawId = data.contractID || data.ContractID || 1;
+      return { contractID: '#HD-' + rawId, rawId: rawId, success: true, message: data.message || 'Lập hợp đồng thành công!' };
+    }
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'Không thể tạo hợp đồng trên máy chủ.');
     }
   } catch (err) {
     console.warn('[API] Gọi API POST /api/contracts thất bại, tạo mã hợp đồng cục bộ.', err);
@@ -113,7 +118,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
   onPackageChange();
   initSignatureCanvas();
+  loadRealMembersForContract();
 });
+
+async function loadRealMembersForContract() {
+  try {
+    const res = await fetch('/api/Members', {
+      headers: { 'Authorization': 'Bearer ' + (localStorage.getItem('token') || '') }
+    });
+    if (res.ok) {
+      window.realMembersList = await res.json();
+      if (Array.isArray(window.realMembersList) && window.realMembersList.length > 0) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlMemberId = parseInt(urlParams.get('memberId'));
+        let selected = null;
+        if (urlMemberId) {
+          selected = window.realMembersList.find(m => m.memberID === urlMemberId);
+        }
+        if (!selected) {
+          selected = window.realMembersList[0];
+        }
+        setMember(selected);
+      }
+    }
+  } catch (err) {
+    console.warn('Lỗi nạp danh sách hội viên:', err);
+  }
+}
+
+function setMember(m) {
+  state.memberID = m.memberID;
+  state.memberName = m.fullName;
+  state.memberPhone = m.phone;
+  state.memberCode = '#HV-' + m.memberID;
+
+  const nameEl = document.getElementById('memberName');
+  if (nameEl) nameEl.innerText = m.fullName;
+  const phoneEl = document.getElementById('memberPhone');
+  if (phoneEl) phoneEl.innerText = m.phone;
+  const codeEl = document.getElementById('memberCode');
+  if (codeEl) codeEl.innerText = '#HV-' + m.memberID;
+  const avatarEl = document.getElementById('memberAvatarText');
+  if (avatarEl) {
+    const parts = m.fullName.trim().split(' ');
+    avatarEl.innerText = (parts[parts.length - 1] || 'HV').slice(0, 2).toUpperCase();
+  }
+}
 
 // Xử lý khi đổi Gói tập
 function onPackageChange() {
@@ -122,7 +172,7 @@ function onPackageChange() {
   const opt = select.options[select.selectedIndex];
   if (!opt) return;
 
-  state.basePrice = parseFloat(opt.value) || 0;
+  state.basePrice = parseFloat(opt.getAttribute('data-price')) || parseFloat(opt.value) || 0;
   const pkgName = opt.getAttribute('data-name') || opt.text.split('(')[0].trim();
   const badge = opt.getAttribute('data-badge') || 'Tiêu chuẩn';
   const desc = opt.getAttribute('data-desc') || '';
@@ -316,7 +366,20 @@ function copyTransferCode() {
 
 // Đổi hồ sơ hội viên
 function switchMemberDialog() {
-  const name = prompt('Nhập tên hoặc SĐT hội viên cần chuyển sang:', 'Nguyễn Đức Chí Nguyên');
+  if (window.realMembersList && window.realMembersList.length > 0) {
+    const promptText = "Chọn hội viên theo số thứ tự:\n" +
+      window.realMembersList.map((m, idx) => (idx + 1) + ". " + m.fullName + " (#HV-" + m.memberID + " - " + m.phone + ")").join("\n");
+    const choice = prompt(promptText, "1");
+    if (choice) {
+      const idx = parseInt(choice) - 1;
+      if (idx >= 0 && idx < window.realMembersList.length) {
+        setMember(window.realMembersList[idx]);
+        showToast('Đã chọn hội viên ' + window.realMembersList[idx].fullName, 'success');
+        return;
+      }
+    }
+  }
+  const name = prompt('Nhập tên hoặc SĐT hội viên cần chuyển sang:');
   if (name) {
     state.memberName = name;
     document.getElementById('memberName').innerText = name;
@@ -442,35 +505,38 @@ async function confirmSignature() {
   state.hasSigned = true;
   closeSignatureModal();
 
-  // Chuẩn bị payload gửi lên API POST /api/contracts
+  const pkgId = parseInt(document.getElementById('mainPackageSelect').value) || 1;
+  const payMethod = state.paymentMethod === 'pos' ? 'Thẻ POS' : (state.paymentMethod === 'transfer' ? 'Chuyển khoản' : 'Tiền mặt');
+  const discount = state.voucherPercent > 0 ? (state.basePrice * state.voucherPercent) : 0;
+
   const payload = {
     memberID: state.memberID,
-    memberName: state.memberName,
-    packageID: parseInt(document.getElementById('mainPackageSelect').value),
-    startDate: document.getElementById('contractStartDate').value,
-    paymentMode: state.paymentMode,
-    paymentMethod: state.paymentMethod,
-    voucherCode: state.voucherCode,
-    totalAmount: parseFloat(document.getElementById('labelFinalTotalDisplay').innerText.replace(/\./g, ''))
+    packageID: pkgId,
+    paymentMethod: payMethod,
+    discountAmount: discount > 0 ? discount : 0,
+    promoCode: state.voucherCode || null
   };
 
-  const result = await apiCreateContract(payload);
-  const code = result.contractID || ('#HD-2026-' + Math.floor(1000 + Math.random() * 9000));
+  try {
+    const result = await apiCreateContract(payload);
+    const code = result.contractID;
 
-  const badge = document.getElementById('badgeContractNumber');
-  if (badge) badge.innerText = `ĐÃ KÝ THÀNH CÔNG ${code}`;
+    const badge = document.getElementById('badgeContractNumber');
+    if (badge) badge.innerText = `ĐÃ KÝ THÀNH CÔNG ` + code;
 
-  const pdfSig = document.getElementById('pdfSignatureBox');
-  if (pdfSig) {
-    pdfSig.innerHTML = `<span class="text-primary font-bold font-serif text-base italic underline">✓ Đã ký điện tử (${new Date().toLocaleDateString('vi-VN')})</span>`;
+    const pdfSig = document.getElementById('pdfSignatureBox');
+    if (pdfSig) {
+      pdfSig.innerHTML = `<span class="text-primary font-bold font-serif text-base italic underline">✓ Đã ký điện tử (` + new Date().toLocaleDateString('vi-VN') + `)</span>`;
+    }
+
+    showToast(`🎉 Ký hợp đồng ` + code + ` thành công! Đang chuyển đến màn hình Chi tiết Hợp đồng...`, 'success');
+
+    setTimeout(() => {
+      window.location.href = `/contract-detail.html?id=` + (result.rawId || 1);
+    }, 1800);
+  } catch (err) {
+    showToast('Lỗi lập hợp đồng: ' + (err.message || 'Kiểm tra thông tin hợp đồng.'), 'error');
   }
-
-  showToast(`🎉 Ký hợp đồng ${code} thành công! Đang chuyển đến màn hình Chi tiết Hợp đồng...`, 'success');
-
-  // Tự động chuyển sang màn hình Chi tiết Hợp đồng sau 1.8 giây
-  setTimeout(() => {
-    window.location.href = `/contract-detail.html?id=${encodeURIComponent(code)}`;
-  }, 1800);
 }
 
 // =============================================================================

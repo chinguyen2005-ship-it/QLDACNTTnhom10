@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="utf-8"/>
@@ -556,6 +556,7 @@
           </tr>
         `;
       }).join('');
+      if (window.FitManagePermissions) window.FitManagePermissions.apply(tbody);
     }
 
     // 3. TÍNH TOÁN 4 KHỐI KPI
@@ -652,8 +653,60 @@
       }
     }
 
+    // 6.5. MODAL CHỈNH SỬA HỘI VIÊN (PUT /api/Members/{id})
+    function openEditModal(id) {
+      const m = membersList.find(x => x.memberID === id);
+      if (!m) return;
+      document.getElementById('e-memberid').value = m.memberID;
+      document.getElementById('e-code').value = `#HV-${String(m.memberID).padStart(4, '0')}`;
+      document.getElementById('e-username').value = m.username || '';
+      document.getElementById('e-fullname').value = m.fullName || '';
+      document.getElementById('e-phone').value = m.phone || '';
+      document.getElementById('e-dob').value = m.dateOfBirth ? m.dateOfBirth.slice(0, 10) : '';
+      document.getElementById('e-gender').value = m.gender || 'Nam';
+      document.getElementById('modal-edit').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('modal-edit').classList.add('hidden');
+    }
+
+    async function handleUpdateMember(e) {
+      e.preventDefault();
+      const id = document.getElementById('e-memberid').value;
+      const payload = {
+        fullName: document.getElementById('e-fullname').value.trim(),
+        phone: document.getElementById('e-phone').value.trim(),
+        dateOfBirth: document.getElementById('e-dob').value ? new Date(document.getElementById('e-dob').value).toISOString() : null,
+        gender: document.getElementById('e-gender').value
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/Members/${id}`, {
+          method: 'PUT',
+          headers: getAuthHeaders(),
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert('Cập nhật thông tin hội viên thành công!');
+          closeEditModal();
+          loadMembers();
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert('Lỗi cập nhật: ' + (err.message || 'Kiểm tra thông tin đã nhập.'));
+        }
+      } catch (err) {
+        alert('Lỗi kết nối máy chủ.');
+      }
+    }
+
     // 7. KHÓA HỘI VIÊN (DELETE /api/Members/{id})
-    async function lockMember(id) {
+    async function lockMember(id, isActive) {
+      if (isActive === 0) {
+        alert(`Hội viên #HV-${id} hiện đang ở trạng thái ĐÃ KHÓA.`);
+        return;
+      }
       if (!confirm(`Bạn có chắc chắn muốn thay đổi trạng thái hội viên #HV-${id}?`)) return;
       try {
         const res = await fetch(`${API_BASE}/Members/${id}`, {

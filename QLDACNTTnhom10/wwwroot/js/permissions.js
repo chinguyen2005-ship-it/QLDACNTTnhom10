@@ -28,9 +28,25 @@
   }
   window.FitManagePermissions = { allowed, can, apply };
   const user = window.FitManageAuth?.current();
-  if (!user || !allowed(user.role, 'operations') || (restrictedPages.has(location.pathname) && !allowed(user.role, 'administration'))) {
+  const currentPath = location.pathname.toLowerCase();
+  const isAccountPage = currentPath.endsWith('/account.html');
+
+  if (!user) {
     document.documentElement.classList.add('fm-access-redirect');
-    location.replace(!user ? '/login.html' : allowed(user.role, 'operations') ? '/dashboard.html?access=restricted' : '/account.html');
+    location.replace('/login.html');
+    return;
+  }
+
+  // Member & Trainer được phép truy cập trang /account.html (Cổng cá nhân); chỉ chuyển hướng khi vào trang nghiệp vụ
+  if (!allowed(user.role, 'operations')) {
+    if (!isAccountPage) {
+      document.documentElement.classList.add('fm-access-redirect');
+      location.replace('/account.html');
+      return;
+    }
+  } else if (restrictedPages.has(location.pathname) && !allowed(user.role, 'administration')) {
+    document.documentElement.classList.add('fm-access-redirect');
+    location.replace('/dashboard.html?access=restricted');
     return;
   }
   document.documentElement.dataset.fitmanageRole = user.role;
